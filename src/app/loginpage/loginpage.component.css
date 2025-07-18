@@ -22,7 +22,8 @@ input{
 }
 button{
    background-color: #f99700;
-   border: 2px #f99700 solid;
+   border: 4px #f99700 solid;
+   border-radius: 6px;
 }
 i{
     margin-left:225px;
