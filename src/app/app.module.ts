@@ -7,12 +7,14 @@ import { AppComponent } from './app.component';
 import { LoginpageComponent } from './loginpage/loginpage.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HomepageComponent } from './homepage/homepage.component';
+import { ApplypageComponent } from './applypage/applypage.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginpageComponent,
-    HomepageComponent
+    HomepageComponent,
+    ApplypageComponent
   ],
   imports: [
     BrowserModule,

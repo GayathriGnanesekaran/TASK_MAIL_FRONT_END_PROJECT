@@ -1,6 +1,7 @@
 <div class="login-bg">
     <div class="container-fluid d-flex justify-content-center align-items-center p-3">
     <form action="" class="" [formGroup]="loginform" (ngSubmit)="onsubmit()">
+         <P class="text-center" style="color: #3b6caa;font-weight:500;">WELCOME TO TASK MAIL</P>
         <div class="form-group my-3">
             <input type="text" class="form-control pe-5 ps-3" placeholder="UserID" id="username" name="username" formControlName="username">
              <div *ngIf="loginform.get('username')?.touched && loginform.get('username')?.errors">
@@ -9,10 +10,12 @@
             </span>
             </div>
         </div>
-        <div class="form-group my-3">
-             <input type="password" class="form-control pe-5 ps-3" placeholder="Password" id="password" name="password" formControlName="password">
-              <i class="fa-solid fa-eye"></i>
-             <div *ngIf="loginform.get('password')?.touched && loginform.get('password')?.errors">
+        <div class="form-group">
+             <input [type]="showpassword?'text':'password'" class="form-control pe-5 ps-3" placeholder="Password" id="password" name="password" formControlName="password">
+              <span (click)="togglepassword()">
+                <i  [ngClass]="showpassword?'fa-solid fa-eye':'fa-solid fa-eye-slash'"></i>
+              </span>
+              <div *ngIf="loginform.get('password')?.touched && loginform.get('password')?.errors">
              <span class="text-danger" *ngIf="loginform.get('password')?.errors?.['required']">
                  Password is required
              </span>
@@ -26,9 +29,7 @@
             <label for="" style="color:#3b6caa;font-weight: 500;" class="mx-1">Remember My Login</label>
         </div>
         <div class="form-group text-center my-3">
-            <button class="btn px-4 py-1" type="submit">
-                <strong class="text-white">Login</strong>
-            </button>
+           <button class="text-white px-3 py-1">Login</button>
         </div>
     </form>
 </div>

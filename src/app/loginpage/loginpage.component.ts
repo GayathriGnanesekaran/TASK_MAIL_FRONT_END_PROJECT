@@ -16,4 +16,9 @@ export class LoginpageComponent {
   onsubmit(){
     console.log(this.loginform.value)
   }
+  showpassword:boolean=false
+  togglepassword():void{
+    this.showpassword=!this.showpassword
+  }
+
 }
