@@ -16,5 +16,4 @@ export class LoginpageComponent {
   onsubmit(){
     console.log(this.loginform.value)
   }
-
 }
