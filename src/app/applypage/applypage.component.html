@@ -1,10 +1,10 @@
-<div class="card p-2">
-    <form class="">
+<div class="card p-3">
+    <form class="" [formGroup]="tasktimeform">
         <div class="card h-100"><div class="table-responsive h-100">
             <table class="table table-sm table-striped ">
                 <thead class="text-primary">
-                    <tr class="text-primary">
-                        <th class="dice"></th>
+                    <tr class="label-color">
+                        <!-- <th class="dice"></th> -->
                         <th>S.No</th>
                         <th>Resource</th>
                         <th>Type</th>
@@ -17,24 +17,53 @@
                         <th>Break Duration</th>
                         <th>Act. Work Hours </th>
                         <th>Comments</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td></td>
-                        <td>1</td>
-                        <td>Gayathri G</td>
-                        <td>Present</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
+                        <!-- <td><button></button></td> -->
+                        <td><input type="number" name="sno" id="sno" class="form-control-sm" formControlName="sno"></td>
+                        <td><input type="text" name="resource" id="resource" class="form-control-sm" formControlName="resource"></td>
+                        <td><select name="types" id="types" class="form-select form-select-sm" formControlName="type">
+                            <option value="present">Present</option>
+                            <option value="">Permission</option>
+                        </select></td>
+                        <td>
+                            <select name="month" id="month" class="form-select form-select-sm" formControlName="month">
+                                <option *ngFor="let i of months" [value]="i">{{i}}</option>
+                                <!-- <input type="month"> -->
+                            </select>
+                        </td>
+                        <!-- <td><input type="date"></td> -->
+                         <td>
+                            <select name="date" id="date" class="form-select form-select-sm" formControlName="date">
+                                <option *ngFor="let x of dates" [value]="x" class="form-select-input">{{ x }}</option>
+                            </select>
+                         </td>
+                         <td>
+                            <input type="date" name="date" id="date" class="form-control-sm" formControlName="year">
+                         </td>
+                         <td>
+                            <input type="time" name="intime" id="intime" class="form-control-sm" formControlName="intime">
+                         </td>
+                         <td>
+                            <input type="time" name="outtime" id="outtime" class="form-control-sm" formControlName="outtime">
+                         </td>
+                         <td>
+                            <input type="number" name="totalduration" id="totalduration" class="form-control-sm" formControlName="totalduration">
+                         </td>
+                         <td>
+                            <input type="number" name="breakduartion" id="breakduartion" class="form-control-sm" formControlName="breakduartion">
+                         </td>
+                         <td>
+                            <input type="number" name="activeworkhours" id="activeworkhours" class="form-control-sm" formControlName="activeworkhours">
+                         </td>
+                         <td>
+                            <input type="text" name="comments" id="comments" class="form-control-sm" formControlName="comments">
+                         </td>
+                         <td><button type="submit" (click)="onsubmit()" style="border: none;"><i class="fa-solid fa-floppy-disk"></i></button></td>
+                   </tr>
                 </tbody>
             </table>
         </div>

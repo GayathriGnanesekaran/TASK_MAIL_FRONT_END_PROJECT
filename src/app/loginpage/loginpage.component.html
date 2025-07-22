@@ -4,7 +4,7 @@
          <P class="text-center" style="color: #3b6caa;font-weight:500;">WELCOME TO TASK MAIL</P>
         <div class="form-group my-3">
             <input type="text" class="form-control pe-5 ps-3" placeholder="UserID" id="username" name="username" formControlName="username">
-             <div *ngIf="loginform.get('username')?.touched && loginform.get('username')?.errors">
+             <div *ngIf="loginform.get('username')?.touched  && loginform.get('username')?.errors">
              <span class="text-danger" *ngIf="loginform.get('username')?.errors?.['required']">
              Username is required
             </span>
@@ -29,7 +29,9 @@
             <label for="" style="color:#3b6caa;font-weight: 500;" class="mx-1">Remember My Login</label>
         </div>
         <div class="form-group text-center my-3">
-           <button class="text-white px-3 py-1">Login</button>
+           <button class="text-white px-3 py-1" >Login</button>
+         
+
         </div>
     </form>
 </div>
