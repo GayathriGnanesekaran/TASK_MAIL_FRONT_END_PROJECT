@@ -78,6 +78,20 @@ select:focus {
   text-align: center;
 }
 
+.project{
+  min-width: 40px;
+}
+
+.logo {
+  background-image: url('../../assets/simplesolve_logo\ .jpg');
+  background-repeat: no-repeat;
+  background-size: cover; /* or 'cover' if you prefer */
+  background-position: center;
+  width: 65px; /* adjust as needed */
+  height: 50px;
+  display: inline-block;
+}
+
 button.btn-sm {
   padding: 3px 10px;
   font-size: 0.8rem;

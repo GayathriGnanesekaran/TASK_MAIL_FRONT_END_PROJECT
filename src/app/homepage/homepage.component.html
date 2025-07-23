@@ -1,19 +1,20 @@
 <!-- Header Section -->
 <div class="header-container d-flex justify-content-between align-items-center px-4 py-3 shadow-sm">
   <!-- Logo -->
-  <div class="logo">
-    <img src="../../assets/simplesolve_inc__logo (1).jpg" alt="Logo" class="logo-img" style="height: 45px;">
-  </div>
-
+   <div class="logo"></div>
+  <!-- <div class="logo">
+    <img src="../../assets/simplesolve_logo .jpg" alt="Logo" class="logo-img" style="height: 45px;">
+  </div> -->
+ 
   <!-- Right Section -->
   <div class="right-section d-flex align-items-center gap-4">
-    <div class="user-info text-end">
+    <div class="d-flex align-items-center gap-3">
       <div class="button-group d-flex gap-2">
         <button class="btn btn-outline-primary btn-sm" (click)="saveSelectedTasks()">Save</button>
         <button class="btn btn-outline-secondary btn-sm">View</button>
         <button class="btn btn-outline-success btn-sm">Edit</button>
       </div>
-      <div class="mt-1 small fw-bold ">{{ username }} ({{ email }})</div>
+      <div class=" small fw-bold ">{{ username }} ({{ email }})</div>
     </div>
   </div>
 </div>
@@ -24,7 +25,8 @@
 
   <form [formGroup]="taskForm">
     <div class="table-responsive table-container shadow-sm">
-      <table class="table table-bordered table-sm align-middle">
+      <table class="table table-bordered table-sm align-middle small-grid-font">
+        <!-- <table class="table table-bordered table-sm table-smaller align-middle"></table> -->
         <thead class="label-color">
           <tr>
             <th>Select</th>
@@ -54,9 +56,9 @@
         <tbody formArrayName="tasks">
           <tr *ngFor="let task of tasks.controls; let i = index" [formGroupName]="i">
             <td><input type="checkbox" formControlName="selected" /></td>
-            <td><input type="text" formControlName="sno" /></td>
+            <td><input type="text" [value]="i+1" readonly class="form-control-plaintext" /></td>
             <td>
-              <select formControlName="project">
+              <select formControlName="project" class="form-select form-select-sm project-box">
                 <option value="">--Select--</option>
                 <option *ngFor="let proj of projectOptions" [value]="proj">{{ proj }}</option>
               </select>
@@ -95,17 +97,18 @@
             <td><input type="text" formControlName="percentage" /></td>
             <td><input type="text" formControlName="status" /></td>
             <td><input type="text" formControlName="comments" /></td>
+            <!-- <td><button type="submit" (click)="onsubmit()" style="border: none;"><i class="fa-solid fa-floppy-disk"></i></button></td> -->
           </tr>
         </tbody>
       </table>
     </div>
 
     <!-- Error message -->
-    <div *ngIf="showError" class="error-msg text-danger mt-2">Please fill "Task Name" for selected rows before saving.</div>
+    <div *ngIf="showError" class="error-msg text-danger mt-2">Please fill required fields for the selected rows before saving.</div>
 
     <!-- Bottom Save Button -->
-    <div class="text-center mt-3 mb-5">
+    <!-- <div class="text-center mt-3 mb-5">
       <button type="button" class="btn btn-primary px-4" (click)="saveSelectedTasks()">Save Selected Rows</button>
-    </div>
+    </div> -->
   </form>
 </div>
