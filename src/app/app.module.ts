@@ -8,13 +8,17 @@ import { LoginpageComponent } from './loginpage/loginpage.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HomepageComponent } from './homepage/homepage.component';
 import { ApplypageComponent } from './applypage/applypage.component';
+import { ViewpageComponent } from './viewpage/viewpage.component';
+import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginpageComponent,
     HomepageComponent,
-    ApplypageComponent
+    ApplypageComponent,
+    ViewpageComponent,
+    PagenotfoundComponent
   ],
   imports: [
     BrowserModule,
