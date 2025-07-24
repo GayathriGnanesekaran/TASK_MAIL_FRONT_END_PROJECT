@@ -8,11 +8,13 @@ import { LoginpageComponent } from './loginpage/loginpage.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HomepageComponent } from './homepage/homepage.component';
 import { ApplypageComponent } from './applypage/applypage.component';
+import { TaskGridComponent } from './task-grid/task-grid.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginpageComponent,
+    TaskGridComponent,
     HomepageComponent,
     ApplypageComponent
   ],
