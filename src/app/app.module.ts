@@ -8,13 +8,18 @@ import { LoginpageComponent } from './loginpage/loginpage.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HomepageComponent } from './homepage/homepage.component';
 import { ApplypageComponent } from './applypage/applypage.component';
+<<<<<<< HEAD
 import { ViewpageComponent } from './viewpage/viewpage.component';
 import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
+=======
+import { TaskGridComponent } from './task-grid/task-grid.component';
+>>>>>>> 9bb3fa978ba83702a4e9cb2c5208d018b0e23407
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginpageComponent,
+    TaskGridComponent,
     HomepageComponent,
     ApplypageComponent,
     ViewpageComponent,
