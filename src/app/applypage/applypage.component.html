@@ -1,11 +1,11 @@
-<!-- homepage.component.html -->
+<!-- homepage.component.html
 <div class="header-container d-flex justify-content-between align-items-center px-4 py-3">
-  <!-- Logo -->
+  Logo>
   <div class="logo">
     <img src="../../assets/logo.png" alt="Logo" class="logo-img">
   </div>
 
-  <!-- Right: Username, Email, Buttons -->
+  <Right: Username, Email, Buttons>
   <div class="right-section d-flex align-items-center gap-4">
     <div class="user-info text-end me-3">
       <div class="button-group">
@@ -13,18 +13,21 @@
       <button class="btn btn-sm ms-2" routerLink="/view-page" routerLinkActive="active">View</button>
       {{ username }} {{ email }}
     </div>
-      <!-- <div><strong></strong></div> -->
-      <!-- <div></div> -->
+      < <div><strong></strong></div> -->
+      <!-- <div></div>>
     </div>
 </div>
+</div> -->
+<div class="card m-3">
+<div class="card-header p-0" style="height:27px;" >
+<p class="time-title px-2">Add Time</p>
 </div>
-<div class="card p-3 my-3 mx-1">
+<div class="card-body p-0" style="height:90px;">
     <form class="" [formGroup]="tasktimeform">
-        <div class="card h-100"><div class="table-responsive h-100">
-            <table class="table table-sm table-striped p-1">
+       <table class="table table-small" style="height:70px;">
                 <thead class="text-primary">
-                    <tr class="label-color">
-                        <!-- <th class="dice"></th> -->
+                    <tr class="label-color text-nowrap">
+                      
                         <th>S.No</th>
                         <th>Resource</th>
                         <th>Type</th>
@@ -41,52 +44,54 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <!-- <td><button></button></td> -->
-                        <td><input type="number" name="sno" id="sno" class="form-control-sm" formControlName="sno"></td>
-                        <td><input type="text" name="resource" id="resource" class="form-control-sm" formControlName="resource"></td>
+                    <tr style="height: 25px;">
+                        <td ><input type="number" name="sno" id="sno" class="form-control " formControlName="sno" style="width:50px;"></td>
+                        <td><input type="text" name="resource" id="resource" class="form-control h-2" formControlName="resource"></td>
                         <td><select name="types" id="types" class="form-select form-select-sm" formControlName="type">
+                            <option value="">--select--</option>
                             <option value="present">Present</option>
-                            <option value="">Permission</option>
+                            <option value="permission">Permission</option>
                         </select></td>
                         <td>
                             <select name="month" id="month" class="form-select form-select-sm" formControlName="month">
+                                 <option value="">--select--</option>
                                 <option *ngFor="let i of months" [value]="i">{{i}}</option>
-                                <!-- <input type="month"> -->
+                                
                             </select>
                         </td>
-                        <!-- <td><input type="date"></td> -->
+                     
                          <td>
                             <select name="date" id="date" class="form-select form-select-sm" formControlName="date">
-                                <option *ngFor="let x of dates" [value]="x" class="form-select-input">{{ x }}</option>
+                                 <option value="">--select--</option>
+                                <option *ngFor="let x of dates" [value]="x">{{ x }}</option>
                             </select>
                          </td>
                          <td>
-                            <input type="date" name="date" id="date" class="form-control-sm" formControlName="year">
+                            <input type="date" name="date" id="date" class="form-control" formControlName="year">
                          </td>
                          <td>
-                            <input type="time" name="intime" id="intime" class="form-control-sm" formControlName="intime">
+                            <input type="time" name="intime" id="intime" class="form-control" formControlName="intime">
                          </td>
                          <td>
-                            <input type="time" name="outtime" id="outtime" class="form-control-sm" formControlName="outtime">
+                            <input type="time" name="outtime" id="outtime" class="form-control" formControlName="outtime">
                          </td>
                          <td>
-                            <input type="number" name="totalduration" id="totalduration" class="form-control-sm" formControlName="totalduration">
+                            <input type="number" name="totalduration" id="totalduration" class="form-control" formControlName="totalduration">
                          </td>
                          <td>
-                            <input type="number" name="breakduartion" id="breakduartion" class="form-control-sm" formControlName="breakduartion">
+                            <input type="number" name="breakduartion" id="breakduartion" class="form-control" formControlName="breakduartion">
                          </td>
                          <td>
-                            <input type="number" name="activeworkhours" id="activeworkhours" class="form-control-sm" formControlName="activeworkhours">
+                            <input type="number" name="activeworkhours" id="activeworkhours" class="form-control" formControlName="activeworkhours">
                          </td>
                          <td>
-                            <input type="text" name="comments" id="comments" class="form-control-sm" formControlName="comments">
+                            <input type="text" name="comments" id="comments" class="form-control" formControlName="comments">
                          </td>
-                         <td><button type="submit" (click)="onsubmit()" style="border: none;"><i class="fa-solid fa-floppy-disk"></i></button></td>
+                         <td><button type="submit" (click)="onsubmit()" style="border:none;background-color:white;"><i class="fa-solid fa-floppy-disk"></i></button></td>
                    </tr>
                 </tbody>
             </table>
-        </div>
+     </form>
     </div>
-    </form>
+
 </div>

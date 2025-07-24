@@ -34,4 +34,5 @@ ngAfterViewInit() {
    username: string = 'Krish';
   email: string = 'pkrish@simplesolve.com';
 
+
 }
