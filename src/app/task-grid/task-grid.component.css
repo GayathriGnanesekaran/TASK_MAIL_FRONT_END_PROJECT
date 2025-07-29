@@ -1,4 +1,4 @@
-/* homepage.component.css */
+/* task-grid.component.css */
 .header-container {
   width: 100%;
   background-color: rgba(255, 255, 255, 0.9);
@@ -91,3 +91,20 @@ button.btn {
   border-radius: 4px;
   font-weight: 500;
 }
+
+.add-task-label {
+  color: #3b6caa;
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.add-row-btn {
+  background-color: #f99700;
+  border: 1px solid #f99700;
+  color: white;
+  padding: 4px 5px;
+  border-radius: 5px;
+  font-size: 10px;
+  cursor: pointer;
+}
+

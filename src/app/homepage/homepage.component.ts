@@ -11,6 +11,13 @@ export class HomepageComponent {
 saveSelectedRows() {
 throw new Error('Method not implemented.');
 }
+recipientList = [
+  {  email: 'lkrish@simplesolve.com' },
+  {  email: 'dkrish@simplesolve.com' },
+  {  email: 'skrish@simplesolve.com' }
+];
+
+selectedRecipient: string = '';
   username: string = 'Krish';
   email: string = 'pkrish@simplesolve.com';
 
@@ -78,7 +85,6 @@ throw new Error('Method not implemented.');
     } else {
       this.showError = false;
       console.log('Saved Tasks:', selectedTasks);
-      // 
     }
   }
 }

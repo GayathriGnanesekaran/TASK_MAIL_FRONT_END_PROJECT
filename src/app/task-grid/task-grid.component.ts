@@ -1,3 +1,4 @@
+// task-grid.component.ts
 import { Component } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
@@ -10,6 +11,10 @@ import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@ang
 export class TaskGridComponent {
 saveSelectedRows() {
 throw new Error('Method not implemented.');
+}
+addTaskRow(): void {
+  const taskArray = this.taskForm.get('tasks') as FormArray;
+  taskArray.push(this.createTaskFormGroup());
 }
   // username: string = 'Krish';
   // email: string = 'pkrish@simplesolve.com';
@@ -26,8 +31,7 @@ throw new Error('Method not implemented.');
     this.taskForm = this.fb.group({
       tasks: this.fb.array([])
     });
-
-    this.addInitialRows(5);
+    this.addInitialRows(1);
   }
 
   get tasks(): FormArray {
@@ -42,7 +46,7 @@ throw new Error('Method not implemented.');
 
   createTaskFormGroup(): FormGroup {
     return this.fb.group({
-      selected: [false],
+      // selected: [false],
       sno: [''],
       project: [''],
       sprint: [''],

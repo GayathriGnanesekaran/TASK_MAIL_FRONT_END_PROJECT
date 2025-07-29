@@ -101,3 +101,30 @@ button.btn {
   border-radius: 4px;
   font-weight: 500;
 }
+
+.to-recipient {
+  min-width: 260px;
+}
+
+.to-label {
+  color: #3b6caa;
+  font-weight: 600;
+  margin-right: 8px;
+  font-size: 0.85rem;
+  min-width: 20px; 
+}
+
+.to-dropdown {
+  min-width: 190px;
+  border: 1px solid #3b6caa;
+  background-color: #f9f9f9;
+  padding: 3px 6px;
+  border-radius: 4px;
+  font-size: 0.85rem;
+}
+
+.to-dropdown:focus {
+  outline: none;
+  background-color: #ffffff;
+  border: 1.5px solid #3b6caa;
+}

@@ -1,3 +1,11 @@
+<!-- task-grid.component.html -->
+<div class="mb-2 d-flex align-items-center gap-2">
+  <span class="add-task-label">Add Task</span>
+  <button type="button" class="add-row-btn" (click)="addTaskRow()">
+    <i class="fa fa-plus"></i>
+  </button>
+</div>
+
 <div class="container-fluid px-4 mt-4">
   <!-- <h5 class="text-center mb-3 text-primary">Welcome {{ username }} ({{ email }})</h5> -->
 
@@ -7,7 +15,7 @@
         <!-- <table class="table table-bordered table-sm table-smaller align-middle"></table> -->
         <thead class="label-color">
           <tr>
-            <th>Select</th>
+            <!-- <th>Select</th> -->
             <th>S.No</th>
             <th>Project</th>
             <th>Sprint</th>
@@ -33,7 +41,7 @@
         </thead>
         <tbody formArrayName="tasks">
           <tr *ngFor="let task of tasks.controls; let i = index" [formGroupName]="i">
-            <td><input type="checkbox" formControlName="selected" /></td>
+            <!-- <td><input type="checkbox" formControlName="selected" /></td> -->
             <td><input type="text" [value]="i+1" readonly class="form-control-plaintext" /></td>
             <td>
               <select formControlName="project" class="form-select form-select-sm project-box">
