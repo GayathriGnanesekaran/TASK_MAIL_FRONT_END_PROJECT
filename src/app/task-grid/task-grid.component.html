@@ -32,7 +32,7 @@
           </tr>
         </thead>
         <tbody formArrayName="tasks">
-          <tr *ngFor="let task of tasks.controls; let i = index" [formGroupName]="i">
+          <tr *ngFor="let task of tasks.controls; let i = index">
             <td><input type="checkbox" formControlName="selected" /></td>
             <td><input type="text" [value]="i+1" readonly class="form-control-plaintext" /></td>
             <td>

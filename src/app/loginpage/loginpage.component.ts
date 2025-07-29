@@ -1,7 +1,7 @@
 import { Component,inject } from '@angular/core';
 import { FormControl, FormGroup ,ReactiveFormsModule,FormBuilder,Validators} from '@angular/forms';
 import { Router } from '@angular/router';
-import { TaskmailserviceService } from '../../services/taskmailservice.service';
+import { TaskmailserviceService } from '../services/taskmailservice.service';
 
 @Component({
   selector: 'app-loginpage',
