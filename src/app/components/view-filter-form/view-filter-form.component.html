@@ -1,0 +1,146 @@
+<form [formGroup]="viewTaskFilterFormGroup">
+    <div class="form-group row">
+        <div class="col-lg-2 col-sm-4 mt-2">
+            <label
+                for="category"
+                class="col col-form-label font-weight-bold"
+                title="{{ 'SI_APPS_REFUND_FILTER_FORM.BATCH_STATUS' }}"
+                >category</label
+            >
+        </div>
+        <div class="col-lg-2 col-sm-7 mt-2">
+            <select
+                class="form-control form-control-sm form-select"
+                id="category"
+                name="category"
+                formControlName="category"
+                title="{{ viewTaskFilterFormGroup.get('category')?.value}}"
+            >
+                <option value="all">all</option>
+                 <option value="all">all</option>
+                <option
+                    *ngFor="let item of categoryesList; let i = index"
+                  
+                    [ngValue]="null"
+                >
+            
+                </option>
+            </select>
+        </div>
+        <div class="col-lg-2 col-sm-4 mt-2">
+            <label
+                for="accountOpened"
+                class="col-form-label font-weight-bold"
+                id="accountOpened"
+                title="{{ 'SI_APPS_REFUND_FILTER_FORM.ACCOUNT_DT_FROM' }}"
+                >From Date</label
+            >
+        </div>
+        <div class="col-lg-2 col-sm-7 mt-2">
+            <div class="input-group input-group-sm" [ngClass]="{ required: viewTaskFilterFormGroup.get('fromDate')?.errors }">
+                <input
+                    type="text"
+                    class="form-control"
+                    placeholder="MM/DD/YYYY"
+                    #accountDateFrom="bsDatepicker"
+                    [bsValue]="viewTaskFilterFormGroup.get('fromDate')?.value"
+                    id="fromDate"
+                    name="fromDate"
+                    (bsValueChange)="dateValueChange($event, 'fromDate'); "
+                    (blur)="dateValueChange($event, 'fromDate'); "
+                    [bsConfig]="bsConfig"
+                    bsDatepicker
+                    mask="M0/d0/0000"
+                    triggers="dblclick:click"
+                    [disabled]="viewTaskFilterFormGroup.disabled"
+                    [title]="
+                        (viewTaskFilterFormGroup.get('fromDate')?.value | date: 'MM/dd/yyyy')
+                            ? (viewTaskFilterFormGroup.get('fromDate')?.value | date: 'MM/dd/yyyy')
+                            : ''
+                    "
+                />
+                <div class="input-group-append">
+                    <button
+                        class="btn btn-outline-secondary"
+                        (click)="accountDateFrom.toggle()"
+                        type="button"
+                        [disabled]="viewTaskFilterFormGroup.disabled"
+                        [disabled]="viewTaskFilterFormGroup.disabled"
+                    >
+                        <!-- <i-calendar class="icon icon-sm"></i-calendar> -->
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-1 col-sm-4 mt-2">
+            <label
+                for="accountDateTo"
+                class="col-form-label font-weight-bold"
+                id="accountDateTo"
+                title="{{ 'SI_APPS_REFUND_FILTER_FORM.TO' }}"
+                >To Date</label
+            >
+        </div>
+        <div class="col-lg-2 col-sm-7 mt-2">
+            <div class="input-group input-group-sm" [ngClass]="{ required: viewTaskFilterFormGroup.get('toDate')?.errors }">
+                <input
+                    type="text"
+                    class="form-control"
+                    placeholder="MM/DD/YYYY"
+                    #accountDateTo="bsDatepicker"
+                    [bsValue]="viewTaskFilterFormGroup.get('toDate')?.value"
+                    id="toDate"
+                    name="toDate"
+                    (bsValueChange)="dateValueChange($event, 'toDate'); "
+                    (blur)="dateValueChange($event, 'toDate'); "
+                    [bsConfig]="bsConfig"
+                    bsDatepicker
+                    mask="M0/d0/0000"
+                    triggers="dblclick:click"
+                    [disabled]="viewTaskFilterFormGroup.disabled"
+                    [title]="
+                        (viewTaskFilterFormGroup.get('toDate')?.value | date: 'MM/dd/yyyy')
+                            ? (viewTaskFilterFormGroup.get('toDate')?.value | date: 'MM/dd/yyyy')
+                            : ''
+                    "
+                />
+                <div class="input-group-append">
+                    <button
+                        class="btn btn-outline-secondary"
+                        (click)="accountDateTo.toggle()"
+                        type="button"
+                        [disabled]="viewTaskFilterFormGroup.disabled"
+                    >
+                        <!-- <i-calendar class="icon icon-sm"></i-calendar> -->
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-1 offset-lg-1 col-sm-11 text-center mt-2">
+            <button
+                type="button"
+                class="btn btn-sm btn-secondary"
+                (click)="retrieve()"
+                title="Search"
+            >
+                Search
+            </button>
+        </div>
+        <div class="col-lg-1 ml-4 col-sm-11 text-center mt-2">
+            <button
+                type="button"
+                class="btn btn-sm btn-secondary px-3"
+                (click)="reset()"
+                title="Reset"
+            >
+                Reset
+            </button>
+        </div>
+    </div>
+</form>
+
+<!-- <div class="col-lg-1  col-sm-11 text-center mt-2 px-3">
+    <button type="button" class="btn btn-sm btn-primary " (click)="resetForm()">
+        Reset
+    </button>
+</div> -->

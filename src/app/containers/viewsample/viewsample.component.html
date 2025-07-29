@@ -1,0 +1,32 @@
+<div class="card rounded-0 border-0 h-100">
+    <div class="card-header shadow-sm sticky-top bg-light">
+        <div class="row">
+            <div class="col-md-12 col-lg-12 title">Task Mail Summary</div>
+
+            <!-- <div class="col-md-12 col-lg-12 order-lg-3 order-2">
+                <div class="actions">
+                    <si-core-icon-toolbar
+                        [buttonList]="buttonList"
+                        (toolbarEvent)="iconToolbarEventHandler($event)"
+                        [screenStatus]="screenStatus"
+                    >
+                    </si-core-icon-toolbar>
+                </div>
+            </div> -->
+        </div>
+    </div>
+    <div class="card-body" style="position: relative;">
+        <app-view-filter-form
+          [viewTaskFilterFormGroup]="viewTaskFilterFormGroup"
+            
+        >
+        </app-view-filter-form>
+        <app-view-task-time-details
+            
+        ></app-view-task-time-details>
+        <app-view-task-schedule-details
+            
+        ></app-view-task-schedule-details>
+       
+    </div>
+</div>

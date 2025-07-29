@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ViewpageComponent } from './viewpage.component';
+import { ViewFilterFormComponent } from './view-filter-form.component';
 
-describe('ViewpageComponent', () => {
-  let component: ViewpageComponent;
-  let fixture: ComponentFixture<ViewpageComponent>;
+describe('ViewFilterFormComponent', () => {
+  let component: ViewFilterFormComponent;
+  let fixture: ComponentFixture<ViewFilterFormComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ViewpageComponent]
+      declarations: [ViewFilterFormComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(ViewpageComponent);
+    fixture = TestBed.createComponent(ViewFilterFormComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

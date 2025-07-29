@@ -7,11 +7,16 @@ import { LoginpageComponent } from './loginpage/loginpage.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HomepageComponent } from './homepage/homepage.component';
 import { ApplypageComponent } from './applypage/applypage.component';
-import { ViewpageComponent } from './viewpage/viewpage.component';
+
 import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
 import { TaskGridComponent } from './task-grid/task-grid.component';
 import { HttpClient, provideHttpClient} from '@angular/common/http';
-import { ViewsampleComponent } from './viewsample/viewsample.component';
+import { ViewsampleComponent } from './containers/viewsample/viewsample.component';
+import { ViewFilterFormComponent } from './components/view-filter-form/view-filter-form.component';
+import { ViewTaskTimeDetailsComponent } from './components/view-task-time-details/view-task-time-details.component';
+import { ViewTaskScheduleDetailsComponent } from './components/view-task-schedule-details/view-task-schedule-details.component';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+
 
 @NgModule({
   declarations: [
@@ -20,15 +25,19 @@ import { ViewsampleComponent } from './viewsample/viewsample.component';
     TaskGridComponent,
     HomepageComponent,
     ApplypageComponent,
-    ViewpageComponent,
+
     PagenotfoundComponent,
-    ViewsampleComponent
+    ViewsampleComponent,
+    ViewFilterFormComponent,
+    ViewTaskTimeDetailsComponent,
+    ViewTaskScheduleDetailsComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
+    BsDatepickerModule
    ],
   providers: [
    provideHttpClient()
