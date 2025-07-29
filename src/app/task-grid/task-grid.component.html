@@ -1,9 +1,24 @@
 <!-- task-grid.component.html -->
-<div class="mb-2 d-flex align-items-center gap-2">
+<!-- <div class="mb-2 d-flex align-items-center gap-2">
   <span class="add-task-label">Add Task</span>
   <button type="button" class="add-row-btn" (click)="addTaskRow()">
     <i class="fa fa-plus"></i>
   </button>
+</div> -->
+
+<div class="card m-3">
+  <div class="card-header p-0 d-flex align-items-center justify-content-between" style="height: 27px;">
+    <p class="time-title px-2 mb-0">Add Task</p>
+    <button
+      type="button"
+      class="btn btn-sm btn-secondary me-2"
+      (click)="addTaskRow()"
+      title="Add Task"
+      style="width: 24px; height: 24px; padding: 0; line-height: 1;"
+    >
+      <i class="fa fa-plus small"></i>
+    </button>
+  </div>
 </div>
 
 <div class="container-fluid px-4 mt-4">

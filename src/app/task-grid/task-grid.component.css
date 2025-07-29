@@ -108,3 +108,16 @@ button.btn {
   cursor: pointer;
 }
 
+.add-task-label {
+  font-size: 1rem;
+  color: #3b6caa;
+}
+
+.add-row-btn {
+  background-color: #ffffff;
+  color: white;
+  border: none;
+  padding: 4px 8px;
+  border-radius: 3px;
+}
+

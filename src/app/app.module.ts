@@ -13,8 +13,6 @@ import { TaskGridComponent } from './task-grid/task-grid.component';
 import { HttpClient, provideHttpClient} from '@angular/common/http';
 import { ViewsampleComponent } from './viewsample/viewsample.component';
 
-
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -24,7 +22,7 @@ import { ViewsampleComponent } from './viewsample/viewsample.component';
     ApplypageComponent,
     ViewpageComponent,
     PagenotfoundComponent,
-    ViewsampleComponent,
+    ViewsampleComponent
   ],
   imports: [
     BrowserModule,
