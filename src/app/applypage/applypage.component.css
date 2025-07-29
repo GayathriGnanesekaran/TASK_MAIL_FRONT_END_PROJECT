@@ -1,20 +1,32 @@
-body {
-    font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
-    font-size: 1rem;
-    background-color: #fff;
-}
 
-.label-color th{
+.label-color th,.time-title{
     color: #3b6caa;
-    vertical-align: top !important;
     font-size: .96rem;
     font-weight: 700;
-    padding: .1rem 1.6px .2rem;
-}
-input,select{
-    border: none;
 }
 i{
     color:#f99700;
-    font-size: 26px;
+    font-size:23px;
+}
+form table tbody td input{
+   border-color:#6c757d;
+   width:105px;
+   height:25px;
+}
+form table tbody td select{
+   border-color:#6c757d;
+   width:110px;
+   height:25px;
+   padding: 0;
+}
+
+form table tbody td select{
+   border-color:#6c757d;
+   width:106px;
+}
+.card{   
+  border-color:#c2cdd6;
+}
+tr th{
+ line-height: 10px;
 }

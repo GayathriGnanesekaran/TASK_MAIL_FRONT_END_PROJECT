@@ -31,5 +31,8 @@ ngAfterViewInit() {
   onsubmit(){
     console.log(this.tasktimeform.value)
   }
+   username: string = 'Krish';
+  email: string = 'pkrish@simplesolve.com';
+
 
 }
