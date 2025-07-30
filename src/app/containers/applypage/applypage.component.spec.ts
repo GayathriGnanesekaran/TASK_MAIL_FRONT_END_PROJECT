@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ApplypageComponent } from './applypage.component';
+import ApplypageComponent from './applypage.component';
 
 describe('ApplypageComponent', () => {
   let component: ApplypageComponent;

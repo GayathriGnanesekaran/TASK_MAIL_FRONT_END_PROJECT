@@ -3,10 +3,10 @@ import { NgModule } from '@angular/core';
 import { BrowserModule, provideClientHydration, withEventReplay } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { LoginpageComponent } from './loginpage/loginpage.component';
+import { LoginpageComponent } from './containers/loginpage/loginpage.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HomepageComponent } from './homepage/homepage.component';
-import { ApplypageComponent } from './applypage/applypage.component';
+
 
 import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
 import { TaskGridComponent } from './task-grid/task-grid.component';
@@ -17,6 +17,9 @@ import { ViewTaskTimeDetailsComponent } from './components/view-task-time-detail
 import { ViewTaskScheduleDetailsComponent } from './components/view-task-schedule-details/view-task-schedule-details.component';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
+import { ApplyTaskTimeGridComponent } from './components/apply-task-time-grid/apply-task-time-grid.component';
+import { ApplyTaskTimeScheduleComponent } from './components/apply-task-time-schedule/apply-task-time-schedule.component';
+import { ApplypageComponent } from './containers/applypage/applypage.component';
 
 @NgModule({
   declarations: [
@@ -24,13 +27,19 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
     LoginpageComponent,
     TaskGridComponent,
     HomepageComponent,
-    ApplypageComponent,
+   
 
     PagenotfoundComponent,
+
     ViewsampleComponent,
     ViewFilterFormComponent,
     ViewTaskTimeDetailsComponent,
     ViewTaskScheduleDetailsComponent,
+ 
+    ApplyTaskTimeGridComponent,
+    ApplyTaskTimeScheduleComponent,
+    ApplypageComponent
+
   ],
   imports: [
     BrowserModule,

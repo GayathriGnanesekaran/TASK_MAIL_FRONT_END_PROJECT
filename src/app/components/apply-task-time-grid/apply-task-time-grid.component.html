@@ -1,0 +1,210 @@
+<form [formGroup]="ApplyTaskTimeFormGroup">
+    <div class="form-group row">
+        <div class="col-lg-2 col-sm-4 mt-2">
+            <label
+                for="category"
+                class="col col-form-label font-weight-bold"
+                title="{{ 'SI_APPS_REFUND_FILTER_FORM.BATCH_STATUS' }}"
+                >category</label
+            >
+        </div>
+        <div class="col-lg-2 col-sm-7 mt-2">
+            <select
+                class="form-control form-control-sm form-select"
+                id="resource"
+                name="resource"
+                formControlName="resource"
+                title="{{ ApplyTaskTimeFormGroup.get('category')?.value}}"
+            >
+                <option value="all">all</option>
+                 <option value="all">all</option>
+                <option
+                    *ngFor="let item of timelist; let i = index"
+                  
+                    [ngValue]="null"
+                >
+            
+                </option>
+            </select>
+        </div>
+
+                
+      
+                
+            
+       
+    </div>
+                <div class="tableFixHead text-nowrap" style="height: 28vh;">
+                <table class="table table-sm table-w-150 td-border-0">
+                    <thead class="text-primary sticky-top border-bottom">
+                        <tr class="bg-tbl-head">
+                           <!-- 1 <th class="w-p-28"></th> -->
+                           3<th >
+                                ytesyt
+                            </th>
+                            <!-- 5 <th class="text-right" title="{{ 'SI_APPS_REFUND_BATCH_LIST.TRANS_AMT' | translate }}"> -->
+                           5 <th class="text-right" >
+                                check
+                            </th>
+                           6<th class="text-right" >
+                               test
+                            </th>
+                           7<th >
+                                check
+                            </th>
+                            8<th >
+                                test
+                            </th>
+                            9<th >
+                                check
+                            </th>
+                           10<th class="text-right" >
+                                test
+                            </th>
+                        </tr>
+                    </thead>
+
+                    <!-- <tbody (wheel)="onScroll($event)" > -->
+                    <tbody  >
+                        <tr >
+                                <!-- 1.<td class="w-p-28" id="addDetail{{ i }}"> -->
+                                    <!-- [item]="batchDetailForm" -->
+                                    <!-- <si-dice-menu
+                                        [actionLinks]="timelist"
+                                        [hostComponent]="'PaymentBatchDetailsGridListComponent'"
+                                    ></si-dice-menu> -->
+                                <!-- </td> -->
+                                <td class="w-8">
+                                    <div
+                                        class="input-group input-group-sm"
+                                    >
+                                        <input
+                                            class="form-control"
+                                            type="text"
+                                            id="tranRefNo"
+                                            maxlength="25"
+                                            />
+                                            <!-- formControlName="tranRefNo" -->
+                                            <!-- [title]="
+                                            batchDetailForm.get('tranRefNo').value
+                                            ? batchDetailForm.get('tranRefNo').value
+                                            : ''
+                                            " -->
+                                    </div>
+                                </td>
+                                <td class="w-8">
+                                    <div
+                                        class="input-group input-group-sm"
+                                    >
+                                        <input
+                                            class="form-control text-right"
+                                            type="text"
+                                            placeholder="0.00"
+                                            id="fullAmount"
+                                            thousandSeparator=","
+                                            maxlength="14"
+                                            />
+                                            <!-- formControlName="fullAmount" -->
+                                    </div>
+                                </td>
+                                <td class="w-8">
+                                    <div
+                                        class="input-group input-group-sm"
+                                        >
+                                        <!-- [ngClass]="{ required: batchDetailForm.get('tranAmount').errors }" -->
+                                        <input
+                                            class="form-control text-right"
+                                            type="text"
+                                            placeholder="0.00"
+                                            id="tranAmount"
+                                            thousandSeparator=","
+                                            maxlength="14"
+                                            />
+                                            <!-- formControlName="tranAmount" -->
+                                    </div>
+                                </td>
+                                <td class="w-10">
+                                    <div class="input-group input-group-sm">
+                                        <input
+                                            class="form-control"
+                                            type="text"
+                                            id="invoiceNo"
+                                            autocomplete="off"
+                                            maxlength="15"
+                                            />
+                                            <!-- formControlName="invoiceNo" -->
+                                    </div>
+                                </td>
+                                <td class="">
+                                    <div
+                                        class="input-group input-group-sm"
+                                        >
+                                        <!-- [ngClass]="{ required: batchDetailForm.get('accountNo').errors }" -->
+                                        <input
+                                            class="form-control"
+                                            type="text"
+                                            id="accountNo"
+                                            autocomplete="off"
+                                            maxlength="25"
+                                            />
+                                            <!-- formControlName="accountNo" -->
+                                            <!-- oninput="this.value=this.value.replace(/[ ,.]/g && /[^0-9^A-Z^a-z-]/g, '')"
+                                            (blur)="accountInvoiceBlur($event.target.value, i, 'Account')"
+                                            [title]="
+                                                batchDetailForm.get('accountNo').value
+                                                    ? batchDetailForm.get('accountNo').value
+                                                    : ''
+                                            " -->
+                                        <!-- <span
+                                            class="px-2"
+                                            [ngClass]="{
+                                                'disabled-wrapper':
+                                                    batchDetailForm.disabled || selectedBatch.batchStatus == 'Posted'
+                                            }"
+                                            ><i-search
+                                                style="cursor: pointer;"
+                                                class="icon icon-sm"
+                                                (click)="openAccountSearch(i)"
+                                            ></i-search
+                                        ></span> -->
+                                    </div>
+                                </td>
+                                <td class="">
+                                    <div class="input-group input-group-sm">
+                                        <input
+                                            class="form-control"
+                                            type="text"
+                                            id="accountName"
+                                            readonly
+                                            
+                                            />
+                                            <!-- formControlName="accountName" -->
+                                    </div>
+                                </td>
+                                <td class="w-10">
+                                    <div class="input-group input-group-sm">
+                                        <input
+                                            class="form-control text-right"
+                                            type="text"
+                                            id="acctbalance"
+                                            maxlength="15"
+                                            />
+                                            <!-- [value]="
+                                                batchDetailsFormArray.controls[i].get('acctbalance').value
+                                                    | number: '1.2-2'
+                                            "
+                                            readonly
+                                            [title]="batchDetailForm.get('acctbalance').value | number: '1.2-2'" -->
+                                    </div>
+                                </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+</form>
+
+<!-- <div class="col-lg-1  col-sm-11 text-center mt-2 px-3">
+    <button type="button" class="btn btn-sm btn-primary " (click)="resetForm()">
+        Reset
+    </button>
+</div> -->

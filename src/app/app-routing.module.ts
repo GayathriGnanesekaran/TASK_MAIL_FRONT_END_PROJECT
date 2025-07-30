@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ApplypageComponent } from './applypage/applypage.component';
-import { LoginpageComponent } from './loginpage/loginpage.component';
+import { ApplypageComponent } from './containers/applypage/applypage.component';
+import { LoginpageComponent } from './containers/loginpage/loginpage.component';
 import { ViewsampleComponent } from './containers/viewsample/viewsample.component';
 import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
 

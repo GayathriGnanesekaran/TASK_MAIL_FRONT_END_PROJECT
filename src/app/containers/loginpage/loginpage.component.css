@@ -9,7 +9,7 @@ input{
     border: 1px solid #bbb;
 }
  .login-bg{    
-  background-image: url('../../assets/si-bg.jpg');
+  background-image: url('../../../assets/si-bg.jpg');
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
