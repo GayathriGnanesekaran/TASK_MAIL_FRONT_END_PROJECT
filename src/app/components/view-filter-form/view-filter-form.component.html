@@ -1,11 +1,38 @@
 <form [formGroup]="viewTaskFilterFormGroup">
     <div class="form-group row">
-        <div class="col-lg-2 col-sm-4 mt-2">
+        <div class="col-lg-2 col-sm-7 mt-2">
             <label
                 for="category"
                 class="col col-form-label font-weight-bold"
                 title="{{ 'SI_APPS_REFUND_FILTER_FORM.BATCH_STATUS' }}"
-                >category</label
+                >UserId</label
+            >
+        </div>
+        <div class="col-lg-2 col-sm-7 mt-2">
+            <select
+                class="form-control form-control-sm form-select"
+                id="userid"
+                name="userid"
+                formControlName="userid"
+                title="{{ viewTaskFilterFormGroup.get('userid')?.value}}"
+            >
+                <option value="all">all</option>
+                 <option value="all">all</option>
+                <option
+                    *ngFor="let item of userList; let i = index"
+                  
+                    [ngValue]="null"
+                >
+            
+                </option>
+            </select>
+        </div>
+        <div class="col-lg-2 col-sm-7 mt-2">
+            <label
+                for="category"
+                class="col col-form-label font-weight-bold"
+                title="{{ 'SI_APPS_REFUND_FILTER_FORM.BATCH_STATUS' }}"
+                >Category</label
             >
         </div>
         <div class="col-lg-2 col-sm-7 mt-2">
@@ -27,7 +54,7 @@
                 </option>
             </select>
         </div>
-        <div class="col-lg-2 col-sm-4 mt-2">
+        <div class="col-lg-2 col-sm-7 mt-2">
             <label
                 for="accountOpened"
                 class="col-form-label font-weight-bold"
@@ -72,7 +99,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-1 col-sm-4 mt-2">
+        <div class="col-lg-2 col-sm-7 mt-2">
             <label
                 for="accountDateTo"
                 class="col-form-label font-weight-bold"
@@ -116,7 +143,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-1 offset-lg-1 col-sm-11 text-center mt-2">
+        <div class="col-lg-2 offset-lg-1 col-sm-11 text-center mt-2">
             <button
                 type="button"
                 class="btn btn-sm btn-secondary"

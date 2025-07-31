@@ -1,7 +1,8 @@
- <div class="tableFixHead h-p-450">
-            <table class="table table-sm border my-2 spk-border" >
+ <div class="tableFixHead h-p-450 border border-top-0" style="height: 170px;">
+            <table class="table table-sm border mb-2 spk-border border-left-0 border-right-0" >
                 <thead>
                     <tr class="text-primary">
+                        <th class="w-p-28"></th>
                         <th>Resource</th>
                          <th>Type</th>
                          <th>Month</th>
@@ -17,34 +18,31 @@
                 </thead>
 
                 <tbody>
-                    <tr>
-                        <td>Gayathri</td>
-                        <td>Present</td>
-                        <td>07</td>
-                        <td>28</td>
-                        <td>2025</td>
-                        <td>10:30</td>
-                        <td>19:30</td>
-                        <td>9:00</td>
-                        <td>1:00</td>
-                        <td>8:00</td>
-                        <td></td>
-                        
+                    
+                    <tr   *ngFor="let item of viewTimeDetalArray; let i = index"
+                        [ngClass]="{ active: i === selectDetailsRow }"
+                        (click)="selectedPrintRefundListRow(item, i)">
+                        <td class="w-p-28">
+                            <app-dice-menu
+                                [actionLinks]="diceOptions"
+                                [hostComponent]="'PaymentBatchDetailsGridListComponent'"
+                                [item]="item"
+                                [index]="i"
+                            ></app-dice-menu>
+                        </td>
+                        <td>{{ item.resource}}</td>
+                        <td>{{ item.types}}</td>
+                        <td>{{ item.month}}</td>
+                        <td>{{ item.day}}</td>
+                        <td>{{ item.year}}</td>
+                        <td>{{ item.intime}}</td>
+                        <td>{{ item.outtime}}</td>
+                        <td>{{ item.totalduration}}</td>
+                        <td>{{ item.breakduration}}</td>
+                        <td>{{ item.actworkhrs}}</td>
+                        <td>{{ item.comments}}</td>
                     </tr>
-                    <tr>
-                        <td>Gayathri</td>
-                        <td>Present</td>
-                        <td>07</td>
-                        <td>29</td>
-                        <td>2025</td>
-                        <td>10:30</td>
-                        <td>19:30</td>
-                        <td>9:00</td>
-                        <td>1:00</td>
-                        <td>8:00</td>
-                        <td></td>
-                        
-                    </tr>
+                    
                 </tbody>
             </table>
         </div>

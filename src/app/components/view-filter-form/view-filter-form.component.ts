@@ -11,6 +11,7 @@ import moment from 'moment';
 export class ViewFilterFormComponent {
 @Input() viewTaskFilterFormGroup!:FormGroup
 categoryesList=[]
+userList=[]
   value:any;
     public minDate: Date = moment('01/01/1800 12:00:00 AM').toDate();
     public maxDate: Date = moment('12/31/9999 11:59:59 PM').toDate();

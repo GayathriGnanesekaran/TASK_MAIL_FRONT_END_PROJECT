@@ -1,1 +1,123 @@
-<p>apply-task-time-schedule works!</p>
+<!-- task-grid.component.html -->
+<!-- <div class="mb-2 d-flex align-items-center gap-2">
+  <span class="add-task-label">Add Task</span>
+  <button type="button" class="add-row-btn" (click)="addTaskRow()">
+    <i class="fa fa-plus"></i>
+  </button>
+</div> -->
+
+<div class="card border m-4" >
+  <div class="card-header  d-flex" >
+    <p class="title">Add Task</p>
+    <div class="actions col">
+    <button
+      type="button"
+      class="btn btn-sm btn-icon btn-secondary"
+      (click)="addTaskRow()"
+      title="Add Task"
+    >
+      <i class="fa fa-plus small"></i>
+    </button>
+    </div>
+  </div>
+  <div class="card-body p-0">
+    <form [formGroup]="taskForm">
+      <div class="tableFixHead text-nowrap"style="height: 45vh;">
+        <table class="table table-sm td-border-0" style="width:180% !important">
+          <!-- <table class="table table-bordered table-sm table-smaller align-middle"></table> -->
+          <thead class="text-primary sticky-top border-bottom">
+            <tr>
+              <th  class="w-p-28"> </th>
+              <th title="S.No">S.No</th>
+              <th title="Project">Project</th>
+              <th title="Sprint">Sprint</th>
+              <th title="Task Name">Task Name</th>
+              <th title="Type">Type</th>
+              <th title="SOW/Issue No">SOW/Issue No</th>
+              <th title="Is Billable">Is Billable</th>
+              <th title="Billing Type">Billing Type</th>
+              <th title="Res. Name">Res. Name</th>
+              <th title="Team">Team</th>
+              <th title="Est. Start Dt">Est. Start Dt</th>
+              <th title="Est. End Dt">Est. End Dt</th>
+              <th title="Est. Hours">Est. Hours</th>
+              <th title="Act. Start Dt">Act. Start Dt</th>
+              <th title="Act. End Dt">Act. End Dt</th>
+              <th title="Start Time">Start Time</th>
+              <th title="End Time">End Time</th>
+              <th title="Act. Hours">Act. Hours</th>
+              <th title="%">%</th>
+              <th title="Status">Status</th>
+              <th title="Comments">Comments</th>
+            </tr>
+          </thead>
+
+          <tbody formArrayName="tasks">
+            <tr *ngFor="let task of tasks.controls; let i = index"
+            [ngClass]="{ active: i === selectedRow }"
+            (click)="selectBatchDetail(task.getRawValue(), i)">
+              <ng-container [formGroupName]="i">
+              <td class="w-p-28"> <app-dice-menu
+                                        [actionLinks]="diceOptions"
+                                        [hostComponent]="'PaymentBatchDetailsGridListComponent'"
+                                        [item]="task"
+                                        [index]="i"
+                                        ></app-dice-menu>
+                                        </td>
+              <td><input type="text" [value]="i+1" readonly class="form-control-plaintext" /></td>
+              <td>
+                <select formControlName="project" class="form-select form-select-sm project-box">
+                  <option value="">--Select--</option>
+                  <option *ngFor="let proj of projectOptions" [value]="proj">{{ proj }}</option>
+                </select>
+              </td>
+              <td><input type="text" formControlName="sprint" /></td>
+              <td><input type="text" formControlName="taskName" required /></td>
+              <td>
+                <select formControlName="type">
+                  <option value="">--Select--</option>
+                  <option *ngFor="let type of typeOptions" [value]="type">{{ type }}</option>
+                </select>
+              </td>
+              <td><input type="text" formControlName="sowIssueNo" /></td>
+              <td>
+                <select formControlName="isBillable">
+                  <option value="">--Select--</option>
+                  <option *ngFor="let opt of isBillableOptions" [value]="opt">{{ opt }}</option>
+                </select>
+              </td>
+              <td>
+                <select formControlName="billingType">
+                  <option value="">--Select--</option>
+                  <option *ngFor="let bill of billingTypeOptions" [value]="bill">{{ bill }}</option>
+                </select>
+              </td>
+              <td><input type="text" formControlName="resName" /></td>
+              <td><input type="text" formControlName="team" /></td>  
+              <td><input type="date" formControlName="estStartDate" /></td>
+              <td><input type="date" formControlName="estEndDate" /></td>
+              <td><input type="text" formControlName="estHours" /></td>
+              <td><input type="date" formControlName="actStartDate" /></td>
+              <td><input type="date" formControlName="actEndDate" /></td>
+              <td><input type="time" formControlName="startTime" /></td>
+              <td><input type="time" formControlName="endTime" /></td>
+              <td><input type="text" formControlName="actHours" /></td>
+              <td><input type="text" formControlName="percentage" /></td>
+              <td><input type="text" formControlName="status" /></td>
+              <td><input type="text" formControlName="comments" /></td>
+              <!-- <td><button type="submit" (click)="onsubmit()" style="border: none;"><i class="fa-solid fa-floppy-disk"></i></button></td> -->
+            </ng-container>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+  
+     
+  
+        <!-- Error Message -->
+        <div *ngIf="showError" class="text-danger mt-2 px-2">Please fill required fields for the selected rows before saving.</div>
+      </form>
+      </div>
+</div>
+  <!-- </div> -->
+<!-- </div> -->

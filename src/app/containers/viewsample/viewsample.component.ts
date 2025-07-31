@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
-import { ViewTaskFilterForm } from '../../forms/print-refund-filter.form';
 import { IFormObject } from '../../interfaces/form-object.interface';
 import { FormGroup } from '@angular/forms';
 import { FormUtilService } from '../../services/form-util.service';
+import { ViewTaskFilterForm } from '../../forms/view-filter-form';
 
 
 @Component({

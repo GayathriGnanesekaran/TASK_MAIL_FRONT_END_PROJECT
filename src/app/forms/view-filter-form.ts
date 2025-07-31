@@ -1,9 +1,15 @@
-
-
 import { IFormObject } from '../interfaces/form-object.interface';
 
 export const ViewTaskFilterForm: IFormObject = {
     
+    userid: {
+        id: 1,
+        label: 'category',
+        value: '',
+        type: 'text',
+        validations: [],
+        disabled: false,
+    },
     category: {
         id: 1,
         label: 'category',

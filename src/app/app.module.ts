@@ -5,11 +5,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginpageComponent } from './containers/loginpage/loginpage.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HomepageComponent } from './homepage/homepage.component';
 
 
-import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
-import { TaskGridComponent } from './task-grid/task-grid.component';
 import { HttpClient, provideHttpClient} from '@angular/common/http';
 import { ViewsampleComponent } from './containers/viewsample/viewsample.component';
 import { ViewFilterFormComponent } from './components/view-filter-form/view-filter-form.component';
@@ -31,15 +28,17 @@ import {
 } from '@ng-bootstrap/ng-bootstrap'
 import { SafeIconPipe } from './components/safe-icon.pipe';
 import { InspireIconComponent } from './components/inspire-icon.component';
+import { NavigationComponent } from './containers/navigation/navigation.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { PagenotfoundComponent } from './components/pagenotfound/pagenotfound.component';
+
+
+
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginpageComponent,
-    TaskGridComponent,
-    HomepageComponent,
-   
-
     PagenotfoundComponent,
 
     ViewsampleComponent,
@@ -50,7 +49,7 @@ import { InspireIconComponent } from './components/inspire-icon.component';
     ApplyTaskTimeGridComponent,
     ApplyTaskTimeScheduleComponent,
     ApplypageComponent,
-
+  NavigationComponent,
     HeaderCommonComponent,
     InspireIconComponent,
       DiceMenuComponent,
@@ -62,7 +61,8 @@ import { InspireIconComponent } from './components/inspire-icon.component';
     ReactiveFormsModule,
     NgbPopoverModule,
     SafeIconPipe,
-    BsDatepickerModule
+    BsDatepickerModule,
+    NgbModule
    ],
   providers: [
    provideHttpClient()

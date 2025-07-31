@@ -1,6 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
 
-@import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 
 /* homepage.component.css */
 .header-container {
@@ -4736,6 +4735,8 @@ input[type='button'].btn-block {
 
 .nav-pills .nav-link {
     border-radius: 0.25rem;
+    border-bottom-right-radius: 0;
+    border-top-right-radius: 0;
 }
 
 .nav-pills .nav-link.active,
@@ -4807,6 +4808,9 @@ input[type='button'].btn-block {
 .navbar-nav .dropdown-menu {
     position: static;
     float: none;
+}
+.nav-link{
+    color: #0056b3;
 }
 
 .navbar-text {
@@ -10887,7 +10891,7 @@ ngb-popover-window {
            /* background-color: lighten(#3b6caa, 50%);*/
         }
     }
-    tbody tr.active {
+    tbody tr.active td{
         background-color: lighten(#3b6caa, 40%);
     }
     &.table-borderless td {

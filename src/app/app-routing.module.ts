@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { ApplypageComponent } from './containers/applypage/applypage.component';
 import { LoginpageComponent } from './containers/loginpage/loginpage.component';
 import { ViewsampleComponent } from './containers/viewsample/viewsample.component';
-import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
+import { PagenotfoundComponent } from './components/pagenotfound/pagenotfound.component';
 
 const routes: Routes = [
     {path:'',component:LoginpageComponent},
