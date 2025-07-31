@@ -1,14 +1,13 @@
 import { Component } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-// import 'src/styles.css';
 
 @Component({
-  selector: 'app-homepage',
+  selector: 'app-header-common',
   standalone: false,
-  templateUrl: './homepage.component.html',
-  styleUrls: ['./homepage.component.css']
+  templateUrl: './header-common.component.html',
+  styleUrl: './header-common.component.css'
 })
-export class HomepageComponent {
+export class HeaderCommonComponent {
 saveSelectedRows() {
 throw new Error('Method not implemented.');
 }

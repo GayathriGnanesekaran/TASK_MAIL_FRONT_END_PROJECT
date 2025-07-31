@@ -1,0 +1,36 @@
+<ng-template #popContent>
+            <div class="list-group" *ngIf="actionLinks?.length === 0">
+                <img
+                    src="../../../assets/dice.gif"
+                    *ngIf="actionLinks?.length === 0"
+                    alt="Smiley face"
+                    height="70"
+                    width="70"
+                />
+            </div>
+            <div class="list-group" *ngIf="actionLinks.length > 0">
+                <button
+                    type="button"
+                    class="btn-outline-primary list-group-item list-group-item-action"
+                    *ngFor="let link of actionLinks"
+                    (click)="triggerEvent(link)"
+                >
+                    {{ link.screenName }}
+                </button>
+            </div>
+        </ng-template>
+
+        <button
+            type="button"
+            class="btn btn-sm btn-outline-light btn-icon dice-menu"
+            [ngbPopover]="popContent"
+            
+            [placement]="position"
+            [disabled]="actionLinks === null || actionLinks === []"
+            container="body"
+            #popover="ngbPopover"
+            (click)="clickStopper($event)"
+            title="Dice Menu"
+        >
+            <inspire-icon fillColor="currentColor" name="grid" cssClasses="text-{{ state }}"></inspire-icon>
+        </button>

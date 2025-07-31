@@ -1,0 +1,67 @@
+<div class="header-container d-flex justify-content-between align-items-center px-4 py-3 shadow-sm">
+  <div class="logo"></div>
+
+  <div class="right-section d-flex align-items-center gap-4">
+    <div class="d-flex align-items-center gap-3">
+
+      <!-- Buttons -->
+      <div class="button-group d-flex gap-2 mx-2">
+        <button class="btn btn-sm btn-secondary" (click)="saveSelectedTasks()">Save</button>
+        <button class="btn btn-sm btn-secondary">View</button>
+        <button class="btn btn-sm btn-secondary">Edit</button>
+      </div>
+
+    <!-- <div class="form-group d-flex align-items-center to-recipient">
+  <label for="recipient" class="to-label" title="To">To:</label>
+  <select
+    id="recipient"
+    class="form-select form-select-sm to-dropdown"
+    [(ngModel)]="selectedRecipient"
+    title="Select Recipient"
+  >
+    <option value="" selected>--Select Recipient--</option>
+    <option *ngFor="let recipient of recipientList" [value]="recipient.email">
+      ({{ recipient.email }})
+    </option>
+  </select>
+</div> -->
+
+<!-- Label Column -->
+<div class="col-lg-1 col-sm-7 mt-2">
+  <label
+    for="recipient"
+    class="col col-form-label fw-bold"
+    title="To"
+  >
+    To
+  </label>
+</div>
+
+<!-- Dropdown Column -->
+<div class="col-lg-7 col-sm-7 mt-2">
+  <div class="inspire-form-group">
+    <select
+      id="recipient"
+      name="recipient"
+      class="form-control form-control-sm form-select"
+      [(ngModel)]="selectedRecipient"
+      title="Select Recipient"
+    >
+      <option value="">--Select Recipient--</option>
+      <option
+        *ngFor="let recipient of recipientList"
+        [value]="recipient.email"
+      >
+        ({{ recipient.email }})
+      </option>
+    </select>
+  </div>
+</div>
+
+
+      <!-- User Info -->
+      <div class="small fw-bold">{{ username }} ({{ email }})</div>
+    </div>
+  </div>
+</div>
+
