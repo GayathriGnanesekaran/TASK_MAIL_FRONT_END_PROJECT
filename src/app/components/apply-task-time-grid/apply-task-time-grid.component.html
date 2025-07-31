@@ -1,210 +1,290 @@
-<form [formGroup]="ApplyTaskTimeFormGroup">
-    <div class="form-group row">
-        <div class="col-lg-2 col-sm-4 mt-2">
-            <label
-                for="category"
-                class="col col-form-label font-weight-bold"
-                title="{{ 'SI_APPS_REFUND_FILTER_FORM.BATCH_STATUS' }}"
-                >category</label
-            >
-        </div>
-        <div class="col-lg-2 col-sm-7 mt-2">
-            <select
-                class="form-control form-control-sm form-select"
-                id="resource"
-                name="resource"
-                formControlName="resource"
-                title="{{ ApplyTaskTimeFormGroup.get('category')?.value}}"
-            >
-                <option value="all">all</option>
-                 <option value="all">all</option>
-                <option
-                    *ngFor="let item of timelist; let i = index"
-                  
-                    [ngValue]="null"
-                >
-            
-                </option>
-            </select>
-        </div>
-
-                
-      
-                
-            
-       
+<div class="card border m-4">
+  <div class="card-header border-bottom d-flex">
+    <div
+      class="title"
+      title="{{ 'SI_APPS_REFUND_BATCH_LIST.TITLE_BATCHES_DETAILS' }}"
+    >
+      Task
     </div>
-                <div class="tableFixHead text-nowrap" style="height: 28vh;">
-                <table class="table table-sm table-w-150 td-border-0">
-                    <thead class="text-primary sticky-top border-bottom">
-                        <tr class="bg-tbl-head">
-                           <!-- 1 <th class="w-p-28"></th> -->
-                           3<th >
-                                ytesyt
-                            </th>
-                            <!-- 5 <th class="text-right" title="{{ 'SI_APPS_REFUND_BATCH_LIST.TRANS_AMT' | translate }}"> -->
-                           5 <th class="text-right" >
-                                check
-                            </th>
-                           6<th class="text-right" >
-                               test
-                            </th>
-                           7<th >
-                                check
-                            </th>
-                            8<th >
-                                test
-                            </th>
-                            9<th >
-                                check
-                            </th>
-                           10<th class="text-right" >
-                                test
-                            </th>
-                        </tr>
-                    </thead>
+  </div>
+  <div class="card-body p-0">
+    <form [formGroup]="ApplyTaskTimeFormGroup">
+      <div class="tableFixHead text-nowrap">
+        <table class="table table-sm table-w-150 table-borderless">
+          <thead class="text-primary sticky-top border-bottom">
+            <tr class="bg-tbl-head">
+              <!-- 1 <th class="w-p-28"></th> -->
+              <th class="ps-2">Resource</th>
+              <!-- 5 <th  title="{{ 'SI_APPS_REFUND_BATCH_LIST.TRANS_AMT' | translate }}"> -->
+              <th>Type</th>
+              <th>Month</th>
+              <th>Day</th>
+              <th>Year</th>
+              <th>In Time</th>
+              <th>Out Time</th>
+              <th>Total Duration</th>
+              <th>Break Duration</th>
+              <th>Act. Work Hours</th>
+              <th class="pe-2">Comments</th>
+            </tr>
+          </thead>
 
-                    <!-- <tbody (wheel)="onScroll($event)" > -->
-                    <tbody  >
-                        <tr >
-                                <!-- 1.<td class="w-p-28" id="addDetail{{ i }}"> -->
-                                    <!-- [item]="batchDetailForm" -->
-                                    <!-- <si-dice-menu
+          <!-- <tbody (wheel)="onScroll($event)" > -->
+          <tbody>
+            <tr class="p-3">
+              <!-- 1.<td class="w-p-28" id="addDetail{{ i }}"> -->
+              <!-- [item]="batchDetailForm" -->
+              <!-- <si-dice-menu
                                         [actionLinks]="timelist"
                                         [hostComponent]="'PaymentBatchDetailsGridListComponent'"
                                     ></si-dice-menu> -->
-                                <!-- </td> -->
-                                <td class="w-8">
-                                    <div
-                                        class="input-group input-group-sm"
-                                    >
-                                        <input
-                                            class="form-control"
-                                            type="text"
-                                            id="tranRefNo"
-                                            maxlength="25"
-                                            />
-                                            <!-- formControlName="tranRefNo" -->
-                                            <!-- [title]="
-                                            batchDetailForm.get('tranRefNo').value
-                                            ? batchDetailForm.get('tranRefNo').value
+              <!-- </td> -->
+              <td class="w-10 pt-3 ps-2">
+                <div class="input-group input-group-sm"></div>
+                <select
+                  class="form-control form-control-sm form-select"
+                  id="resource"
+                  name="resource"
+                  formControlName="resource"
+                  title="{{ ApplyTaskTimeFormGroup?.get('resource')?.value }}"
+                >
+                  <option value="all">all</option>
+                  <option value="all">all</option>
+                  <option
+                    *ngFor="let item of resourceList; let i = index"
+                    [ngValue]="item"
+                  >
+                    {{ item }}
+                  </option>
+                </select>
+              </td>
+              <td class="w-10 pt-3">
+                <div
+                  class="input-group input-group-sm"
+                  [ngClass]="{
+                    required: ApplyTaskTimeFormGroup?.get('types')?.errors
+                  }"
+                ></div>
+                <select
+                  class="form-control form-control-sm form-select"
+                  id="types"
+                  name="types"
+                  title="{{ ApplyTaskTimeFormGroup?.get('types')?.value }}"
+                  formControlName="types"
+                >
+                  <option value="all">all</option>
+                  <option value="all">all</option>
+                  <option
+                    *ngFor="let item of typeList; let i = index"
+                    [ngValue]="item"
+                  >
+                    {{ item }}
+                  </option>
+                </select>
+              </td>
+
+              <td class="w-4 pt-3">
+                <div
+                  class="input-group input-group-sm"
+                  [ngClass]="{
+                    required: ApplyTaskTimeFormGroup?.get('month')?.errors
+                  }"
+                >
+                  <input
+                    class="form-control"
+                    type="text"
+                    id="month"
+                    maxlength="25"
+                    formControlName="month"
+                  />
+                  <!-- formControlName="month" -->
+                  <!-- [title]="
+                                            ApplyTaskTimeFormGroup.get('month').value
+                                            ? ApplyTaskTimeFormGroup.get('month').value
                                             : ''
                                             " -->
-                                    </div>
-                                </td>
-                                <td class="w-8">
-                                    <div
-                                        class="input-group input-group-sm"
-                                    >
-                                        <input
-                                            class="form-control text-right"
-                                            type="text"
-                                            placeholder="0.00"
-                                            id="fullAmount"
-                                            thousandSeparator=","
-                                            maxlength="14"
-                                            />
-                                            <!-- formControlName="fullAmount" -->
-                                    </div>
-                                </td>
-                                <td class="w-8">
-                                    <div
-                                        class="input-group input-group-sm"
-                                        >
-                                        <!-- [ngClass]="{ required: batchDetailForm.get('tranAmount').errors }" -->
-                                        <input
-                                            class="form-control text-right"
-                                            type="text"
-                                            placeholder="0.00"
-                                            id="tranAmount"
-                                            thousandSeparator=","
-                                            maxlength="14"
-                                            />
-                                            <!-- formControlName="tranAmount" -->
-                                    </div>
-                                </td>
-                                <td class="w-10">
-                                    <div class="input-group input-group-sm">
-                                        <input
-                                            class="form-control"
-                                            type="text"
-                                            id="invoiceNo"
-                                            autocomplete="off"
-                                            maxlength="15"
-                                            />
-                                            <!-- formControlName="invoiceNo" -->
-                                    </div>
-                                </td>
-                                <td class="">
-                                    <div
-                                        class="input-group input-group-sm"
-                                        >
-                                        <!-- [ngClass]="{ required: batchDetailForm.get('accountNo').errors }" -->
-                                        <input
-                                            class="form-control"
-                                            type="text"
-                                            id="accountNo"
-                                            autocomplete="off"
-                                            maxlength="25"
-                                            />
-                                            <!-- formControlName="accountNo" -->
-                                            <!-- oninput="this.value=this.value.replace(/[ ,.]/g && /[^0-9^A-Z^a-z-]/g, '')"
-                                            (blur)="accountInvoiceBlur($event.target.value, i, 'Account')"
-                                            [title]="
-                                                batchDetailForm.get('accountNo').value
-                                                    ? batchDetailForm.get('accountNo').value
-                                                    : ''
+                </div>
+              </td>
+              <td class="w-4 pt-3">
+                <div
+                  class="input-group input-group-sm"
+                  [ngClass]="{
+                    required: ApplyTaskTimeFormGroup?.get('day')?.errors
+                  }"
+                >
+                  <input
+                    class="form-control"
+                    type="text"
+                    id="day"
+                    maxlength="25"
+                    formControlName="day"
+                  />
+                  <!-- formControlName="day" -->
+                  <!-- [title]="
+                                            ApplyTaskTimeFormGroup.get('day').value
+                                            ? ApplyTaskTimeFormGroup.get('day').value
+                                            : ''
                                             " -->
-                                        <!-- <span
-                                            class="px-2"
-                                            [ngClass]="{
-                                                'disabled-wrapper':
-                                                    batchDetailForm.disabled || selectedBatch.batchStatus == 'Posted'
-                                            }"
-                                            ><i-search
-                                                style="cursor: pointer;"
-                                                class="icon icon-sm"
-                                                (click)="openAccountSearch(i)"
-                                            ></i-search
-                                        ></span> -->
-                                    </div>
-                                </td>
-                                <td class="">
-                                    <div class="input-group input-group-sm">
-                                        <input
-                                            class="form-control"
-                                            type="text"
-                                            id="accountName"
-                                            readonly
-                                            
-                                            />
-                                            <!-- formControlName="accountName" -->
-                                    </div>
-                                </td>
-                                <td class="w-10">
-                                    <div class="input-group input-group-sm">
-                                        <input
-                                            class="form-control text-right"
-                                            type="text"
-                                            id="acctbalance"
-                                            maxlength="15"
-                                            />
-                                            <!-- [value]="
-                                                batchDetailsFormArray.controls[i].get('acctbalance').value
-                                                    | number: '1.2-2'
-                                            "
-                                            readonly
-                                            [title]="batchDetailForm.get('acctbalance').value | number: '1.2-2'" -->
-                                    </div>
-                                </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-</form>
+                </div>
+              </td>
+              <td class="w-8 pt-3">
+                <div
+                  class="input-group input-group-sm"
+                  [ngClass]="{
+                    required: ApplyTaskTimeFormGroup?.get('year')?.errors
+                  }"
+                >
+                  <input
+                    class="form-control"
+                    type="text"
+                    id="year"
+                    maxlength="25"
+                    formControlName="year"
+                  />
+                  <!-- formControlName="year" -->
+                  <!-- [title]="
+                                            ApplyTaskTimeFormGroup.get('year').value
+                                            ? ApplyTaskTimeFormGroup.get('year').value
+                                            : ''
+                                            " -->
+                </div>
+              </td>
+              <td class="w-8 pt-3">
+                <div
+                  class="input-group input-group-sm"
+                  [ngClass]="{
+                    required: ApplyTaskTimeFormGroup?.get('intime')?.errors
+                  }"
+                >
+                  <input
+                    class="form-control"
+                    type="text"
+                    id="intime"
+                    maxlength="25"
+                    formControlName="intime"
+                  />
+                  <!-- formControlName="intime" -->
+                  <!-- [title]="
+                                            ApplyTaskTimeFormGroup.get('intime').value
+                                            ? ApplyTaskTimeFormGroup.get('intime').value
+                                            : ''
+                                            " -->
+                </div>
+              </td>
+              <td class="w-8 pt-3">
+                <div
+                  class="input-group input-group-sm"
+                  [ngClass]="{
+                    required: ApplyTaskTimeFormGroup?.get('outtime')?.errors
+                  }"
+                >
+                  <input
+                    class="form-control"
+                    type="text"
+                    id="outtime"
+                    maxlength="25"
+                    formControlName="outtime"
+                  />
+                  <!-- formControlName=" outtime" -->
+                  <!-- [title]="
+                                            ApplyTaskTimeFormGroup.get(' outtime').value
+                                            ? ApplyTaskTimeFormGroup.get(' outtime').value
+                                            : ''
+                                            " -->
+                </div>
+              </td>
+              <td class="w-8 pt-3">
+                <div
+                  class="input-group input-group-sm"
+                  [ngClass]="{
+                    required:
+                      ApplyTaskTimeFormGroup?.get('totalduration')?.errors
+                  }"
+                >
+                  <input
+                    class="form-control"
+                    type="text"
+                    id="  totalduration"
+                    maxlength="25"
+                    readonly
+                    formControlName="totalduration"
+                  />
+                  <!-- formControlName="  totalduration" -->
+                  <!-- [title]="
+                                            ApplyTaskTimeFormGroup.get('  totalduration').value
+                                            ? ApplyTaskTimeFormGroup.get('  totalduration').value
+                                            : ''
+                                            " -->
+                </div>
+              </td>
+              <td class="w-8 pt-3">
+                <div
+                  class="input-group input-group-sm"
+                  [ngClass]="{
+                    required:
+                      ApplyTaskTimeFormGroup?.get('breakduration')?.errors
+                  }"
+                >
+                  <input
+                    class="form-control"
+                    type="text"
+                    id="breakduration"
+                    maxlength="25"
+                    formControlName="breakduration"
+                  />
+                  <!-- formControlName="   breakduration" -->
+                  <!-- [title]="
+                                            ApplyTaskTimeFormGroup.get('   breakduration').value
+                                            ? ApplyTaskTimeFormGroup.get('   breakduration').value
+                                            : ''
+                                            " -->
+                </div>
+              </td>
+              <td class="w-8 pt-3">
+                <div
+                  class="input-group input-group-sm"
+                  [ngClass]="{
+                    required: ApplyTaskTimeFormGroup?.get('actworkhrs')?.errors
+                  }"
+                >
+                  <input
+                    class="form-control"
+                    type="text"
+                    id="actworkhrs"
+                    maxlength="25"
+                    readonly
+                    formControlName="actworkhrs"
+                  />
+                  <!-- formControlName="   actworkhrs" -->
+                  <!-- [title]="
+                                            ApplyTaskTimeFormGroup.get('   actworkhrs').value
+                                            ? ApplyTaskTimeFormGroup.get('   actworkhrs').value
+                                            : ''
+                                            " -->
+                </div>
+              </td>
 
-<!-- <div class="col-lg-1  col-sm-11 text-center mt-2 px-3">
-    <button type="button" class="btn btn-sm btn-primary " (click)="resetForm()">
-        Reset
-    </button>
-</div> -->
+              <td class="w-8 pt-3 pe-2">
+                <div class="input-group input-group-sm">
+                  <input
+                    class="form-control"
+                    type="text"
+                    id="comments"
+                    maxlength="25"
+                    formControlName="comments"
+                  />
+                  <!-- formControlName="     comments" -->
+                  <!-- [title]="
+                                            ApplyTaskTimeFormGroup.get('     comments').value
+                                            ? ApplyTaskTimeFormGroup.get('     comments').value
+                                            : ''
+                                            " -->
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </form>
+  </div>
+</div>

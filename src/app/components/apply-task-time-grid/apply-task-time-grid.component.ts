@@ -1,5 +1,6 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+
 
 @Component({
   selector: 'app-apply-task-time-grid',
@@ -7,8 +8,13 @@ import { FormGroup } from '@angular/forms';
   templateUrl: './apply-task-time-grid.component.html',
   styleUrl: './apply-task-time-grid.component.css'
 })
-export class ApplyTaskTimeGridComponent {
+export class ApplyTaskTimeGridComponent implements OnInit{
   @Input() ApplyTaskTimeFormGroup!:FormGroup
-  timelist=[]
-
+  resourceList=['Gayathri']
+  typeList=['present']
+  constructor(){
+  }
+  ngOnInit(): void {
+   
+  }
 }

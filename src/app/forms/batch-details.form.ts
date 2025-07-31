@@ -42,7 +42,7 @@ export const  ApplyTaskTimeEntity: IFormObject = {
         ],
         disabled: false,
     },
-     date: {
+     day: {
         id: 5,
         label: '',
         value: null,
