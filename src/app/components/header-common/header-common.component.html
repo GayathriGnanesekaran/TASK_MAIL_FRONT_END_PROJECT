@@ -5,63 +5,52 @@
     <div class="d-flex align-items-center gap-3">
 
       <!-- Buttons -->
-      <div class="button-group d-flex gap-2 mx-2">
-        <button class="btn btn-sm btn-secondary" (click)="saveSelectedTasks()">Save</button>
-        <button class="btn btn-sm btn-secondary">View</button>
-        <button class="btn btn-sm btn-secondary">Edit</button>
-      </div>
-
-    <!-- <div class="form-group d-flex align-items-center to-recipient">
-  <label for="recipient" class="to-label" title="To">To:</label>
-  <select
-    id="recipient"
-    class="form-select form-select-sm to-dropdown"
-    [(ngModel)]="selectedRecipient"
-    title="Select Recipient"
-  >
-    <option value="" selected>--Select Recipient--</option>
-    <option *ngFor="let recipient of recipientList" [value]="recipient.email">
-      ({{ recipient.email }})
-    </option>
-  </select>
-</div> -->
-
-<!-- Label Column -->
-<div class="col-lg-1 col-sm-7 mt-2">
-  <label
-    for="recipient"
-    class="col col-form-label fw-bold"
-    title="To"
-  >
-    To
-  </label>
-</div>
-
-<!-- Dropdown Column -->
-<div class="col-lg-7 col-sm-7 mt-2">
-  <div class="inspire-form-group">
-    <select
-      id="recipient"
-      name="recipient"
-      class="form-control form-control-sm form-select"
-      [(ngModel)]="selectedRecipient"
-      title="Select Recipient"
-    >
-      <option value="">--Select Recipient--</option>
-      <option
-        *ngFor="let recipient of recipientList"
-        [value]="recipient.email"
-      >
-        ({{ recipient.email }})
-      </option>
-    </select>
-  </div>
-</div>
-
-
-      <!-- User Info -->
-      <div class="small fw-bold">{{ username }} ({{ email }})</div>
+    <ng-template #popContent>
+    <div class="user-meta">
+        <div class="card border-0">
+            <div class="card-body p-2">
+                <div class="media" >
+                    <img
+                        class="mr-2"
+                        src="imgsrc"
+                        alt="Generic placeholder image"
+                        style="width: 75px; height: auto;"
+                    />
+                    <div class="media-body">
+                        <h5
+                            class="mt-0 mb-1"
+                           
+                        >
+                            Rathish
+                        </h5>
+                        <div class="mb-2" >
+                           {{'rloganathan@simplesolve.com'}}
+                        </div>
+                        <div class="actions mt-3" title="My Profile">
+                           
+                            <a class="mr-2 btn btn-sm btn-outline-primary"  title="Logout">Logout</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
-</div>
+</ng-template>
+
+<ng-container >
+    <button
+        
+        type="button"
+        class="btn btn-sm btn-dark text-light"
+        [ngbPopover]="popContent"
+        placement="bottom-right"
+        title="My Profile"
+        [autoClose]="true"
+        container="body"      
+    >
+        <inspire-icon class="icon icon-sm" name="user"></inspire-icon>
+       Rathish
+    </button>
+</ng-container>
+
 

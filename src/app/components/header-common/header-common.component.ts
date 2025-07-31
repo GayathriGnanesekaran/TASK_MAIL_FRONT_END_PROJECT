@@ -8,6 +8,7 @@ import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@ang
   styleUrl: './header-common.component.css'
 })
 export class HeaderCommonComponent {
+  imgsrc='../../../assets/dummy-profile.jpg'
 saveSelectedRows() {
 throw new Error('Method not implemented.');
 }
