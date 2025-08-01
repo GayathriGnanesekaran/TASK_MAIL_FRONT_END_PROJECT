@@ -14,10 +14,10 @@ export const  ApplyTaskTimeEntity: IFormObject = {
         ],
         disabled:false,
     },
-    types: {
+    type: {
         id: 1,
         label: '',
-        value: null,
+        value: 'PRESENT',
         type: 'text',
         validations: [
              {
@@ -42,7 +42,7 @@ export const  ApplyTaskTimeEntity: IFormObject = {
         ],
         disabled: false,
     },
-     day: {
+     date: {
         id: 5,
         label: '',
         value: null,
@@ -70,7 +70,7 @@ export const  ApplyTaskTimeEntity: IFormObject = {
         ],
         disabled: false,
     },
-     intime: {
+     inTime: {
         id: 5,
         label: '',
         value: null,
@@ -84,7 +84,7 @@ export const  ApplyTaskTimeEntity: IFormObject = {
         ],
         disabled: false,
     },
-     outtime: {
+     outTime: {
         id: 5,
         label: '',
         value: null,
@@ -98,7 +98,7 @@ export const  ApplyTaskTimeEntity: IFormObject = {
         ],
         disabled: false,
     },
-    totalduration: {
+    totalDuration: {
         id: 1,
         label: '',
         value: null,
@@ -106,7 +106,7 @@ export const  ApplyTaskTimeEntity: IFormObject = {
         validations: [],
         disabled: false,
     },
-    breakduration: {
+    breakDuration: {
         id: 1,
         label: '',
         value: null,
@@ -114,7 +114,7 @@ export const  ApplyTaskTimeEntity: IFormObject = {
         validations: [],
         disabled: false,
     },
-     actworkhrs: {
+    actWorkHours: {
         id: 1,
         label: '',
         value: null,

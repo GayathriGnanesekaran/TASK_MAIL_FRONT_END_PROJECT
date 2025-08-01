@@ -20,6 +20,7 @@ import { ApplyTaskTimeScheduleComponent } from './components/apply-task-time-sch
 import { ApplypageComponent } from './containers/applypage/applypage.component';
 import { DiceMenuComponent } from './components/dice-menu/dice-menu.component';
 import {
+  NgbActiveModal,
     // NgbButtonsModule,
     // NgbDropdownModule,
     // NgbModalModule,
@@ -31,6 +32,7 @@ import { InspireIconComponent } from './components/inspire-icon.component';
 import { NavigationComponent } from './containers/navigation/navigation.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { PagenotfoundComponent } from './components/pagenotfound/pagenotfound.component';
+import { AlertPopupComponent } from './containers/alert-popup/alert-popup.component';
 
 
 
@@ -53,6 +55,7 @@ import { PagenotfoundComponent } from './components/pagenotfound/pagenotfound.co
     HeaderCommonComponent,
     InspireIconComponent,
       DiceMenuComponent,
+      AlertPopupComponent,
   ],
   imports: [
     BrowserModule,
@@ -65,7 +68,8 @@ import { PagenotfoundComponent } from './components/pagenotfound/pagenotfound.co
     NgbModule
    ],
   providers: [
-   provideHttpClient()
+   provideHttpClient(),
+   NgbActiveModal
   ],
   bootstrap: [AppComponent]
 })

@@ -1,33 +1,19 @@
- <div class="card rounded-0">
-    <div class="card-header shadow-sm sticky-top bg-light">
-        <div class="row">
-            <div class="col-md-12 col-lg-5 title">
-                  Task Mail
-            </div>
-        </div>
-    </div>
-</div>
+<app-header-common [loggeduser]="loggeduser"></app-header-common>
 <div class="container mt-3 pe-2">
   <div class="row me-2">
     <div class="col-3 pr-0">
       <div ngbNav #nav="ngbNav" [(activeId)]="active" class="nav nav-tabs-left nav-pills flex-column" orientation="vertical"
       >
         <ng-container ngbNavItem="apply" >
-          <button ngbNavLink class="border-primary p-2">Apply</button>
-          <ng-template ngbNavContent >
-           
-          </ng-template>
+          <button ngbNavLink class="border-primary p-2" [routerLink]="['/task/apply-page']" routerLinkActive="active">Apply</button>
         </ng-container>
         <ng-container ngbNavItem="view">
-          <button ngbNavLink class="border-primary">View</button>
-          <ng-template ngbNavContent>
-           
-          </ng-template>
+          <button ngbNavLink class="border-primary" [routerLink]="['/task/view-page']" >View</button>
         </ng-container>
       </div>
     </div>
-
-   
+    
+    
     <div class="col-21 border border-primary m-0  pl-0">
       <ng-container *ngIf="active === 'apply'">
         <app-applypage></app-applypage>

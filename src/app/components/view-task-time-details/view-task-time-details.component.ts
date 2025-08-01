@@ -16,9 +16,9 @@ export class ViewTaskTimeDetailsComponent {
 viewTimeDetalArray:any= [
   {
     resource: "Gayathri",
-    types: "Present",
+    type: "Present",
     month: "07",
-    day: "28",
+    date: "28",
     year:'2025',
     intime:'10:30',
     outtime:'19:30',
@@ -28,9 +28,9 @@ viewTimeDetalArray:any= [
     comments:'permission',
   },{
     resource: "Nila",
-    types: "Permission",
+    type: "Permission",
     month: "07",
-    day: "27",
+    date: "27",
     year:'2025',
     intime:'10:30',
     outtime:'19:30',

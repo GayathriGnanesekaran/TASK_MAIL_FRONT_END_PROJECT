@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
 import { ApplicationEventService } from '../../services/application-event.service';
 import { Subject, takeUntil } from 'rxjs';
+import { TaskmailserviceService } from '../../services/taskmailservice.service';
 @Component({
   selector: 'app-navigation',
   standalone: false,
@@ -11,11 +12,18 @@ import { Subject, takeUntil } from 'rxjs';
 })
 export class NavigationComponent {
   active = 'apply';
+  
   public _destroyed$ = new Subject();
+  loggeduser: any;
 
-  constructor(private applicationEventService: ApplicationEventService) {}
+  constructor(private applicationEventService: ApplicationEventService,
+    private taskmailserviceService:TaskmailserviceService
+  ) {
+        
+  }
 
   ngOnInit(): void {
+        this.loggeduser = this.taskmailserviceService.getLoginSaveSuccess()
     this.applicationEventService.appEvent$
       .pipe(takeUntil(this._destroyed$))
       .subscribe((event) => {
@@ -27,6 +35,12 @@ export class NavigationComponent {
           }
         }
       });
+
+
+ 
+//         this.taskmailserviceService.getLoginSaveSuccess().subscribe((userData:any)=>{
+//  this.loggeduser=userData
+//         })
   }
 
   ngOnDestroy(): void {

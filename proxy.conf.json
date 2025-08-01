@@ -1,0 +1,8 @@
+{
+  "/api": {
+    "target": "https://192.168.2.107:9005",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  }
+}

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
@@ -8,6 +8,7 @@ import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@ang
   styleUrl: './header-common.component.css'
 })
 export class HeaderCommonComponent {
+  @Input()loggeduser:any
   imgsrc='../../../assets/dummy-profile.jpg'
 saveSelectedRows() {
 throw new Error('Method not implemented.');

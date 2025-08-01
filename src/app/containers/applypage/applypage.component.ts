@@ -5,7 +5,8 @@ import { FormGroup } from '@angular/forms';
 import { FormUtilService } from '../../services/form-util.service';
 import { ApplyTaskTimeEntity } from '../../forms/task-time-form';
 import { ApplicationEventService } from '../../services/application-event.service';
-import { Subject, takeUntil } from 'rxjs';
+import { forkJoin, Subject, takeUntil } from 'rxjs';
+import { TaskmailserviceService } from '../../services/taskmailservice.service';
 
 @Component({
   selector: 'app-applypage',
@@ -16,16 +17,22 @@ import { Subject, takeUntil } from 'rxjs';
 export class ApplypageComponent implements OnInit {
   public ApplyTaskTimeFormGroup!: FormGroup;
   public _destroyed$ = new Subject();
+  resourceDropdown=[]
+  typeDropdown=[]
+  loggeduser: any;
 
   constructor(
     private formUtilService: FormUtilService,
-    private applicationEventService: ApplicationEventService
+    private applicationEventService: ApplicationEventService,
+    private taskmailserviceService : TaskmailserviceService
   ) {
     this.ApplyTaskTimeFormGroup =
       this.formUtilService.buildFormGroup(ApplyTaskTimeEntity);
     console.log('data', this.ApplyTaskTimeFormGroup);
+         
   }
   ngOnInit() {
+    this.loggeduser = this.taskmailserviceService.getLoginSaveSuccess()
     this.ApplyTaskTimeFormGroup.patchValue({
       resource: 'Gayathri',
       types: 'present',
@@ -39,7 +46,22 @@ export class ApplypageComponent implements OnInit {
       actworkhrs: '8:00',
       comments: 'task completion',
     });
-
+     forkJoin({
+            type: this.taskmailserviceService.fetchDropDownValue('TYPE_HEADER'),
+            resource: this.taskmailserviceService.fetchDropDownValue('USERSNAME'),
+        }).subscribe((data) => {
+                if (data) {
+                    if (data.type && data.type.length > 0) {
+                        this.typeDropdown=data.type
+                    }
+                    if (data.resource && data.resource.length > 0 ) {
+                       this.resourceDropdown=data.resource
+                    }
+                }
+               const defaultResource:any= this.resourceDropdown.find((x:any)=>x.codeName === this.loggeduser.userName.toUpperCase());
+               this.ApplyTaskTimeFormGroup?.get('resource')?.patchValue(defaultResource.codeName) 
+               
+            });
     this.applicationEventService.appEvent$.pipe(takeUntil(this._destroyed$)).subscribe((event) => {
         switch (event.name) {
           case 'EDIT': {
@@ -49,6 +71,7 @@ export class ApplypageComponent implements OnInit {
           }
         }
       });
+        
   }
 
   ngOnDestroy(): void {

@@ -48,13 +48,12 @@
                   formControlName="resource"
                   title="{{ ApplyTaskTimeFormGroup?.get('resource')?.value }}"
                 >
-                  <option value="all">all</option>
-                  <option value="all">all</option>
+                 
                   <option
-                    *ngFor="let item of resourceList; let i = index"
-                    [ngValue]="item"
+                    *ngFor="let item of resourceDropdown; let i = index"
+                    [ngValue]="item.codeName"
                   >
-                    {{ item }}
+                    {{ item.screenName }}
                   </option>
                 </select>
               </td>
@@ -62,23 +61,22 @@
                 <div
                   class="input-group input-group-sm"
                   [ngClass]="{
-                    required: ApplyTaskTimeFormGroup?.get('types')?.errors
+                    required: ApplyTaskTimeFormGroup?.get(' types')?.errors
                   }"
                 ></div>
                 <select
                   class="form-control form-control-sm form-select"
-                  id="types"
-                  name="types"
-                  title="{{ ApplyTaskTimeFormGroup?.get('types')?.value }}"
-                  formControlName="types"
+                  id=" type"
+                  name=" type"
+                  title="{{ ApplyTaskTimeFormGroup?.get(' type')?.value }}"
+                  formControlName="type"
                 >
-                  <option value="all">all</option>
-                  <option value="all">all</option>
+                  
                   <option
-                    *ngFor="let item of typeList; let i = index"
-                    [ngValue]="item"
+                    *ngFor="let item of typeDropdown; let i = index"
+                    [ngValue]="item.codeName"
                   >
-                    {{ item }}
+                    {{ item.screenName }}
                   </option>
                 </select>
               </td>
@@ -109,20 +107,20 @@
                 <div
                   class="input-group input-group-sm"
                   [ngClass]="{
-                    required: ApplyTaskTimeFormGroup?.get('day')?.errors
+                    required: ApplyTaskTimeFormGroup?.get('date')?.errors
                   }"
                 >
                   <input
                     class="form-control"
                     type="text"
-                    id="day"
+                    id="date"
                     maxlength="25"
-                    formControlName="day"
+                    formControlName="date"
                   />
-                  <!-- formControlName="day" -->
+                  <!-- formControlName="date" -->
                   <!-- [title]="
-                                            ApplyTaskTimeFormGroup.get('day').value
-                                            ? ApplyTaskTimeFormGroup.get('day').value
+                                            ApplyTaskTimeFormGroup.get('date').value
+                                            ? ApplyTaskTimeFormGroup.get('date').value
                                             : ''
                                             " -->
                 </div>
@@ -153,17 +151,17 @@
                 <div
                   class="input-group input-group-sm"
                   [ngClass]="{
-                    required: ApplyTaskTimeFormGroup?.get('intime')?.errors
+                    required: ApplyTaskTimeFormGroup?.get(' inTime')?.errors
                   }"
                 >
                   <input
                     class="form-control"
                     type="text"
-                    id="intime"
+                    id=" inTime"
                     maxlength="25"
-                    formControlName="intime"
+                    formControlName=" inTime"
                   />
-                  <!-- formControlName="intime" -->
+                  <!-- formControlName=" inTime" -->
                   <!-- [title]="
                                             ApplyTaskTimeFormGroup.get('intime').value
                                             ? ApplyTaskTimeFormGroup.get('intime').value
@@ -175,20 +173,20 @@
                 <div
                   class="input-group input-group-sm"
                   [ngClass]="{
-                    required: ApplyTaskTimeFormGroup?.get('outtime')?.errors
+                    required: ApplyTaskTimeFormGroup?.get('outTime')?.errors
                   }"
                 >
                   <input
                     class="form-control"
                     type="text"
-                    id="outtime"
+                    id="outTime"
                     maxlength="25"
-                    formControlName="outtime"
+                    formControlName="outTime"
                   />
-                  <!-- formControlName=" outtime" -->
+                  <!-- formControlName=" outTime" -->
                   <!-- [title]="
-                                            ApplyTaskTimeFormGroup.get(' outtime').value
-                                            ? ApplyTaskTimeFormGroup.get(' outtime').value
+                                            ApplyTaskTimeFormGroup.get(' outTime').value
+                                            ? ApplyTaskTimeFormGroup.get(' outTime').value
                                             : ''
                                             " -->
                 </div>
@@ -198,21 +196,21 @@
                   class="input-group input-group-sm"
                   [ngClass]="{
                     required:
-                      ApplyTaskTimeFormGroup?.get('totalduration')?.errors
+                      ApplyTaskTimeFormGroup?.get('totalDuration')?.errors
                   }"
                 >
                   <input
                     class="form-control"
                     type="text"
-                    id="  totalduration"
+                    id="  totalDuration"
                     maxlength="25"
                     readonly
-                    formControlName="totalduration"
+                    formControlName="totalDuration"
                   />
-                  <!-- formControlName="  totalduration" -->
+                  <!-- formControlName="  totalDuration" -->
                   <!-- [title]="
-                                            ApplyTaskTimeFormGroup.get('  totalduration').value
-                                            ? ApplyTaskTimeFormGroup.get('  totalduration').value
+                                            ApplyTaskTimeFormGroup.get('  totalDuration').value
+                                            ? ApplyTaskTimeFormGroup.get('  totalDuration').value
                                             : ''
                                             " -->
                 </div>
@@ -222,20 +220,20 @@
                   class="input-group input-group-sm"
                   [ngClass]="{
                     required:
-                      ApplyTaskTimeFormGroup?.get('breakduration')?.errors
+                      ApplyTaskTimeFormGroup?.get('breakDuration')?.errors
                   }"
                 >
                   <input
                     class="form-control"
                     type="text"
-                    id="breakduration"
+                    id="breakDuration"
                     maxlength="25"
-                    formControlName="breakduration"
+                    formControlName="breakDuration"
                   />
-                  <!-- formControlName="   breakduration" -->
+                  <!-- formControlName="   breakDuration" -->
                   <!-- [title]="
-                                            ApplyTaskTimeFormGroup.get('   breakduration').value
-                                            ? ApplyTaskTimeFormGroup.get('   breakduration').value
+                                            ApplyTaskTimeFormGroup.get('   breakDuration').value
+                                            ? ApplyTaskTimeFormGroup.get('   breakDuration').value
                                             : ''
                                             " -->
                 </div>
@@ -244,21 +242,21 @@
                 <div
                   class="input-group input-group-sm"
                   [ngClass]="{
-                    required: ApplyTaskTimeFormGroup?.get('actworkhrs')?.errors
+                    required: ApplyTaskTimeFormGroup?.get('actWorkHours')?.errors
                   }"
                 >
                   <input
                     class="form-control"
                     type="text"
-                    id="actworkhrs"
+                    id="actWorkHours"
                     maxlength="25"
                     readonly
-                    formControlName="actworkhrs"
+                    formControlName="actWorkHours"
                   />
-                  <!-- formControlName="   actworkhrs" -->
+                  <!-- formControlName="   actWorkHours" -->
                   <!-- [title]="
-                                            ApplyTaskTimeFormGroup.get('   actworkhrs').value
-                                            ? ApplyTaskTimeFormGroup.get('   actworkhrs').value
+                                            ApplyTaskTimeFormGroup.get('   actWorkHours').value
+                                            ? ApplyTaskTimeFormGroup.get('   actWorkHours').value
                                             : ''
                                             " -->
                 </div>

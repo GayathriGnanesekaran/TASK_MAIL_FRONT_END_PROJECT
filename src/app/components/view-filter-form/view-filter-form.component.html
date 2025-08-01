@@ -63,7 +63,7 @@
                 >From Date</label
             >
         </div>
-        <div class="col-lg-2 col-sm-7 mt-2">
+        <div class="col-lg-3 col-sm-7 mt-2">
             <div class="input-group input-group-sm" [ngClass]="{ required: viewTaskFilterFormGroup.get('fromDate')?.errors }">
                 <input
                     type="text"
@@ -86,15 +86,15 @@
                             : ''
                     "
                 />
-                <div class="input-group-append">
+                <div class="input-group-append spk-calender">
                     <button
-                        class="btn btn-outline-secondary"
+                        class="btn btn-secondary btn-outline-secondary"
                         (click)="accountDateFrom.toggle()"
                         type="button"
                         [disabled]="viewTaskFilterFormGroup.disabled"
                         [disabled]="viewTaskFilterFormGroup.disabled"
                     >
-                        <!-- <i-calendar class="icon icon-sm"></i-calendar> -->
+                        <inspire-icon  name="calendar"></inspire-icon>
                     </button>
                 </div>
             </div>
@@ -108,7 +108,7 @@
                 >To Date</label
             >
         </div>
-        <div class="col-lg-2 col-sm-7 mt-2">
+        <div class="col-lg-3 col-sm-7 mt-2">
             <div class="input-group input-group-sm" [ngClass]="{ required: viewTaskFilterFormGroup.get('toDate')?.errors }">
                 <input
                     type="text"
@@ -131,14 +131,14 @@
                             : ''
                     "
                 />
-                <div class="input-group-append">
+                <div class="input-group-append spk-calender">
                     <button
-                        class="btn btn-outline-secondary"
+                        class=" btn-secondary btn-outline-secondary"
                         (click)="accountDateTo.toggle()"
                         type="button"
                         [disabled]="viewTaskFilterFormGroup.disabled"
                     >
-                        <!-- <i-calendar class="icon icon-sm"></i-calendar> -->
+                        <inspire-icon  name="calendar"></inspire-icon>
                     </button>
                 </div>
             </div>

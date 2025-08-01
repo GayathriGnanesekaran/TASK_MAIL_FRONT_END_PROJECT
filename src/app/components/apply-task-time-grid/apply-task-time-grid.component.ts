@@ -10,8 +10,9 @@ import { FormGroup } from '@angular/forms';
 })
 export class ApplyTaskTimeGridComponent implements OnInit{
   @Input() ApplyTaskTimeFormGroup!:FormGroup
-  resourceList=['Gayathri']
-  typeList=['present']
+  @Input() resourceDropdown:any[]=[]
+  @Input() typeDropdown:any[]=[]
+
   constructor(){
   }
   ngOnInit(): void {
