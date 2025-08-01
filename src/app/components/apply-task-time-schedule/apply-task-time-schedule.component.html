@@ -6,28 +6,31 @@
   </button>
 </div> -->
 
-<div class="card border m-4" >
-  <div class="card-header  d-flex" >
+<div class="card border m-4">
+  <div class="card-header d-flex">
     <p class="title">Add Task</p>
     <div class="actions col">
-    <button
-      type="button"
-      class="btn btn-sm btn-icon btn-secondary"
-      (click)="addTaskRow()"
-      title="Add Task"
-    >
-      <i class="fa fa-plus small"></i>
-    </button>
+      <button
+        type="button"
+        class="btn btn-sm btn-icon btn-secondary"
+        (click)="addTaskRow()"
+        title="Add Task"
+      >
+        <i class="fa fa-plus small"></i>
+      </button>
     </div>
   </div>
   <div class="card-body p-0">
     <form [formGroup]="taskForm">
-      <div class="tableFixHead text-nowrap"style="height: 45vh;">
-        <table class="table table-sm td-border-0" style="width:180% !important">
+      <div class="tableFixHead text-nowrap" style="height: 45vh">
+        <table
+          class="table table-sm td-border-0"
+          style="width: 180% !important"
+        >
           <!-- <table class="table table-bordered table-sm table-smaller align-middle"></table> -->
           <thead class="text-primary sticky-top border-bottom">
             <tr>
-              <th  class="w-p-28"> </th>
+              <th class="w-p-28"></th>
               <th title="S.No">S.No</th>
               <th title="Project">Project</th>
               <th title="Sprint">Sprint</th>
@@ -53,71 +56,471 @@
           </thead>
 
           <tbody formArrayName="tasks">
-            <tr *ngFor="let task of tasks.controls; let i = index"
-            [ngClass]="{ active: i === selectedRow }"
-            (click)="selectBatchDetail(task.getRawValue(), i)">
+            <tr
+              *ngFor="let task of tasks.controls; let i = index"
+              [ngClass]="{ active: i === selectedRow }"
+              (click)="selectBatchDetail(task.getRawValue(), i)"
+            >
               <ng-container [formGroupName]="i">
-              <td class="w-p-28"> <app-dice-menu
-                                        [actionLinks]="diceOptions"
-                                        [hostComponent]="'PaymentBatchDetailsGridListComponent'"
-                                        [item]="task"
-                                        [index]="i"
-                                        ></app-dice-menu>
-                                        </td>
-              <td><input type="text" [value]="i+1" readonly class="form-control-plaintext" /></td>
-              <td>
-                <select formControlName="project" class="form-select form-select-sm project-box">
-                  <option value="">--Select--</option>
-                  <option *ngFor="let proj of projectOptions" [value]="proj">{{ proj }}</option>
-                </select>
-              </td>
-              <td><input type="text" formControlName="sprint" /></td>
-              <td><input type="text" formControlName="taskName" required /></td>
-              <td>
-                <select formControlName="type">
-                  <option value="">--Select--</option>
-                  <option *ngFor="let type of typeOptions" [value]="type">{{ type }}</option>
-                </select>
-              </td>
-              <td><input type="text" formControlName="sowIssueNo" /></td>
-              <td>
-                <select formControlName="isBillable">
-                  <option value="">--Select--</option>
-                  <option *ngFor="let opt of isBillableOptions" [value]="opt">{{ opt }}</option>
-                </select>
-              </td>
-              <td>
-                <select formControlName="billingType">
-                  <option value="">--Select--</option>
-                  <option *ngFor="let bill of billingTypeOptions" [value]="bill">{{ bill }}</option>
-                </select>
-              </td>
-              <td><input type="text" formControlName="resName" /></td>
-              <td><input type="text" formControlName="team" /></td>  
-              <td><input type="date" formControlName="estStartDate" /></td>
-              <td><input type="date" formControlName="estEndDate" /></td>
-              <td><input type="text" formControlName="estHours" /></td>
-              <td><input type="date" formControlName="actStartDate" /></td>
-              <td><input type="date" formControlName="actEndDate" /></td>
-              <td><input type="time" formControlName="startTime" /></td>
-              <td><input type="time" formControlName="endTime" /></td>
-              <td><input type="text" formControlName="actHours" /></td>
-              <td><input type="text" formControlName="percentage" /></td>
-              <td><input type="text" formControlName="status" /></td>
-              <td><input type="text" formControlName="comments" /></td>
-              <!-- <td><button type="submit" (click)="onsubmit()" style="border: none;"><i class="fa-solid fa-floppy-disk"></i></button></td> -->
-            </ng-container>
+                <td class="w-p-28">
+                  <app-dice-menu
+                    [actionLinks]="diceOptions"
+                    [hostComponent]="'PaymentBatchDetailsGridListComponent'"
+                    [item]="task"
+                    [index]="i"
+                  ></app-dice-menu>
+                </td>
+                <td>
+                  <input
+                    type="text"
+                    [value]="i + 1"
+                    readonly
+                    class="p-0 form-control-plaintext"
+                  />
+                </td>
+
+                <td class="w-6 ps-2">
+                  <div class="input-group input-group-sm"></div>
+                  <select
+                    class="form-control form-control-sm form-select"
+                    id="resource"
+                    name="resource"
+                    formControlName="project"
+                  >
+                    <!-- title="{{ tasks?.get('resource')?.value }}" -->
+                    <option value="all">--Select--</option>
+
+                    <option
+                      *ngFor="let item of projectOptions; let i = index"
+                      [ngValue]="item"
+                    >
+                      {{ item }}
+                    </option>
+                  </select>
+                </td>
+                <td class="w-5 pe-2">
+                  <div class="input-group input-group-sm">
+                    <input
+                      class="form-control form-control-sm"
+                      type="text"
+                      id="sprint"
+                      maxlength="25"
+                      formControlName="sprint"
+                    />
+                  </div>
+                </td>
+                <td class="w-7 pe-2">
+                  <div class="input-group input-group-sm">
+                    <input
+                      class="form-control form-control-sm"
+                      type="text"
+                      id="taskName"
+                      formControlName="taskName"
+                    />
+                  </div>
+                </td>
+                <!-- <td><input type="text" formControlName="taskName" required /></td> -->
+                <td class="w-7 ps-2">
+                  <div class="input-group input-group-sm"></div>
+                  <select
+                    class="form-control form-control-sm form-select"
+                    id="type"
+                    name="type"
+                    formControlName="type"
+                  >
+                    <!-- title="{{ tasks?.get('resource')?.value }}" -->
+                    <option value="all">--Select--</option>
+
+                    <option
+                      *ngFor="let type of typeOptions; let i = index"
+                      [ngValue]="type"
+                    >
+                      {{ type }}
+                    </option>
+                  </select>
+                </td>
+                <td class="w-5 pe-2">
+                  <div class="input-group input-group-sm">
+                    <input
+                      class="form-control form-control-sm"
+                      type="text"
+                      id="sowIssueNo"
+                      formControlName="sowIssueNo"
+                    />
+                  </div>
+                </td>
+                <td class="w-2 ps-2">
+                  <div class="input-group input-group-sm"></div>
+                  <select
+                    class="form-control form-control-sm form-select"
+                    id="isBillable"
+                    name="isBillable"
+                    formControlName="isBillable"
+                  >
+                    <!-- title="{{ tasks?.get('resource')?.value }}" -->
+                    <option value="all">--Select--</option>
+
+                    <option
+                      *ngFor="let opt of isBillableOptions; let i = index"
+                      [ngValue]="opt"
+                    >
+                      {{ opt }}
+                    </option>
+                  </select>
+                </td>
+                <td class="w-5 ps-2">
+                  <div class="input-group input-group-sm"></div>
+                  <select
+                    class="form-control form-control-sm form-select"
+                    id="billingType"
+                    name="billingType"
+                    formControlName="billingType"
+                  >
+                    <!-- title="{{ tasks?.get('resource')?.value }}" -->
+                    <option value="all">--Select--</option>
+
+                    <option
+                      *ngFor="let bill of billingTypeOptions; let i = index"
+                      [ngValue]="bill"
+                    >
+                      {{ bill }}
+                    </option>
+                  </select>
+                </td>
+                <td class="w-10 pe-2">
+                  <div class="input-group input-group-sm">
+                    <input
+                      class="form-control form-control-sm"
+                      type="text"
+                      id="resName"
+                      formControlName="resName"
+                    />
+                  </div>
+                </td>
+                <td class="w-5 pe-2">
+                  <div class="input-group input-group-sm">
+                    <input
+                      class="form-control form-control-sm"
+                      type="text"
+                      id="team"
+                      formControlName="team"
+                    />
+                  </div>
+                </td>
+
+                <td class="w-6">
+                  <div
+                    class="input-group input-group-sm"
+                    [ngClass]="{
+                      required: tasks.controls[i].get('estStartDate')?.errors
+                    }"
+                  >
+                    <input
+                      type="text"
+                      class="form-control form-control-sm"
+                      placeholder="MM/DD/YYYY"
+                      #accountDateFrom="bsDatepicker"
+                      [bsValue]="tasks.controls[i].get('estStartDate').value"
+                      id="estStartDate"
+                      name="estStartDate"
+                      (bsValueChange)="
+                        dateValueChange($event, 'estStartDate', i)
+                      "
+                      (blur)="dateValueChange($event, 'estStartDate', i)"
+                      [bsConfig]="bsConfig"
+                      bsDatepicker
+                      mask="M0/d0/0000"
+                      triggers="dblclick:click"
+                      [disabled]="tasks.disabled"
+                      [title]="
+                        (tasks.controls[i].get('estStartDate').value
+                        | date : 'MM/dd/yyyy')
+                          ? (tasks.controls[i].get('estStartDate').value
+                            | date : 'MM/dd/yyyy')
+                          : ''
+                      "
+                    />
+                    <div class="input-group-append">
+                      <button
+                        class="btn btn-outline-secondary"
+                        (click)="accountDateFrom.toggle()"
+                        type="button"
+                        [disabled]="tasks.disabled"
+                        [disabled]="tasks.disabled"
+                      >
+                        <inspire-icon
+                          name="calendar"
+                          class="icon icon-sm"
+                        ></inspire-icon>
+                      </button>
+                    </div>
+                  </div>
+                </td>
+
+                <td class="w-6">
+                  <div
+                    class="input-group input-group-sm"
+                    [ngClass]="{
+                      required: tasks.controls[i].get('estEndDate')?.errors
+                    }"
+                  >
+                    <input
+                      type="text"
+                      class="form-control form-control-sm"
+                      placeholder="MM/DD/YYYY"
+                      #accountDateFrom="bsDatepicker"
+                      [bsValue]="tasks.controls[i].get('estEndDate').value"
+                      id="estEndDate"
+                      name="estEndDate"
+                      (bsValueChange)="dateValueChange($event, 'estEndDate', i)"
+                      (blur)="dateValueChange($event, 'estEndDate', i)"
+                      [bsConfig]="bsConfig"
+                      bsDatepicker
+                      mask="M0/d0/0000"
+                      triggers="dblclick:click"
+                      [disabled]="tasks.disabled"
+                      [title]="
+                        (tasks.controls[i].get('estEndDate').value
+                        | date : 'MM/dd/yyyy')
+                          ? (tasks.controls[i].get('estEndDate').value
+                            | date : 'MM/dd/yyyy')
+                          : ''
+                      "
+                    />
+                    <div class="input-group-append">
+                      <button
+                        class="btn btn-outline-secondary"
+                        (click)="accountDateFrom.toggle()"
+                        type="button"
+                        [disabled]="tasks.disabled"
+                        [disabled]="tasks.disabled"
+                      >
+                        <inspire-icon
+                          name="calendar"
+                          class="icon icon-sm"
+                        ></inspire-icon>
+                      </button>
+                    </div>
+                  </div>
+                </td>
+
+                <!-- <td><input type="date" formControlName="estStartDate" /></td> -->
+                <!-- <td><input type="date" formControlName="estEndDate" /></td> -->
+
+                <td class="w-4 pe-2">
+                  <div class="input-group input-group-sm">
+                    <input
+                      class="form-control form-control-sm"
+                      type="text"
+                      id="estHours"
+                      formControlName="estHours"
+                    />
+                  </div>
+                </td>
+
+                <td class="w-6">
+                  <div
+                    class="input-group input-group-sm"
+                    [ngClass]="{
+                      required: tasks.controls[i].get('actStartDate')?.errors
+                    }"
+                  >
+                    <input
+                      type="text"
+                      class="form-control form-control-sm"
+                      placeholder="MM/DD/YYYY"
+                      #accountDateFrom="bsDatepicker"
+                      [bsValue]="tasks.controls[i].get('actStartDate')?.value"
+                      id="actStartDate"
+                      name="actStartDate"
+                      (bsValueChange)="
+                        dateValueChange($event, 'actStartDate', i)
+                      "
+                      (blur)="dateValueChange($event, 'actStartDate', i)"
+                      [bsConfig]="bsConfig"
+                      bsDatepicker
+                      mask="M0/d0/0000"
+                      triggers="dblclick:click"
+                      [title]="
+                        (tasks.controls[i].get('actStartDate')?.value
+                        | date : 'MM/dd/yyyy')
+                          ? (tasks.controls[i].get('actStartDate')?.value
+                            | date : 'MM/dd/yyyy')
+                          : ''
+                      "
+                    />
+                    <div class="input-group-append">
+                      <button
+                        class="btn btn-outline-secondary"
+                        (click)="accountDateFrom.toggle()"
+                        type="button"
+                      >
+                        <inspire-icon
+                          name="calendar"
+                          class="icon icon-sm"
+                        ></inspire-icon>
+                      </button>
+                    </div>
+                  </div>
+                </td>
+
+                <td class="w-6">
+                  <div
+                    class="input-group input-group-sm"
+                    [ngClass]="{
+                      required: tasks.controls[i].get('actEndDate')?.errors
+                    }"
+                  >
+                    <input
+                      type="number"
+                      class="form-control form-control-sm"
+                      placeholder="MM/DD/YYYY"
+                      #accountDateFrom="bsDatepicker"
+                      [bsValue]="tasks.controls[i].get('actEndDate')?.value"
+                      id="actEndDate"
+                      name="actEndDate"
+                      (bsValueChange)="dateValueChange($event, 'actEndDate', i)"
+                      (blur)="dateValueChange($event, 'actEndDate', i)"
+                      [bsConfig]="bsConfig"
+                      bsDatepicker
+                      mask="M0/d0/0000"
+                      triggers="dblclick:click"
+                      [disabled]="tasks.disabled"
+                      [title]="
+                        (tasks.get('actEndDate')?.value | date : 'MM/dd/yyyy')
+                          ? (tasks.get('actEndDate')?.value
+                            | date : 'MM/dd/yyyy')
+                          : ''
+                      "
+                    />
+                    <div class="input-group-append">
+                      <button
+                        class="btn btn-outline-secondary"
+                        (click)="accountDateFrom.toggle()"
+                        type="button"
+                        [disabled]="tasks.disabled"
+                        [disabled]="tasks.disabled"
+                      >
+                        <inspire-icon
+                          name="calendar"
+                          class="icon icon-sm"
+                        ></inspire-icon>
+                      </button>
+                    </div>
+                  </div>
+                </td>
+
+                <!-- <td><input type="date" formControlName="actStartDate" /></td>
+              <td><input type="date" formControlName="actEndDate" /></td> -->
+
+                <td class="w-5">
+                  <div
+                    class="input-group input-group-sm"
+                    [ngClass]="{
+                      required: tasks?.get('startTime')?.errors
+                    }"
+                  >
+                    <input
+                      class="form-control form-control-sm"
+                      type="text"
+                      id="startTime"
+                      maxlength="8"
+                      oninput="this.value = this.value.replace(/[^0-9 ]|^ /g,'')"
+                      formControlName="startTime"
+                    />
+                    <!-- formControlName="day" -->
+                    <!-- [title]="
+                                            tasks.get('day').value
+                                            ? tasks.get('day').value
+                                            : ''
+                                            " -->
+                  </div>
+                </td>
+                <td class="w-5">
+                  <div
+                    class="input-group input-group-sm"
+                    [ngClass]="{
+                      required: tasks?.get('endTime')?.errors
+                    }"
+                  >
+                    <input
+                      class="form-control form-control-sm"
+                      type="text"
+                      id="endTime"
+                      oninput="this.value = this.value.replace(/[^0-9 ]|^ /g,'')"
+                      maxlength="8"
+                      formControlName="endTime"
+                    />
+                    <!-- formControlName="day" -->
+                    <!-- [title]="
+                                            tasks.get('day').value
+                                            ? tasks.get('day').value
+                                            : ''
+                                            " -->
+                  </div>
+                </td>
+
+                <!-- <td><input type="time" formControlName="startTime" /></td>
+              <td><input type="time" formControlName="endTime" /></td> -->
+
+                <td class="w-2">
+                  <div class="input-group input-group-sm">
+                    <input
+                      class="form-control form-control-sm"
+                      type="text"
+                      id="actHours"
+                      oninput="this.value = this.value.replace(/[^0-9 ]|^ /g,'')"
+                      maxlength="8"
+                      formControlName="actHours"
+                    />
+                  </div>
+                </td>
+                <td class="w-2">
+                  <div class="input-group input-group-sm">
+                    <input
+                      class="form-control form-control-sm"
+                      type="text"
+                      id="percentage"
+                       maxlength="3"
+                       oninput="this.value = this.value.replace(/[^0-9 ]|^ /g,'')"
+                      formControlName="percentage"
+                    />
+                  </div>
+                </td>
+                <td class="w-4">
+                  <div class="input-group input-group-sm">
+                    <input
+                      class="form-control form-control-sm"
+                      type="text"
+                      id="status"
+                      formControlName="status"
+                    />
+                  </div>
+                </td>
+                <td class="w-4">
+                  <div class="input-group input-group-sm">
+                    <input
+                      class="form-control form-control-sm"
+                      type="text"
+                      id="comments"
+                      formControlName="comments"
+                    />
+                  </div>
+                </td>
+
+                <!-- <td><button type="submit" (click)="onsubmit()" style="border: none;"><i class="fa-solid fa-floppy-disk"></i></button></td> -->
+              </ng-container>
             </tr>
           </tbody>
         </table>
       </div>
-  
-     
-  
-        <!-- Error Message -->
-        <div *ngIf="showError" class="text-danger mt-2 px-2">Please fill required fields for the selected rows before saving.</div>
-      </form>
+
+      <!-- Error Message -->
+      <div *ngIf="showError" class="text-danger mt-2 px-2">
+        Please fill required fields for the selected rows before saving.
       </div>
+    </form>
+  </div>
 </div>
-  <!-- </div> -->
+<!-- </div> -->
 <!-- </div> -->
