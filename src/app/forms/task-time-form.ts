@@ -38,7 +38,8 @@ export const  ApplyTaskTimeEntity: IFormObject = {
                 validator: 'required',
                 value: true,
                 message: 'month is mandatory',
-            },
+            }
+          
         ],
         disabled: false,
     },
@@ -52,7 +53,7 @@ export const  ApplyTaskTimeEntity: IFormObject = {
                 validator: 'required',
                 value: true,
                 message: 'date is mandatory',
-            },
+            }
         ],
         disabled: false,
     },
@@ -66,7 +67,7 @@ export const  ApplyTaskTimeEntity: IFormObject = {
                 validator: 'required',
                 value: true,
                 message: 'year is mandatory',
-            },
+            }
         ],
         disabled: false,
     },
@@ -80,7 +81,7 @@ export const  ApplyTaskTimeEntity: IFormObject = {
                 validator: 'required',
                 value: true,
                 message: 'Intime is mandatory',
-            },
+            }
         ],
         disabled: false,
     },
@@ -94,7 +95,8 @@ export const  ApplyTaskTimeEntity: IFormObject = {
                 validator: 'required',
                 value: true,
                 message: 'Outtime is mandatory',
-            },
+            }
+            
         ],
         disabled: false,
     },
@@ -111,7 +113,13 @@ export const  ApplyTaskTimeEntity: IFormObject = {
         label: '',
         value: null,
         type: 'text',
-        validations: [],
+        validations: [
+            {
+                validator: 'required',
+                value: true,
+                message: 'BreakDuration is mandatory',
+            }
+        ],
         disabled: false,
     },
     actWorkHours: {

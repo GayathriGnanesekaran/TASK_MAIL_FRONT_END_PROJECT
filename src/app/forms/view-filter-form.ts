@@ -10,14 +10,6 @@ export const ViewTaskFilterForm: IFormObject = {
         validations: [],
         disabled: false,
     },
-    category: {
-        id: 1,
-        label: 'category',
-        value: '',
-        type: 'text',
-        validations: [],
-        disabled: false,
-    },
     fromDate: {
         id: 2,
         label: 'Batch From',

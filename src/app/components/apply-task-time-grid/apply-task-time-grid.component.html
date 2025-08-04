@@ -40,28 +40,33 @@
                                     ></si-dice-menu> -->
               <!-- </td> -->
               <td class="w-10 pt-3 ps-2">
-                <div class="input-group input-group-sm"></div>
-                <select
+                <div
+                  class="input-group input-group-sm"
+                  [ngClass]="{
+                    required:ApplyTaskTimeFormGroup?.get('resource')?.errors
+                  }"
+                >
+               <select
                   class="form-control form-control-sm form-select"
                   id="resource"
                   name="resource"
                   formControlName="resource"
                   title="{{ ApplyTaskTimeFormGroup?.get('resource')?.value }}"
                 >
-                 
-                  <option
+                <option
                     *ngFor="let item of resourceDropdown; let i = index"
                     [ngValue]="item.codeName"
                   >
                     {{ item.screenName }}
                   </option>
                 </select>
-              </td>
+                </div>
+                </td>
               <td class="w-10 pt-3">
                 <div
                   class="input-group input-group-sm"
                   [ngClass]="{
-                    required: ApplyTaskTimeFormGroup?.get(' types')?.errors
+                    required: ApplyTaskTimeFormGroup?.get('types')?.errors
                   }"
                 ></div>
                 <select
@@ -82,7 +87,7 @@
               </td>
 
               <td class="w-4 pt-3">
-                <div
+               <div
                   class="input-group input-group-sm"
                   [ngClass]="{
                     required: ApplyTaskTimeFormGroup?.get('month')?.errors
@@ -92,7 +97,7 @@
                     class="form-control"
                     type="text"
                     id="month"
-                    maxlength="25"
+                    maxlength="2"
                     formControlName="month"
                   />
                   <!-- formControlName="month" -->
@@ -114,7 +119,7 @@
                     class="form-control"
                     type="text"
                     id="date"
-                    maxlength="25"
+                    maxlength="2"
                     formControlName="date"
                   />
                   <!-- formControlName="date" -->
@@ -136,7 +141,7 @@
                     class="form-control"
                     type="text"
                     id="year"
-                    maxlength="25"
+                    maxlength="4"
                     formControlName="year"
                   />
                   <!-- formControlName="year" -->
@@ -151,15 +156,16 @@
                 <div
                   class="input-group input-group-sm"
                   [ngClass]="{
-                    required: ApplyTaskTimeFormGroup?.get(' inTime')?.errors
+                    required: ApplyTaskTimeFormGroup?.get('inTime')?.errors
                   }"
                 >
                   <input
                     class="form-control"
                     type="text"
-                    id=" inTime"
-                    maxlength="25"
-                    formControlName=" inTime"
+                    id="inTime"
+                    maxlength="5"
+                    oninput="this.value = this.value.replace(/[^0-9 ]|^ /g,'')"
+                    formControlName="inTime"
                   />
                   <!-- formControlName=" inTime" -->
                   <!-- [title]="
@@ -180,7 +186,8 @@
                     class="form-control"
                     type="text"
                     id="outTime"
-                    maxlength="25"
+                    maxlength="6"
+                    oninput="this.value = this.value.replace(/[^0-9 ]|^ /g,'')"
                     formControlName="outTime"
                   />
                   <!-- formControlName=" outTime" -->
@@ -202,8 +209,8 @@
                   <input
                     class="form-control"
                     type="text"
-                    id="  totalDuration"
-                    maxlength="25"
+                    id="totalDuration"
+                    maxlength="6"
                     readonly
                     formControlName="totalDuration"
                   />
@@ -227,7 +234,7 @@
                     class="form-control"
                     type="text"
                     id="breakDuration"
-                    maxlength="25"
+                    maxlength="6"
                     formControlName="breakDuration"
                   />
                   <!-- formControlName="   breakDuration" -->
@@ -249,7 +256,7 @@
                     class="form-control"
                     type="text"
                     id="actWorkHours"
-                    maxlength="25"
+                    maxlength="6"
                     readonly
                     formControlName="actWorkHours"
                   />

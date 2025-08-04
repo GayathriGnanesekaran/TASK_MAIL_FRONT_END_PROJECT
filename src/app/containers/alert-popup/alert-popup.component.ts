@@ -11,8 +11,8 @@ import { ModalMsg } from '../../components/modal-msg';
   styleUrl: './alert-popup.component.css'
 })
 export class AlertPopupComponent implements OnInit{
-    content: ModalMsg | undefined;
-    title: string | undefined;
+    content!: ModalMsg ;
+    title!: string  ;
 
     constructor(public activeModal: NgbActiveModal) {}
     ngOnInit() {}

@@ -1,4 +1,5 @@
-import { InputError } from "../interfaces/input-error.model";
+import { InputError } from "./input-error.model";
+
 
 
 export class ModalMsg {

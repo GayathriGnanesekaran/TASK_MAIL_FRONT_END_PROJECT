@@ -1,0 +1,42 @@
+<div class="modal-header">
+    <!-- <h5 class="modal-title title" *ngIf="content.type && title">
+        {{ title }}
+    </h5>
+    <h5 class="modal-title title" *ngIf="content.type == 'error' && !title">
+        {{ content.type == 'error' ? 'Errors Description' : 'Message' }}
+    </h5> -->
+    <h5 class="modal-title title" *ngIf="content">
+        {{ content.type == 'error' ? 'Errors Description' : title ? title : 'Message' }}
+    </h5>
+    <button
+        title="Close"
+        type="button"
+        class="btn btn-sm btn-icon btn-primary"
+        aria-label="Close"
+        (click)="activeModal.close('Cross click')"
+        title="Close"
+    >
+        <inspire-icon name="x"></inspire-icon>
+    </button>
+</div>
+<div class="modal-body" [ngClass]="{ 'text-danger': content?.type == 'error' }">
+    <div *ngIf="content" [ngSwitch]="content?.type">
+        <ul class="list-group list-group-flush" *ngSwitchCase="'error'">
+            <li *ngFor="let err of content.errors" [id]="err.name" class="list-group-item">
+                <span>{{ err.content }}</span>
+            </li>
+        </ul>
+        <p *ngSwitchCase="'text'">{{ content.text }}</p>
+        <ul class="list-group list-group-flush" *ngSwitchCase="'shortCut'">
+            <li *ngFor="let msg of content.shortCut" [id]="msg.keyName" class="list-group-item">
+                <span>{{ msg.keyName }} - {{ msg.description }}</span>
+            </li>
+        </ul>
+        <p *ngSwitchDefault>{{ content.text }}</p>
+    </div>
+</div>
+<div class="modal-footer d-flex justify-content-center">
+    <button type="button" class="btn btn-sm btn-secondary" (click)="activeModal.close('Close click')">
+        Ok
+    </button>
+</div>

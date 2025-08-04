@@ -21,6 +21,7 @@ import { ApplypageComponent } from './containers/applypage/applypage.component';
 import { DiceMenuComponent } from './components/dice-menu/dice-menu.component';
 import {
   NgbActiveModal,
+    NgbModalModule,
     // NgbButtonsModule,
     // NgbDropdownModule,
     // NgbModalModule,
@@ -65,7 +66,8 @@ import { AlertPopupComponent } from './containers/alert-popup/alert-popup.compon
     NgbPopoverModule,
     SafeIconPipe,
     BsDatepickerModule,
-    NgbModule
+    NgbModule,
+    NgbModalModule
    ],
   providers: [
    provideHttpClient(),

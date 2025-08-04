@@ -7,6 +7,11 @@ import { ApplyTaskTimeEntity } from '../../forms/task-time-form';
 import { ApplicationEventService } from '../../services/application-event.service';
 import { forkJoin, Subject, takeUntil } from 'rxjs';
 import { TaskmailserviceService } from '../../services/taskmailservice.service';
+import { InputError } from '../../interfaces/input-error.model';
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { ValidationService } from '../../services/validation.service';
+import { ModalMsg } from '../../interfaces/modal-msg';
+import { AlertPopupComponent } from '../alert-popup/alert-popup.component';
 
 @Component({
   selector: 'app-applypage',
@@ -20,11 +25,15 @@ export class ApplypageComponent implements OnInit {
   resourceDropdown=[]
   typeDropdown=[]
   loggeduser: any;
+  pageErrors!: InputError[] ;
+   public valpopupInst!: NgbModalRef | null ;
 
   constructor(
     private formUtilService: FormUtilService,
     private applicationEventService: ApplicationEventService,
-    private taskmailserviceService : TaskmailserviceService
+    private taskmailserviceService : TaskmailserviceService,
+    private modalService: NgbModal,
+    private validationService: ValidationService 
   ) {
     this.ApplyTaskTimeFormGroup =
       this.formUtilService.buildFormGroup(ApplyTaskTimeEntity);
@@ -73,7 +82,27 @@ export class ApplypageComponent implements OnInit {
       });
         
   }
-
+  saveTaskTimeDetails(event?: any, type?: string){
+      if (this.ApplyTaskTimeFormGroup.invalid){
+         this.pageErrors = this.validationService.parseValidationErrors(
+            this.ApplyTaskTimeFormGroup.controls,
+           ApplyTaskTimeEntity
+        );
+        if (this.pageErrors && !this.valpopupInst) {
+            this.valpopupInst = this.modalService.open(AlertPopupComponent, {
+                backdrop: 'static',
+            });
+            this.valpopupInst.componentInstance.content = new ModalMsg('error', '', this.pageErrors);
+            this.valpopupInst.result.then((result) => {
+                if (result === 'Close click' || result === 'Cross click') {
+                    this.valpopupInst?.close();
+                    this.valpopupInst = null;
+                }
+            });
+        }
+     
+      }
+  }
   ngOnDestroy(): void {
     // unsubcribe Observable
     this._destroyed$.next('');
