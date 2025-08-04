@@ -90,7 +90,7 @@ export class ApplypageComponent implements OnInit {
         );
         if (this.pageErrors && !this.valpopupInst) {
             this.valpopupInst = this.modalService.open(AlertPopupComponent, {
-                backdrop: 'static',
+               backdrop: 'static'
             });
             this.valpopupInst.componentInstance.content = new ModalMsg('error', '', this.pageErrors);
             this.valpopupInst.result.then((result) => {

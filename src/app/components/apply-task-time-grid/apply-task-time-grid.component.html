@@ -97,6 +97,7 @@
                     class="form-control"
                     type="text"
                     id="month"
+                    mask="00"
                     maxlength="2"
                     formControlName="month"
                   />
@@ -119,6 +120,7 @@
                     class="form-control"
                     type="text"
                     id="date"
+                    mask="d0"
                     maxlength="2"
                     formControlName="date"
                   />
@@ -141,6 +143,7 @@
                     class="form-control"
                     type="text"
                     id="year"
+                    mask="0000"
                     maxlength="4"
                     formControlName="year"
                   />
@@ -164,6 +167,7 @@
                     type="text"
                     id="inTime"
                     maxlength="5"
+                    mask="Hh:m0"
                     oninput="this.value = this.value.replace(/[^0-9 ]|^ /g,'')"
                     formControlName="inTime"
                   />
@@ -187,7 +191,7 @@
                     type="text"
                     id="outTime"
                     maxlength="6"
-                    oninput="this.value = this.value.replace(/[^0-9 ]|^ /g,'')"
+                    mask="Hh:m0"
                     formControlName="outTime"
                   />
                   <!-- formControlName=" outTime" -->

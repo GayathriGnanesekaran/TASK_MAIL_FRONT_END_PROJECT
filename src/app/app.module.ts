@@ -34,7 +34,7 @@ import { NavigationComponent } from './containers/navigation/navigation.componen
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { PagenotfoundComponent } from './components/pagenotfound/pagenotfound.component';
 import { AlertPopupComponent } from './containers/alert-popup/alert-popup.component';
-
+import {  NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
 
 
 
@@ -67,9 +67,13 @@ import { AlertPopupComponent } from './containers/alert-popup/alert-popup.compon
     SafeIconPipe,
     BsDatepickerModule,
     NgbModule,
-    NgbModalModule
+    NgbModalModule,
+       NgxMaskDirective,
+    NgxMaskPipe,
+    
    ],
   providers: [
+    provideNgxMask(),
    provideHttpClient(),
    NgbActiveModal
   ],

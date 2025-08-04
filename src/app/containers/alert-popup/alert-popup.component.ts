@@ -16,4 +16,8 @@ export class AlertPopupComponent implements OnInit{
 
     constructor(public activeModal: NgbActiveModal) {}
     ngOnInit() {}
+    
+      closeModal() {
+        this.activeModal.close('Close click');
+    }
 }

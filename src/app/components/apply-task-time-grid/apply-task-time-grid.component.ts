@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { IApplicationEvent } from '../../services/application-event.service';
+
 
 
 @Component({
@@ -21,12 +21,5 @@ export class ApplyTaskTimeGridComponent implements OnInit{
    
   }
   
-    save() {
-        const event: IApplicationEvent = {
-            name: 'SAVE_COMPANY_CONTACTS',
-            component: 'CompanyContactsDetailsFormComponent',
-            value: '',
-        };
-        this.applicationEventService.emitAnEvent(event);
-    }
+  
 }
