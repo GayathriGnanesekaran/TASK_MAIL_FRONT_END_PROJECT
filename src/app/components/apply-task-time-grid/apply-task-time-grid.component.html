@@ -13,9 +13,9 @@
         <table class="table table-sm table-w-150 table-borderless">
           <thead class="text-primary sticky-top border-bottom">
             <tr class="bg-tbl-head">
-              <!-- 1 <th class="w-p-28"></th> -->
-              <th class="ps-2">Resource</th>
-              <!-- 5 <th  title="{{ 'SI_APPS_REFUND_BATCH_LIST.TRANS_AMT' | translate }}"> -->
+              
+              <th></th>
+              <th >Resource</th>
               <th>Type</th>
               <th>Month</th>
               <th>Day</th>
@@ -39,7 +39,15 @@
                                         [hostComponent]="'PaymentBatchDetailsGridListComponent'"
                                     ></si-dice-menu> -->
               <!-- </td> -->
-              <td class="w-10 pt-3 ps-2">
+               <td class="w-2 pt-3 ps-2">
+                  <app-dice-menu
+                  [actionLinks]="diceOptions"
+                  [hostComponent]="'ApplyTaskTimeGridComponent'"               
+               
+                  ></app-dice-menu>
+                </td>
+              
+              <td class="w-8 pt-3 ps-0">
                 <div
                   class="input-group input-group-sm"
                   [ngClass]="{
@@ -62,7 +70,7 @@
                 </select>
                 </div>
                 </td>
-              <td class="w-10 pt-3">
+              <td class="w-8 pt-3">
                 <div
                   class="input-group input-group-sm"
                   [ngClass]="{
@@ -98,6 +106,7 @@
                     type="text"
                     id="month"
                     mask="00"
+                    (blur)="validateMonth($event)"
                     maxlength="2"
                     formControlName="month"
                   />
@@ -132,7 +141,7 @@
                                             " -->
                 </div>
               </td>
-              <td class="w-8 pt-3">
+              <td class="w-5 pt-3">
                 <div
                   class="input-group input-group-sm"
                   [ngClass]="{
@@ -155,7 +164,7 @@
                                             " -->
                 </div>
               </td>
-              <td class="w-8 pt-3">
+              <td class="w-5 pt-3">
                 <div
                   class="input-group input-group-sm"
                   [ngClass]="{
@@ -168,18 +177,21 @@
                     id="inTime"
                     maxlength="5"
                     mask="Hh:m0"
-                    oninput="this.value = this.value.replace(/[^0-9 ]|^ /g,'')"
+                    (blur)="updateTotalDuration()"
+                    placeholder="00:00"
+                    [dropSpecialCharacters]="false"
                     formControlName="inTime"
                   />
                   <!-- formControlName=" inTime" -->
                   <!-- [title]="
+                      (blur)="updateTotalDuration($event)"
                                             ApplyTaskTimeFormGroup.get('intime').value
                                             ? ApplyTaskTimeFormGroup.get('intime').value
                                             : ''
                                             " -->
                 </div>
               </td>
-              <td class="w-8 pt-3">
+              <td class="w-5 pt-3">
                 <div
                   class="input-group input-group-sm"
                   [ngClass]="{
@@ -192,6 +204,9 @@
                     id="outTime"
                     maxlength="6"
                     mask="Hh:m0"
+                    [dropSpecialCharacters]="false"
+                    (blur)="updateTotalDuration()"
+                    placeholder="00:00"
                     formControlName="outTime"
                   />
                   <!-- formControlName=" outTime" -->
@@ -214,9 +229,10 @@
                     class="form-control"
                     type="text"
                     id="totalDuration"
-                    maxlength="6"
+                    maxlength="5"
                     readonly
                     formControlName="totalDuration"
+                  
                   />
                   <!-- formControlName="  totalDuration" -->
                   <!-- [title]="
@@ -238,8 +254,12 @@
                     class="form-control"
                     type="text"
                     id="breakDuration"
-                    maxlength="6"
+                    maxlength="5"
+                    mask="Hh:m0"
                     formControlName="breakDuration"
+                    (blur)="updateActualWorkHours()"
+                    [dropSpecialCharacters]="false"
+                    
                   />
                   <!-- formControlName="   breakDuration" -->
                   <!-- [title]="

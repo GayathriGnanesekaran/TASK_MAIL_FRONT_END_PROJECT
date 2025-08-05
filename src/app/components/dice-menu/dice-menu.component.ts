@@ -3,7 +3,7 @@ import { ApplicationEventService, IApplicationEvent } from '../../services/appli
 import { Subject, takeUntil } from 'rxjs';
 import { NgbPopover, NgbPopoverConfig} from '@ng-bootstrap/ng-bootstrap';
 export interface IDiceMenu {
-    codeCode: string;
+    codeName: string;
     screenName: string;
     actionType: string;
 }
@@ -48,7 +48,7 @@ export class DiceMenuComponent {
 
     triggerEvent(link: IDiceMenu) {
         const event: IApplicationEvent = {
-            name: link.codeCode,
+            name: link.codeName,
             component: 'DiceMenuComponent',
             value: { ...this.item, index: this.index, hostComponent: this.hostComponent },
         };

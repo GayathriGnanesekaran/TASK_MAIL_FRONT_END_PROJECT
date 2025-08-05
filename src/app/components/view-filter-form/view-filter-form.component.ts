@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import moment from 'moment';
+import { TaskmailserviceService } from '../../services/taskmailservice.service';
 
 @Component({
   selector: 'app-view-filter-form',
@@ -10,6 +11,12 @@ import moment from 'moment';
 })
 export class ViewFilterFormComponent {
 @Input() viewTaskFilterFormGroup!:FormGroup
+  @Input() useridDropdown:any[]=[]
+constructor( ){
+
+}
+
+
 categoryesList=[]
 userList=[]
   value:any;
@@ -42,7 +49,7 @@ userList=[]
         // };
         // this.applicationEventService.emitAnEvent(event);
     }
-
+    
     dateValueChange(event:any, control:any) {
         this.value = null;
         if (event !== null && event !== '' && event?.target?.value !== null && event?.target?.value !== '') {

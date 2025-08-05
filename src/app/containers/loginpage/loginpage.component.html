@@ -1,9 +1,10 @@
 <div class="login-bg">
-    <div class="container-fluid d-flex justify-content-center align-items-center p-3">
-    <form action="" class="" [formGroup]="loginform" (ngSubmit)="onsubmit()">
-         <P class="text-center text-primary font-weight-bold title" >Welcome To Task Mail</P>
-        <div class="form-group my-3">
-            <input type="text" class="form-control pe-5 ps-3" placeholder="UserID" id="username" name="username" formControlName="username">
+    <div class="d-flex justify-content-center align-items-center bg-glossy w-20  rounded">
+    <div class="col p-3 border-left">
+        <form action="" class="" [formGroup]="loginform" (ngSubmit)="onsubmit()">
+         <P class="text-primary text-center fw-bold" >Welcome To Task Mail</P>
+        <div class="form-group">
+            <input type="text" class="form-control" placeholder="UserID" id="username" name="username" formControlName="userName">
              <div *ngIf="loginform.get('username')?.touched  && loginform.get('username')?.errors">
              <span class="text-danger" *ngIf="loginform.get('username')?.errors?.['required']">
              Username is required
@@ -11,26 +12,38 @@
             </div>
         </div>
         <div class="form-group">
-             <input [type]="showpassword?'text':'password'" class="form-control" placeholder="Password" id="password" name="password" formControlName="password">
-              <span (click)="togglepassword()" class="me-3">
+            <input [type]="showpassword?'text':'password'" class="form-control" placeholder="Password" id="password" name="password" formControlName="passcode">
+            <span (click)="togglepassword()">
                 <i  [ngClass]="showpassword?'fa-solid fa-eye':'fa-solid fa-eye-slash'"></i>
-              </span>
-              <div *ngIf="loginform.get('password')?.touched && loginform.get('password')?.errors">
+            </span>
+            <div *ngIf="loginform.get('password')?.touched && loginform.get('password')?.errors">
              <span class="text-danger" *ngIf="loginform.get('password')?.errors?.['required']">
                  Password is required
              </span>
            </div>
         </div>
-        <div class="form-group ms-4">
-            <input type="checkbox" name="checkbox" id="checkbox" class="form-check-input">
-            <label for="" class="text-primary">Remember My Login</label>
+        <div class="form-group login-remember">
+           <label for="">
+            <input type="checkbox" checked="checked"  id="RememberLogin" name="RememberLogin" value="true">
+           <strong>Remember My Login</strong>
+           </label>
         </div>
-        <div class="form-group text-center my-3">
-           <button class="btn btn-secondary text-white px-3 py-1" >Login</button>
-           <span class="text-danger" *ngIf="loginError">
-                 {{loginError}}
-             </span>
+        <div class="text-center text-danger" *ngIf="loginError">
+            <div class="alert alert-danger">
+                <strong>Error</strong>
+                <div class="danger validation-summary-errors">
+                     {{loginError}}
+                </div>
+               
         </div>
+       </div>
+        <div class="form-group text-center">
+           <button class="btn btn-secondary text-white" >Login</button>
+          
+        </div>
+         
     </form>
+
+    </div>
 </div>
 </div>

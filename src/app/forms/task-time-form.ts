@@ -1,145 +1,178 @@
 import { IFormObject } from '../interfaces/form-object.interface';
-export const  ApplyTaskTimeEntity: IFormObject = {
-    resource: {
-        id: 1,
-        label: '',
-        value: null,
-        type: 'text',
-        validations: [
-            {
-                validator: 'required',
-                value: true,
-                message: 'resource is mandatory',
-            }
-        ],
-        disabled:false,
-    },
-    type: {
-        id: 1,
-        label: '',
-        value: 'PRESENT',
-        type: 'text',
-        validations: [
-             {
-                validator: 'required',
-                value: true,
-                message: 'type is mandatory',
-            }
-        ],
-        disabled:false,
-    },
-    month: {
-        id: 5,
-        label: '',
-        value: null,
-        type: 'InputText',
-        validations: [
-            {
-                validator: 'required',
-                value: true,
-                message: 'month is mandatory',
-            }
-          
-        ],
-        disabled: false,
-    },
-     date: {
-        id: 5,
-        label: '',
-        value: null,
-        type: 'InputText',
-        validations: [
-            {
-                validator: 'required',
-                value: true,
-                message: 'date is mandatory',
-            }
-        ],
-        disabled: false,
-    },
-     year: {
-        id: 5,
-        label: '',
-        value: null,
-        type: 'InputText',
-        validations: [
-            {
-                validator: 'required',
-                value: true,
-                message: 'year is mandatory',
-            }
-        ],
-        disabled: false,
-    },
-     inTime: {
-        id: 5,
-        label: '',
-        value: null,
-        type: 'InputText',
-        validations: [
-            {
-                validator: 'required',
-                value: true,
-                message: 'Intime is mandatory',
-            }
-        ],
-        disabled: false,
-    },
-     outTime: {
-        id: 5,
-        label: '',
-        value: null,
-        type: 'InputText',
-        validations: [
-            {
-                validator: 'required',
-                value: true,
-                message: 'Outtime is mandatory',
-            }
-            
-        ],
-        disabled: false,
-    },
-    totalDuration: {
-        id: 1,
-        label: '',
-        value: null,
-        type: '',
-        validations: [],
-        disabled: false,
-    },
-    breakDuration: {
-        id: 1,
-        label: '',
-        value: null,
-        type: 'text',
-        validations: [
-            {
-                validator: 'required',
-                value: true,
-                message: 'BreakDuration is mandatory',
-            }
-        ],
-        disabled: false,
-    },
-    actWorkHours: {
-        id: 1,
-        label: '',
-        value: null,
-        type: 'text',
-        validations: [],
-        disabled: false,
-    },
-     comments: {
-        id: 1,
-        label: '',
-        value: null,
-        type: 'text',
-        validations: [],
-        disabled: false,
-    },
+export const ApplyTaskTimeEntity: IFormObject = {
+  resource: {
+    id: 1,
+    label: '',
+    value: null,
+    type: 'text',
+    validations: [
+      {
+        validator: 'required',
+        value: true,
+        message: 'Resource should not be blank',
+      },
+    ],
+    disabled: false,
+  },
+  type: {
+    id: 1,
+    label: '',
+    value: 'PRESENT',
+    type: 'text',
+    validations: [
+      {
+        validator: 'required',
+        value: true,
+        message: 'Type should not be blank',
+      },
+    ],
+    disabled: false,
+  },
+  month: {
+    id: 5,
+    label: '',
+    value: null,
+    type: 'InputText',
+    validations: [
+      {
+        validator: 'required',
+        value: true,
+        message: 'Month should not be blank',
+      },
+       {
+          validator: 'mask',
+          value: true,
+          message: 'Please enter a valid Month',
+       }
+    ],
+    disabled: false,
+  },
+  date: {
+    id: 5,
+    label: '',
+    value: null,
+    type: 'InputText',
+    validations: [
+      {
+        validator: 'required',
+        value: true,
+        message: 'Day should not be blank',
+      },
+       {
+          validator: 'mask',
+          value: true,
+          message: 'Please enter a valid Day',
+       }
+    ],
+    disabled: false,
+  },
+  year: {
+    id: 5,
+    label: '',
+    value: null,
+    type: 'InputText',
+    validations: [
+      {
+        validator: 'required',
+        value: true,
+        message: 'Year should not be blank',
+      },
+       {
+          validator: 'mask',
+          value: true,
+          message: 'Please enter a valid Year',
+       }
+    ],
+    disabled: false,
+  },
+  inTime: {
+    id: 5,
+    label: '',
+    value: null,
+    type: 'InputText',
+    validations: [
+      {
+        validator: 'required',
+        value: true,
+        message: 'In Time should not be blank',
+      },
+       {
+          validator: 'mask',
+          value: true,
+          message: 'Please enter a valid InTime',
+       }
+    ],
+    disabled: false,
+  },
+  outTime: {
+    id: 5,
+    label: '',
+    value: null,
+    type: 'InputText',
+    validations: [
+      {
+        validator: 'required',
+        value: true,
+        message: 'Out Time should not be blank',
+      },
+      {
+          validator: 'mask',
+          value: true,
+          message: 'Please enter a valid OutTime',
+       }
+    ],
+    disabled: false,
+  },
+  totalDuration: {
+    id: 1,
+    label: '',
+    value: null,
+    type: '',
+    validations: [],
+    disabled: false,
+  },
+  taskHeaderId: {
+    id: 1,
+    label: '',
+    value: 0,
+    type: '',
+    validations: [],
+    disabled: false,
+  },
 
-    
-    
-}
-
+  breakDuration: {
+    id: 1,
+    label: '',
+    value: null,
+    type: 'text',
+    validations: [
+      {
+        validator: 'required',
+        value: true,
+        message: 'Break Duration should not be blank',
+      },
+      {
+          validator: 'mask',
+          value: true,
+          message: 'Please enter a valid Break Duration',
+       }
+    ],
+    disabled: false,
+  },
+  actWorkHours: {
+    id: 1,
+    label: '',
+    value: null,
+    type: 'text',
+    validations: [],
+    disabled: false,
+  },
+  comments: {
+    id: 1,
+    label: '',
+    value: null,
+    type: 'text',
+    validations: [],
+    disabled: false,
+  },
+};

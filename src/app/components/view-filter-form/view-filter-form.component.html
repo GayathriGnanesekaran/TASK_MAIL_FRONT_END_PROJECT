@@ -16,14 +16,11 @@
                 formControlName="userid"
                 title="{{ viewTaskFilterFormGroup.get('userid')?.value}}"
             >
-                <option value="all">all</option>
-                 <option value="all">all</option>
-                <option
-                    *ngFor="let item of userList; let i = index"
-                  
-                    [ngValue]="null"
+            <option
+                    *ngFor="let item of useridDropdown; let i = index"
+                     [ngValue]="item.codeName"
                 >
-            
+                      {{ item.screenName }}
                 </option>
             </select>
         </div>

@@ -18,8 +18,8 @@ import { Observable } from 'rxjs';
 })
 export class LoginpageComponent {
   loginform = new FormGroup({
-    username: new FormControl('', [Validators.required]),
-    password: new FormControl('', [Validators.required]),
+    userName: new FormControl('', [Validators.required]),
+    passcode: new FormControl('', [Validators.required]),
   });
 
   showpassword: boolean = false;
@@ -34,7 +34,7 @@ export class LoginpageComponent {
   onsubmit() {
     if (this.loginform.valid) {
       this.taskmailserviceService
-        .checkLogIn('gayathri', 'iknjhh')
+        .checkLogIn(this.loginform.getRawValue())
         .subscribe((res) => {
           console.log(res);
           if (res.status === 2) {

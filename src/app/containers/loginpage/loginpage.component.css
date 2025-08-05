@@ -1,13 +1,4 @@
-.container-fluid{
-    width:400px;
-    background-color:rgba(255, 255, 255, 0.8);
-    box-shadow: 5px 5px 3px 0px rgba(0, 0, 0, 0.2);
- 
-    
-}
-input{
-    border: 1px solid #bbb;
-}
+
  .login-bg{    
   background-image: url('../../../assets/si-bg.jpg');
   background-size: cover;
@@ -18,17 +9,11 @@ input{
   display: flex;
   align-items: center;
   justify-content: center;  
-
-}
-button{
-   background-color: #f99700;
-   border: 2px #f99700 solid;
-   border: 4px #f99700 solid;
-   border-radius: 6px;
 }
 i{
     margin-left:225px;
     position: relative;
     bottom: 28px;
-    color: #858383;
+    color: #666;
 }
+
