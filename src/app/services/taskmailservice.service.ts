@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { BehaviorSubject, map, Observable, throwError } from 'rxjs';
 @Injectable({
   providedIn: 'root',
@@ -49,8 +49,19 @@ export class TaskmailserviceService {
       .pipe(map((response: any) => response.data));
   }
   getTaskHeader(data:any){
+     let queryParams = new HttpParams();
+        queryParams = queryParams.append('userName ', data?.userName ? data?.userName?.toString() : null);
+        queryParams = queryParams.append('fromDate', data?.fromDate ? data?.dateFrom : null);
+        queryParams = queryParams.append('toDate', data?.toDate ? data?.dateTo : null);
     return this.httpClient
-    .get(`/api/taskHeader/retrieve`,data)
+    .get(`/api/taskHeader/retrieve`, {
+            params: queryParams,
+        })
     .pipe(map((response:any)=>response.data))
+  }
+  getTaskTimeHeader(headerId:string){
+    return this.httpClient
+    .get(`/api/taskDetails/retrieve/${headerId}`)
+    .pipe(map((response: any) => response.data));
   }
 }

@@ -1,5 +1,8 @@
-import { Component } from '@angular/core';
-import { ApplicationEventService } from '../../services/application-event.service';
+import { Component, Input } from '@angular/core';
+import {
+  ApplicationEventService,
+  IApplicationEvent,
+} from '../../services/application-event.service';
 import { FormUtilService } from '../../services/form-util.service';
 import { Subject, takeUntil } from 'rxjs';
 
@@ -7,50 +10,44 @@ import { Subject, takeUntil } from 'rxjs';
   selector: 'app-view-task-time-details',
   standalone: false,
   templateUrl: './view-task-time-details.component.html',
-  styleUrl: './view-task-time-details.component.css'
+  styleUrl: './view-task-time-details.component.css',
 })
 export class ViewTaskTimeDetailsComponent {
-  selectDetailsRow=0
   public _destroyed$ = new Subject();
-  
-viewTimeDetalArray:any= [
- 
-  ]
 
-  diceOptions:any= [{codeCode: "EDIT",
-    screenName: "Edit",
-    actionType: "click"
-}]
+  @Input() viewTaskTimeArray: any[] = [];
+  @Input() selectDetailsRow = 0;
 
-constructor(
-    private applicationEventService: ApplicationEventService
-  ) {
+  diceOptions: any = [
+    { codeCode: 'EDIT', screenName: 'Edit', actionType: 'click' },
+  ];
+
+  constructor(private applicationEventService: ApplicationEventService) {}
+
+  ngOnInit(): void {
+    this.applicationEventService.appEvent$
+      .pipe(takeUntil(this._destroyed$))
+      .subscribe((event) => {
+        switch (event.name) {
+          case 'EDIT': {
+            console.log('data', event);
+          }
+        }
+      });
   }
 
-ngOnInit(): void {
-
-     this.applicationEventService.appEvent$.pipe(takeUntil(this._destroyed$)).subscribe((event) => {
-            switch (event.name) {
-                case 'EDIT': {
-                  console.log('data',event)
-                  
-                }
+  selectedRow(item: any, index: number) {
+    const event: IApplicationEvent = {
+      name: 'SELECTED__ROW',
+      component: 'ViewTaskTimeDetailsComponent',
+      value: { item, index },
+    };
+    this.applicationEventService.emitAnEvent(event);
   }
-})}
 
-  selectedPrintRefundListRow(item:any, index:number) {
-    this.selectDetailsRow=index
-        // const event: IApplicationEvent = {
-        //     name: 'SELECTED_PRINT_REFUND_DETAILS_ROW',
-        //     component: 'PrintRefundBatchDetailsListComponent',
-        //     value: { item, index },
-        // };
-        // this.applicationEventService.emitAnEvent(event);
-    }
-
-ngOnDestroy(): void {
-          // unsubcribe Observable
-        this._destroyed$.next('');
-        this._destroyed$.complete();
-    }
+  ngOnDestroy(): void {
+    // unsubcribe Observable
+    this._destroyed$.next('');
+    this._destroyed$.complete();
+  }
 }

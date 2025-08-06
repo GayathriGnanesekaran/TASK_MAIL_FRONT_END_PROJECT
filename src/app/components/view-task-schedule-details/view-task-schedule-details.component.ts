@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-view-task-schedule-details',
@@ -7,5 +7,5 @@ import { Component } from '@angular/core';
   styleUrl: './view-task-schedule-details.component.css'
 })
 export class ViewTaskScheduleDetailsComponent {
-
+@Input() viewTaskScheduleArray:any[]=[]
 }

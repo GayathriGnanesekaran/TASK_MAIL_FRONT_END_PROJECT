@@ -19,9 +19,9 @@
 
                 <tbody>
                     
-                    <tr   *ngFor="let item of viewTimeDetalArray; let i = index"
+                    <tr   *ngFor="let item of viewTaskTimeArray; let i = index"
                         [ngClass]="{ active: i === selectDetailsRow }"
-                        (click)="selectedPrintRefundListRow(item, i)">
+                        (click)="selectedRow(item, i)">
                         <td class="w-p-28">
                             <app-dice-menu
                                 [actionLinks]="diceOptions"
@@ -30,17 +30,17 @@
                                 [index]="i"
                             ></app-dice-menu>
                         </td>
-                        <td>{{ item.resource}}</td>
-                        <td>{{ item.type}}</td>
-                        <td>{{ item.month}}</td>
-                        <td>{{ item.date}}</td>
-                        <td>{{ item.year}}</td>
-                        <td>{{ item.inTime}}</td>
-                        <td>{{ item.outTime}}</td>
-                        <td>{{ item.totalDuration}}</td>
-                        <td>{{ item.breakDuration}}</td>
-                        <td>{{ item.actWorkHours}}</td>
-                        <td>{{ item.comments}}</td>
+                        <td>{{ item?.resource}}</td>
+                        <td>{{ item?.type}}</td>
+                        <td>{{ item?.month}}</td>
+                        <td>{{ item?.date}}</td>
+                        <td>{{ item?.year}}</td>
+                        <td>{{ item?.inTime}}</td>
+                        <td>{{ item?.outTime}}</td>
+                        <td>{{ item?.totalDuration}}</td>
+                        <td>{{ item?.breakDuration}}</td>
+                        <td>{{ item?.actWorkHours}}</td>
+                        <td>{{ item?.comments}}</td>
                     </tr>
                     
                 </tbody>

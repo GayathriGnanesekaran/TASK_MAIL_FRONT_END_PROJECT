@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import moment from 'moment';
 import { TaskmailserviceService } from '../../services/taskmailservice.service';
+import { ApplicationEventService, IApplicationEvent } from '../../services/application-event.service';
 
 @Component({
   selector: 'app-view-filter-form',
@@ -11,8 +12,11 @@ import { TaskmailserviceService } from '../../services/taskmailservice.service';
 })
 export class ViewFilterFormComponent {
 @Input() viewTaskFilterFormGroup!:FormGroup
-  @Input() useridDropdown:any[]=[]
-constructor( ){
+@Input() useridDropdown:any[]=[]
+
+constructor(private taskmailserviceService: TaskmailserviceService,
+            private applicationEventService: ApplicationEventService,
+ ){
 
 }
 
@@ -32,13 +36,14 @@ userList=[]
         minDate: this.minDate,
         maxDate: this.maxDate,
     };
+   
    retrieve() {
-        // const event: IApplicationEvent = {
-        //     name: 'RETRIVE_PRINT_REFUND_LIST',
-        //     component: 'PrintRefundFilterFormComponent',
-        //     value: this.printRefundFilterFormGroup.getRawValue(),
-        // };
-        // this.applicationEventService.emitAnEvent(event);
+        const event: IApplicationEvent = {
+            name: 'SEARCH_TASK',
+            component: 'ViewFilterFormComponent',
+            value:'',
+        };
+        this.applicationEventService.emitAnEvent(event);
     }
 
     reset() {

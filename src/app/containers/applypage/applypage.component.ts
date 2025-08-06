@@ -86,7 +86,7 @@ export class ApplypageComponent implements OnInit {
         (x: any) => x.codeName === this.loggeduser.userName.toUpperCase()
       );
             return;
-          }
+          }         
         }
       });
   }

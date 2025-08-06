@@ -26,9 +26,28 @@
                     </tr>
                 </thead>
 
-                <tbody>
-                    <tr>
-                        
+                <tbody >
+                    <tr *ngFor="let item of viewTaskScheduleArray">
+                        <td>{{item.project}}</td>
+                        <td>{{item.sprint}}</td>
+                        <td>{{item.taskName}}</td>
+                        <td>{{item.type}}</td>
+                        <td>{{item.sowIssueNo}}</td>
+                        <td>{{item.isBillable}}</td>
+                        <td>{{item.billingType}}</td>
+                        <td>{{item.resName}}</td>
+                        <td>{{item.team}}</td>
+                        <td>{{item.estStDt}}</td>
+                        <td>{{item.estEndDt}}</td>
+                        <td>{{item.estHours}}</td>
+                        <td>{{item.actStDt}}</td>
+                        <td>{{item.actEndDt}}</td>
+                        <td>{{item.stTime}}</td>
+                        <td>{{item.endTime}}</td>
+                        <td>{{item.actHours}}</td>
+                        <td>{{item.percentage}}</td>
+                        <td>{{item.status}}</td>
+                        <td>{{item.comments}}</td>
                     </tr>
                 </tbody>
             </table>
