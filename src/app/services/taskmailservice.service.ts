@@ -25,7 +25,7 @@ export class TaskmailserviceService {
     localStorage.removeItem(key);
   }
 
-  checkLogIn(data: any) {
+  checkLogIn(data: any){
     return this.httpClient
       .post(`/api/my-profile/user-login`, data)
       .pipe(map((response: any) => response));
@@ -39,13 +39,18 @@ export class TaskmailserviceService {
 
   saveTaskHeader(data: any) {
     return this.httpClient
-      .post(`/api/insert-Taskheader`, data)
+      .post(`/api/taskHeader/insert`, data)
       .pipe(map((response: any) => response.data));
   }
 
-  updateTaskHeader(data: any, headerId: any){
+  updateTaskHeader(data: any){
     return this.httpClient
-      .post(`/api/Update-TaskHeader/${headerId}`, data)
+      .put(`/api/taskHeader/update`, data)
       .pipe(map((response: any) => response.data));
+  }
+  getTaskHeader(data:any){
+    return this.httpClient
+    .get(`/api/taskHeader/retrieve`,data)
+    .pipe(map((response:any)=>response.data))
   }
 }

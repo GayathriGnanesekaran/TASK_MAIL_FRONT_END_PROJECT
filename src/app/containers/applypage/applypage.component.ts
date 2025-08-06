@@ -124,8 +124,7 @@ export class ApplypageComponent implements OnInit {
       } else {
         this.taskmailserviceService
           .updateTaskHeader(
-            this.ApplyTaskTimeFormGroup.getRawValue(),
-            this.ApplyTaskTimeFormGroup.get('taskHeaderId')?.value
+            this.ApplyTaskTimeFormGroup.getRawValue()           
           )
           .subscribe((res) => {
             if (res) {
