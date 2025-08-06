@@ -14,31 +14,7 @@ export class ViewTaskTimeDetailsComponent {
   public _destroyed$ = new Subject();
   
 viewTimeDetalArray:any= [
-  {
-    resource: "Gayathri",
-    type: "Present",
-    month: "07",
-    date: "28",
-    year:'2025',
-    intime:'10:30',
-    outtime:'19:30',
-    totalduration:'19:30',
-    breakduration:'1:00',
-    actworkhrs:'8:00',
-    comments:'permission',
-  },{
-    resource: "Nila",
-    type: "Permission",
-    month: "07",
-    date: "27",
-    year:'2025',
-    intime:'10:30',
-    outtime:'19:30',
-    totalduration:'19:30',
-    breakduration:'1:00',
-    actworkhrs:'8:00',
-    comments:'Good day',
-  }
+ 
   ]
 
   diceOptions:any= [{codeCode: "EDIT",

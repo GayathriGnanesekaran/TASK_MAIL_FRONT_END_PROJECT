@@ -113,7 +113,7 @@ export class ApplypageComponent implements OnInit {
         });
       }
     } else {
-      if (this.ApplyTaskTimeFormGroup.get('taskHeaderId')?.value === 0) {
+      if (this.ApplyTaskTimeFormGroup.get('headerId')?.value === 0) {
         this.taskmailserviceService
           .saveTaskHeader(this.ApplyTaskTimeFormGroup.getRawValue())
           .subscribe((res) => {
