@@ -33,13 +33,13 @@
                 >From Date</label
             >
         </div>
-        <div class="col-lg-3 col-sm-7 mt-2">
+       <div class="col-lg-3 col-sm-7 mt-2">
             <div class="input-group input-group-sm" [ngClass]="{ required: viewTaskFilterFormGroup.get('fromDate')?.errors }">
                 <input
                     type="text"
                     class="form-control"
                     placeholder="MM/DD/YYYY"
-                    #accountDateFrom="bsDatepicker"
+                    #fromDates="bsDatepicker"
                     [bsValue]="viewTaskFilterFormGroup.get('fromDate')?.value"
                     id="fromDate"
                     name="fromDate"
@@ -59,10 +59,10 @@
                 <div class="input-group-append spk-calender">
                     <button
                         class="btn btn-secondary btn-outline-secondary"
-                        (click)="accountDateFrom.toggle()"
+                        (click)="fromDates.toggle()"
                         type="button"
                         [disabled]="viewTaskFilterFormGroup.disabled"
-                        [disabled]="viewTaskFilterFormGroup.disabled"
+                       
                     >
                         <inspire-icon  name="calendar"></inspire-icon>
                     </button>
@@ -74,7 +74,7 @@
                 for="accountDateTo"
                 class="col-form-label font-weight-bold"
                 id="accountDateTo"
-                title="{{ 'SI_APPS_REFUND_FILTER_FORM.TO' }}"
+                title="To Date"
                 >To Date</label
             >
         </div>
@@ -84,12 +84,12 @@
                     type="text"
                     class="form-control"
                     placeholder="MM/DD/YYYY"
-                    #accountDateTo="bsDatepicker"
+                    #toDates="bsDatepicker"
                     [bsValue]="viewTaskFilterFormGroup.get('toDate')?.value"
                     id="toDate"
                     name="toDate"
-                    (bsValueChange)="dateValueChange($event, 'toDate'); "
-                    (blur)="dateValueChange($event, 'toDate'); "
+                    (bsValueChange)="dateValueChange($event, 'toDate');"
+                    (blur)="dateValueChange($event, 'toDate');"
                     [bsConfig]="bsConfig"
                     bsDatepicker
                     mask="M0/d0/0000"
@@ -100,11 +100,11 @@
                             ? (viewTaskFilterFormGroup.get('toDate')?.value | date: 'MM/dd/yyyy')
                             : ''
                     "
-                />
+                    />
                 <div class="input-group-append spk-calender">
                     <button
                         class=" btn-secondary btn-outline-secondary"
-                        (click)="accountDateTo.toggle()"
+                        (click)="toDates.toggle()"
                         type="button"
                         [disabled]="viewTaskFilterFormGroup.disabled"
                     >
@@ -120,7 +120,7 @@
                 (click)="retrieve()"
                 title="Search"
             >
-                Search
+            Search
             </button>
         </div>
         <div class="col-lg-1 ml-4 col-sm-11 text-center mt-2">

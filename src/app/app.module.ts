@@ -13,6 +13,7 @@ import { ViewFilterFormComponent } from './components/view-filter-form/view-filt
 import { ViewTaskTimeDetailsComponent } from './components/view-task-time-details/view-task-time-details.component';
 import { ViewTaskScheduleDetailsComponent } from './components/view-task-schedule-details/view-task-schedule-details.component';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HeaderCommonComponent } from './components/header-common/header-common.component';
 
 import { ApplyTaskTimeGridComponent } from './components/apply-task-time-grid/apply-task-time-grid.component';
@@ -66,9 +67,10 @@ import {  NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
     NgbPopoverModule,
     SafeIconPipe,
     BsDatepickerModule,
+    BrowserAnimationsModule,  
     NgbModule,
     NgbModalModule,
-       NgxMaskDirective,
+    NgxMaskDirective,
     NgxMaskPipe,
     
    ],

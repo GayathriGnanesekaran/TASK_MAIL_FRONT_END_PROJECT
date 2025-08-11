@@ -10837,6 +10837,14 @@ input.form-control-sm {
     height: auto;
 }
 
+.input-group-append.spk-calender {
+  & .btn {
+    border-top-left-radius: 0 !important;
+    border-bottom-left-radius: 0 !important;
+  }
+}
+
+
 .accordion {
     .card-header {
         .btn {

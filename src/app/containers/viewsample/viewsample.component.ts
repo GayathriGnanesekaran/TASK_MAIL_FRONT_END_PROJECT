@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { IFormObject } from '../../interfaces/form-object.interface';
 import { FormGroup } from '@angular/forms';
@@ -7,7 +7,7 @@ import { ViewTaskFilterForm } from '../../forms/view-filter-form';
 import { TaskmailserviceService } from '../../services/taskmailservice.service';
 import { forkJoin, Subject, takeUntil } from 'rxjs';
 import { ApplicationEventService } from '../../services/application-event.service';
-
+import moment from 'moment';
 @Component({
   selector: 'app-viewsample',
   standalone: false,
@@ -25,7 +25,8 @@ export class ViewsampleComponent implements OnInit {
   constructor(
     private formUtilService: FormUtilService,
     private applicationEventService: ApplicationEventService,
-    private taskmailserviceService: TaskmailserviceService
+    private taskmailserviceService: TaskmailserviceService,
+    private  cdr:ChangeDetectorRef
   ) {}
   ngOnInit() {
     this.loggeduser = this.taskmailserviceService.getLoginSaveSuccess();
@@ -44,7 +45,7 @@ export class ViewsampleComponent implements OnInit {
           (x: any) => x.codeName === this.loggeduser.userName.toUpperCase()
         );
         this.viewTaskFilterFormGroup
-          ?.get('userid')
+          ?.get('userName')
           ?.patchValue(defaultResource.codeName);
       });
     this.applicationEventService.appEvent$
@@ -52,10 +53,15 @@ export class ViewsampleComponent implements OnInit {
       .subscribe((event: any) => {
         switch (event.name) {
           case 'SEARCH_TASK': {
+            const fromDate = moment(this.viewTaskFilterFormGroup.get('fromDate')?.value).format('MM/DD/YYYY');
+            const toDate = moment(this.viewTaskFilterFormGroup.get('toDate')?.value).format('MM/DD/YYYY');
+           this.viewTaskFilterFormGroup.get('fromDate')?.patchValue(fromDate);
+           this.viewTaskFilterFormGroup.get('toDate')?.patchValue(toDate)
             this.taskmailserviceService
               .getTaskHeader(this.viewTaskFilterFormGroup.getRawValue())
               .subscribe((data) => {
                 this.viewTaskTimeArray = data;
+                this.cdr.detectChanges();
               });
 
           return;
@@ -65,9 +71,12 @@ export class ViewsampleComponent implements OnInit {
             this.taskmailserviceService
             .getTaskTimeHeader(this.viewTaskTimeArray[this.selectDetailsRow].headerId).subscribe((data)=>{
               this.viewTaskScheduleArray=data;
+                 this.cdr.detectChanges();
             })
             return;
           }
+          default :
+          break;
         }
       });
   }

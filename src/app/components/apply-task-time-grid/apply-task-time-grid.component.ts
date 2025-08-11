@@ -98,10 +98,17 @@ updateActualWorkHours(): void {
   }
 }
 
-validateMonth(event: any) {
-  const value = event.target.value;
-  if (value && (Number(value) < 1 || Number(value) > 12)) {
-    event.target.value = '';
+validateMonth(event:any){
+  const value=Number(event.target.value)
+  if(isNaN(value) || value<1 || value>12){
+    event.target.value=''
+  }
+  else{
+   event.target.value = value.toString().padStart(2, '0');
   }
 }
 }
+
+
+
+

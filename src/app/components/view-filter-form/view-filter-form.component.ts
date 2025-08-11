@@ -3,7 +3,7 @@ import { FormGroup } from '@angular/forms';
 import moment from 'moment';
 import { TaskmailserviceService } from '../../services/taskmailservice.service';
 import { ApplicationEventService, IApplicationEvent } from '../../services/application-event.service';
-
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 @Component({
   selector: 'app-view-filter-form',
   standalone: false,

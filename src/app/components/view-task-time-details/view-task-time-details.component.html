@@ -19,7 +19,7 @@
 
                 <tbody>
                     
-                    <tr   *ngFor="let item of viewTaskTimeArray; let i = index"
+                    <tr *ngFor="let item of viewTaskTimeArray; let i = index"
                         [ngClass]="{ active: i === selectDetailsRow }"
                         (click)="selectedRow(item, i)">
                         <td class="w-p-28">

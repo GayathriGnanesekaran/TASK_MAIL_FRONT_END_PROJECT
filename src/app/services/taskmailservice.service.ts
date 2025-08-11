@@ -6,7 +6,7 @@ import { BehaviorSubject, map, Observable, throwError } from 'rxjs';
 })
 export class TaskmailserviceService {
   commonUrl = 'https://192.168.2.107:9005';
-  private userCredentail$: BehaviorSubject<any> = new BehaviorSubject(null);
+  private userCredentail$:BehaviorSubject<any> = new BehaviorSubject(null);
   constructor(private httpClient: HttpClient) {}
 
   //use in header part
@@ -27,7 +27,7 @@ export class TaskmailserviceService {
 
   checkLogIn(data: any){
     return this.httpClient
-      .post(`/api/my-profile/user-login`, data)
+      .post(`/api/my-profile/login`, data)
       .pipe(map((response: any) => response));
   }
 
@@ -50,9 +50,9 @@ export class TaskmailserviceService {
   }
   getTaskHeader(data:any){
      let queryParams = new HttpParams();
-        queryParams = queryParams.append('userName ', data?.userName ? data?.userName?.toString() : null);
-        queryParams = queryParams.append('fromDate', data?.fromDate ? data?.dateFrom : null);
-        queryParams = queryParams.append('toDate', data?.toDate ? data?.dateTo : null);
+        queryParams = queryParams.append('userName', data?.userName ? data?.userName?.toString() : null);
+        queryParams = queryParams.append('fromDate', data?.fromDate ? data?.fromDate : null);
+        queryParams = queryParams.append('toDate', data?.toDate ? data?.toDate : null);
     return this.httpClient
     .get(`/api/taskHeader/retrieve`, {
             params: queryParams,

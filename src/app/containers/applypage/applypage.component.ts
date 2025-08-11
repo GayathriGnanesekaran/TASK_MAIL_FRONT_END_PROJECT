@@ -113,7 +113,10 @@ export class ApplypageComponent implements OnInit {
         });
       }
     } else {
+      this.ApplyTaskTimeFormGroup.get('userName')?.patchValue(this.loggeduser.userName)
+      this.ApplyTaskTimeFormGroup.get('userId')?.patchValue(this.loggeduser.userPk)
       if (this.ApplyTaskTimeFormGroup.get('headerId')?.value === 0) {
+
         this.taskmailserviceService
           .saveTaskHeader(this.ApplyTaskTimeFormGroup.getRawValue())
           .subscribe((res) => {
