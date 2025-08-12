@@ -25,6 +25,39 @@ export class FormUtilService {
         return group;
     }
 
+     buildReactiveForm(formObjects: IFormObject) {
+        const group = this.formBuilder.group({});
+        for (const [key, formObject] of Object.entries(formObjects)) {
+            switch (formObject.type) {
+                case 'FormGroup':
+                    group.addControl(key, this.buildFormGroup(formObject.subForm));
+                    break;
+                case 'FormArray':
+                    group.addControl(
+                        key,
+                        this.formBuilder.array(this.buildFormArray(formObject.subForm, formObject.value))
+                    );
+                    break;
+                default:
+                    group.addControl(
+                        key,
+                        this.formBuilder.control(
+                            formObject.value,
+                            this.buildFormControlValitaion(formObject.validations)
+                        )
+                    );
+                    break;
+            }
+        }
+        return group;
+    }
+    buildFormArray(formObject:any, length:number) {
+        const controls = [];
+        for (let index = 0; index < length; index++) {
+            controls.push(this.buildFormGroup(formObject));
+        }
+        return controls;
+    }
 
 
     buildFormControlValitaion(validations: FormValidation[] | undefined) {

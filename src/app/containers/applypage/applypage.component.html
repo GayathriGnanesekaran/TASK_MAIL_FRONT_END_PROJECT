@@ -1,13 +1,25 @@
 <app-apply-task-time-grid 
 [ApplyTaskTimeFormGroup]="ApplyTaskTimeFormGroup"
-[typeDropdown]="typeDropdown"
+[typeHeaderDropdown]="typeHeaderDropdown"
 [resourceDropdown]="resourceDropdown"
 [diceOptions]="diceOptions"
 ></app-apply-task-time-grid>
-<app-apply-task-time-schedule>
+<app-apply-task-time-schedule 
+[projectDropdown]="projectDropdown"
+[typeDropdown]="typeDropdown"
+[isBillableDropdown]="isBillableDropdown"
+[billingTypeDropdown]="billingTypeDropdown"
+[taskDetailFormGroup]="taskDetailFormGroup"
+[taskDetailArray]="taskDetailArray"
+[selectDetailIndex]="selectDetailIndex"
+>
     
 </app-apply-task-time-schedule>
 <div class="d-flex justify-content-center align-content-between my-3 ">
+
+<button type="button" class="btn btn-sm btn-secondary me-3" (click)="cancelTaskDetailArray()">    
+    Cancel
+</button>
      
 <button type="button" class="btn btn-sm btn-secondary me-3" (click)="saveTaskTimeDetails()">
     

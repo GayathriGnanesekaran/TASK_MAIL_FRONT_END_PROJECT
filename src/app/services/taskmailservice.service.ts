@@ -70,5 +70,21 @@ export class TaskmailserviceService {
     return this.httpClient
     .get(`/api/taskDetails/retrieve/${headerId}`)
     .pipe(map((response: any) => response.data));
+
+  }
+  saveTasksDetails(data: any) {
+    return this.httpClient
+      .post(`/api/taskDetails/insert`, data)
+      .pipe(map((response: any) => response.data));
+  }
+  updateTasksDetails(data: any) {
+    return this.httpClient
+      .put(`/api/taskDetails/insert`, data)
+      .pipe(map((response: any) => response.data));
+  }
+  deleteTasksDetails(data: any) {
+    return this.httpClient
+      .put(`/api/taskDetails/delete/{detailsId}/{headerId}`, data)
+      .pipe(map((response: any) => response.data));
   }
 }
