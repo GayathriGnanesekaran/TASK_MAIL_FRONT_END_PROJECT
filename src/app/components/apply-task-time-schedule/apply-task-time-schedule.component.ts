@@ -54,7 +54,7 @@ export class ApplyTaskTimeScheduleComponent {
 
   showError: boolean = false;
   diceOptions: any = [
-    { codeCode: 'DELETE', screenName: 'Delete', actionType: 'click' },
+    {  codeName: "DELETE", screenName: 'Delete', actionType: 'click' },
   ];
   billingTypeOptions = ['Planned', 'Unplanned'];
   public _destroyed$ = new Subject();

@@ -14,6 +14,7 @@ import { ModalMsg } from '../../interfaces/modal-msg';
 import { AlertPopupComponent } from '../alert-popup/alert-popup.component';
 import { ToastrService } from 'ngx-toastr';
 import { TaskGridDetailForm } from '../../forms/task-grid-detail.form';
+import { subscribe } from 'diagnostics_channel';
 
 @Component({
   selector: 'app-applypage',
@@ -141,27 +142,37 @@ export class ApplypageComponent implements OnInit {
           }
 
           case 'ADDING_NEW_TASK': {
-            if (this.ApplyTaskTimeFormGroup.dirty) {
-              this.saveTaskTimeDetails('ADDING_NEW_TASK');
-            } else if (this.taskDetailArray.invalid) {
-              this.validationError(
-                (
-                  this.taskDetailArray.controls[
-                    this.selectDetailIndex
-                  ] as FormGroup
-                ).controls,
-                TaskGridDetailForm['taskDetailsList'].subForm
-              );
-            } else {
-              this.addNewTaskDetail();
-              return;
-            }
+            // if (this.ApplyTaskTimeFormGroup.dirty) {
+            //   this.saveTaskTimeDetails('ADDING_NEW_TASK');
+            // } else if (this.taskDetailArray.invalid) {
+            //   this.validationError(
+            //     (
+            //       this.taskDetailArray.controls[
+            //         this.selectDetailIndex
+            //       ] as FormGroup
+            //     ).controls,
+            //     TaskGridDetailForm['taskDetailsList'].subForm
+            //   );
+            // } else {
+            this.addNewTaskDetail();
+            // return;
+            // }
             return;
           }
           case 'DELETE': {
-            this.selectDetailIndex =
-              event?.value?.index != 0 ? event?.value?.index - 1 : 0;
-            this.taskDetailArray.removeAt(event?.value?.index);
+            if (event?.value.item.value.detailsId == 0) {
+              this.selectDetailIndex =
+                event?.value?.index != 0 ? event?.value?.index - 1 : 0;
+              this.taskDetailArray.removeAt(event?.value?.index);
+              return;
+            } else {
+              this.taskmailserviceService
+                .deleteTasksDetails(event?.value.item.value.detailsId)
+                .subscribe(() => {
+                  return;
+                });
+            }
+
             return;
           }
           case 'SELECTED_TASK_DETAILS': {
