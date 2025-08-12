@@ -1,13 +1,16 @@
 // app.module.ts
 import { NgModule } from '@angular/core';
-import { BrowserModule, provideClientHydration, withEventReplay } from '@angular/platform-browser';
+import {
+  BrowserModule,
+  provideClientHydration,
+  withEventReplay,
+} from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginpageComponent } from './containers/loginpage/loginpage.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-
-import { HttpClient, provideHttpClient} from '@angular/common/http';
+import { HttpClient, provideHttpClient } from '@angular/common/http';
 import { ViewsampleComponent } from './containers/viewsample/viewsample.component';
 import { ViewFilterFormComponent } from './components/view-filter-form/view-filter-form.component';
 import { ViewTaskTimeDetailsComponent } from './components/view-task-time-details/view-task-time-details.component';
@@ -22,22 +25,21 @@ import { ApplypageComponent } from './containers/applypage/applypage.component';
 import { DiceMenuComponent } from './components/dice-menu/dice-menu.component';
 import {
   NgbActiveModal,
-    NgbModalModule,
-    // NgbButtonsModule,
-    // NgbDropdownModule,
-    // NgbModalModule,
-    NgbPopoverModule,
-    // NgbDateParserFormatter,
-} from '@ng-bootstrap/ng-bootstrap'
+  NgbModalModule,
+  // NgbButtonsModule,
+  // NgbDropdownModule,
+  // NgbModalModule,
+  NgbPopoverModule,
+  // NgbDateParserFormatter,
+} from '@ng-bootstrap/ng-bootstrap';
 import { SafeIconPipe } from './components/safe-icon.pipe';
 import { InspireIconComponent } from './components/inspire-icon.component';
 import { NavigationComponent } from './containers/navigation/navigation.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { PagenotfoundComponent } from './components/pagenotfound/pagenotfound.component';
 import { AlertPopupComponent } from './containers/alert-popup/alert-popup.component';
-import {  NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
-
-
+import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
+import { ToastrModule, ToastrService } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -49,15 +51,15 @@ import {  NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
     ViewFilterFormComponent,
     ViewTaskTimeDetailsComponent,
     ViewTaskScheduleDetailsComponent,
- 
+
     ApplyTaskTimeGridComponent,
     ApplyTaskTimeScheduleComponent,
     ApplypageComponent,
-  NavigationComponent,
+    NavigationComponent,
     HeaderCommonComponent,
     InspireIconComponent,
-      DiceMenuComponent,
-      AlertPopupComponent,
+    DiceMenuComponent,
+    AlertPopupComponent,
   ],
   imports: [
     BrowserModule,
@@ -67,18 +69,18 @@ import {  NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
     NgbPopoverModule,
     SafeIconPipe,
     BsDatepickerModule,
-    BrowserAnimationsModule,  
+    BrowserAnimationsModule,
     NgbModule,
     NgbModalModule,
     NgxMaskDirective,
     NgxMaskPipe,
-    
-   ],
-  providers: [
-    provideNgxMask(),
-   provideHttpClient(),
-   NgbActiveModal
+    ToastrModule.forRoot({
+      timeOut: 3000,
+      positionClass: 'toast-top-center',
+      preventDuplicates: true
+    })
   ],
-  bootstrap: [AppComponent]
+  providers: [provideNgxMask(), provideHttpClient(), NgbActiveModal],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

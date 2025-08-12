@@ -25,6 +25,7 @@ export class ViewsampleComponent implements OnInit {
   public _destroyed$ = new Subject();
   diceOptions: any=[];
 
+
   constructor(
     private formUtilService: FormUtilService,
     private applicationEventService: ApplicationEventService,
@@ -37,6 +38,13 @@ export class ViewsampleComponent implements OnInit {
   
     this.viewTaskFilterFormGroup =
       this.formUtilService.buildFormGroup(ViewTaskFilterForm);
+        const today = new Date();
+ const startOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);
+ setTimeout(()=>{
+       this.viewTaskFilterFormGroup.get('fromDate')?.patchValue(startOfMonth)
+      this.viewTaskFilterFormGroup.get('toDate')?.patchValue(new Date())
+ })
+
 
     this.taskmailserviceService
       .fetchDropDownValue('USERSNAME')
@@ -93,7 +101,15 @@ export class ViewsampleComponent implements OnInit {
               this.router.navigate(['task/apply-page']);
               return;
           }
-        
+          case 'RESET':{
+                  const defaultResource: any = this.useridDropdown.find(
+                    (x: any) => x.codeName === this.loggeduser.userName.toUpperCase()
+                  );
+                    this.viewTaskFilterFormGroup?.get('userName')?.patchValue(
+                    defaultResource.codeName
+                  );
+                    return;
+          }
           default :
           break;
         }

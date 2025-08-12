@@ -6,7 +6,7 @@ import { BehaviorSubject, map, Observable, throwError } from 'rxjs';
 })
 export class TaskmailserviceService {
   commonUrl = 'https://192.168.2.107:9005';
-  private userCredentail$:BehaviorSubject<any> = new BehaviorSubject(null);
+  private userCredentail$: BehaviorSubject<any> = new BehaviorSubject(null);
   constructor(private httpClient: HttpClient) {}
 
   //use in header part
@@ -20,27 +20,36 @@ export class TaskmailserviceService {
     //this.userCredentail$.next(profile);
     localStorage.setItem('loginData', JSON.stringify(profile));
   }
-  setHeaderSuccess(headerData:any){
-   localStorage.setItem('headerValue',JSON.stringify(headerData))
+  setHeaderSuccess(headerData: any) {
+    localStorage.setItem('headerValue', JSON.stringify(headerData));
   }
-  getHeaderSuccess():any{
-    let header:any=localStorage.getItem('headerValue')
-    return header? JSON.parse(header) : null;
+  getHeaderSuccess(): any {
+    let header: any = localStorage.getItem('headerValue');
+    return header ? JSON.parse(header) : null;
   }
 
   remove(key: string): void {
     localStorage.removeItem(key);
   }
 
-  checkLogIn(data: any){
+  checkLogIn(data: any) {
     return this.httpClient
       .post(`/api/my-profile/login`, data)
       .pipe(map((response: any) => response));
   }
 
   fetchDropDownValue(codeType: string) {
+    const loginUser = this.getLoginSaveSuccess();
+    let queryParams = new HttpParams();
+    queryParams = queryParams.append(
+      'userId',
+      loginUser && codeType === 'USERSNAME' ? loginUser?.userId?.toString() : 0
+    );
+    queryParams = queryParams.append('codeType', codeType);
     return this.httpClient
-      .get(`/api/CodeMaster/dropdown/${codeType}`)
+      .get(`/api/CodeMaster/dropdown`, {
+        params: queryParams,
+      })
       .pipe(map((response: any) => response.data));
   }
 
@@ -50,25 +59,34 @@ export class TaskmailserviceService {
       .pipe(map((response: any) => response.data));
   }
 
-  updateTaskHeader(data: any){
+  updateTaskHeader(data: any) {
     return this.httpClient
       .put(`/api/taskHeader/update`, data)
       .pipe(map((response: any) => response.data));
   }
-  getTaskHeader(data:any){
-     let queryParams = new HttpParams();
-        queryParams = queryParams.append('userName', data?.userName ? data?.userName?.toString() : null);
-        queryParams = queryParams.append('fromDate', data?.fromDate ? data?.fromDate : null);
-        queryParams = queryParams.append('toDate', data?.toDate ? data?.toDate : null);
+  getTaskHeader(data: any) {
+    let queryParams = new HttpParams();
+    queryParams = queryParams.append(
+      'userName',
+      data?.userName ? data?.userName?.toString() : null
+    );
+    queryParams = queryParams.append(
+      'fromDate',
+      data?.fromDate ? data?.fromDate : null
+    );
+    queryParams = queryParams.append(
+      'toDate',
+      data?.toDate ? data?.toDate : null
+    );
     return this.httpClient
-    .get(`/api/taskHeader/retrieve`, {
-            params: queryParams,
-        })
-    .pipe(map((response:any)=>response.data))
+      .get(`/api/taskHeader/retrieve`, {
+        params: queryParams,
+      })
+      .pipe(map((response: any) => response.data));
   }
-  getTaskTimeHeader(headerId:string){
+  getTaskTimeHeader(headerId: string) {
     return this.httpClient
-    .get(`/api/taskDetails/retrieve/${headerId}`)
-    .pipe(map((response: any) => response.data));
+      .get(`/api/taskDetails/retrieve/${headerId}`)
+      .pipe(map((response: any) => response.data));
   }
 }

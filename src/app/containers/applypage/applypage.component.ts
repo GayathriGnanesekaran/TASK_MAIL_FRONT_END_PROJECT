@@ -12,6 +12,7 @@ import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { ValidationService } from '../../services/validation.service';
 import { ModalMsg } from '../../interfaces/modal-msg';
 import { AlertPopupComponent } from '../alert-popup/alert-popup.component';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-applypage',
@@ -35,7 +36,8 @@ export class ApplypageComponent implements OnInit {
     private applicationEventService: ApplicationEventService,
     private taskmailserviceService: TaskmailserviceService,
     private modalService: NgbModal,
-    private validationService: ValidationService
+    private validationService: ValidationService,
+    private toaster:ToastrService 
   ) {
     this.ApplyTaskTimeFormGroup =
       this.formUtilService.buildFormGroup(ApplyTaskTimeEntity);
@@ -86,10 +88,10 @@ export class ApplypageComponent implements OnInit {
           }
           case 'RESET':{          
            this.ApplyTaskTimeFormGroup =
-      this.formUtilService.buildFormGroup(ApplyTaskTimeEntity);
-       const defaultResource: any = this.resourceDropdown.find(
-        (x: any) => x.codeName === this.loggeduser.userName.toUpperCase()
-      );
+           this.formUtilService.buildFormGroup(ApplyTaskTimeEntity);
+           const defaultResource: any = this.resourceDropdown.find(
+           (x: any) => x.codeName === this.loggeduser.userName.toUpperCase()
+          );
         this.ApplyTaskTimeFormGroup?.get('resource')?.patchValue(
         defaultResource.codeName
       );
@@ -130,6 +132,8 @@ export class ApplypageComponent implements OnInit {
           .subscribe((res) => {
             if (res) {
               this.ApplyTaskTimeFormGroup.patchValue(res);
+              this.taskmailserviceService.setHeaderSuccess(res);
+               this.toaster.success("Task Time Detail Added Successfully")
             }
           });
       } else {
@@ -139,7 +143,9 @@ export class ApplypageComponent implements OnInit {
           )
           .subscribe((res) => {
             if (res) {
+               this.taskmailserviceService.setHeaderSuccess(res);
               this.ApplyTaskTimeFormGroup.patchValue(res);
+                    this.toaster.success("Task Time Detail Updated Successfully")
             }
           });
       }

@@ -10479,7 +10479,7 @@ bs-datepicker-container .bs-left-margin {
 
 .dice-menu {
     &.btn {
-        font-size: 0;
+        font-size: 0 !important;
     }
     padding: 1px !important;
     border-color: #bbb;

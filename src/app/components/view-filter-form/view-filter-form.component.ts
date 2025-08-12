@@ -47,12 +47,12 @@ userList=[]
     }
 
     reset() {
-        // const event: IApplicationEvent = {
-        //     name: 'RESET_PRINT_REFUND_LIST',
-        //     component: 'PrintRefundFilterFormComponent',
-        //     value: '',
-        // };
-        // this.applicationEventService.emitAnEvent(event);
+         const event: IApplicationEvent = {
+        name: 'RESET',
+           component: 'ViewFilterFormComponent',
+           value: '',
+        };
+        this.applicationEventService.emitAnEvent(event);
     }
     
     dateValueChange(event:any, control:any) {
