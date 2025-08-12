@@ -1,5 +1,5 @@
 export interface IFormObject {
-    [key: string]: IFormField;
+    [key: string]: IFormField | any;
 }
 
 export interface IFormField {

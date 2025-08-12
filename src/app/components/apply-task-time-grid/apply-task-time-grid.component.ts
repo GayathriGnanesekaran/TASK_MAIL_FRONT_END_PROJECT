@@ -12,7 +12,7 @@ import { FormGroup } from '@angular/forms';
 export class ApplyTaskTimeGridComponent implements OnInit{
   @Input() ApplyTaskTimeFormGroup!:FormGroup
   @Input() resourceDropdown:any[]=[]
-  @Input() typeDropdown:any[]=[]
+  @Input() typeHeaderDropdown:any[]=[]
   applicationEventService: any;
   
   @Input() diceOptions:any= []

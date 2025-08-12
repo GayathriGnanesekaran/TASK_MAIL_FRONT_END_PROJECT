@@ -1,10 +1,11 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, input, Input, NgModule, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subject, takeUntil } from 'rxjs';
-import { ApplicationEventService } from '../../services/application-event.service';
+import { ApplicationEventService, IApplicationEvent } from '../../services/application-event.service';
 import { FormUtilService } from '../../services/form-util.service';
 import { TaskGridDetailForm } from '../../forms/task-grid-detail.form';
 import moment from 'moment';
+import { TaskmailserviceService } from '../../services/taskmailservice.service';
 
 @Component({
   selector: 'app-apply-task-time-schedule',
@@ -16,7 +17,28 @@ export class ApplyTaskTimeScheduleComponent {
   @Input() ApplyTaskTimeFormGroup!: FormGroup;
   categoryesList = [];
   userList = [];
-  value: any;
+  @Input() projectDropdown:any[] = [];
+  @Input() typeDropdown:any[] = [];
+  @Input() isBillableDropdown:any[] = [];
+  @Input() billingTypeDropdown:any[] = [];
+  @Input() selectDetailIndex= 0;
+    value: any;
+
+  private _taskDetailFormGroup!: FormGroup;
+    @Input() set taskDetailFormGroup(value: FormGroup) {
+        this._taskDetailFormGroup = value;
+    }
+    get taskDetailFormGroup() {
+        return this._taskDetailFormGroup;
+    }
+
+    private _taskDetailArray!: FormArray ;
+    @Input() set taskDetailArray(value: FormArray) {
+        this._taskDetailArray = value;
+    }
+    get taskDetailArray() {
+        return this._taskDetailArray;
+    }
   public minDate: Date = moment('01/01/1800 12:00:00 AM').toDate();
   public maxDate: Date = moment('12/31/9999 11:59:59 PM').toDate();
   bsConfig = {
@@ -30,45 +52,34 @@ export class ApplyTaskTimeScheduleComponent {
     maxDate: this.maxDate,
   }
 
-  taskForm: FormGroup;
   showError: boolean = false;
-  selectedRow = 0;
   diceOptions: any = [
     { codeCode: 'DELETE', screenName: 'Delete', actionType: 'click' },
   ];
-  projectOptions = ['Spriska', 'Condologic', 'BEI'];
-  typeOptions = ['Development', 'Meeting', 'Training'];
-  isBillableOptions = ['Y', 'N', 'NA'];
   billingTypeOptions = ['Planned', 'Unplanned'];
   public _destroyed$ = new Subject();
+  loggeduser: any;
   constructor(
     private fb: FormBuilder,
     private applicationEventService: ApplicationEventService,
-    private formUtilService: FormUtilService
+    private formUtilService: FormUtilService,
+    private taskmailserviceService:TaskmailserviceService
   ) {
-    this.taskForm = this.fb.group({});
-    this.taskForm.setControl('tasks', this.fb.array([]));
-    // this.taskForm = this.fb.group({
-    //   tasks: this.fb.array([])
-    // });
-    this.addInitialRows(1);
+
+    // this.addInitialRows(1);
   }
   ngOnInit(): void {
-    this.applicationEventService.appEvent$
-      .pipe(takeUntil(this._destroyed$))
-      .subscribe((event) => {
-        switch (event.name) {
-          case 'DELETE': {
-            console.log('data', event);
-            this.tasks.controls.splice(event.value.index, 1);
-          }
-        }
-      });
+   this.loggeduser = this.taskmailserviceService.getLoginSaveSuccess()
+    // this.applicationEventService.appEvent$
+    //   .pipe(takeUntil(this._destroyed$))
+    //   .subscribe((event) => {
+    //     switch (event.name) {
+         
+    //     }
+    //   });
   }
 
-  get tasks(): FormArray | any {
-    return this.taskForm.get('tasks') as FormArray;
-  }
+
 
       dateValueChange(event:any, control:any,i:number) {
           this.value = null;
@@ -84,8 +95,8 @@ export class ApplyTaskTimeScheduleComponent {
               setTimeout(() => {
                   var elmnt: any = document.getElementById(control);
                   if (elmnt) elmnt.value = 'Invalid Date';
-                  this.tasks.controls[i].get(control)?.patchValue('Invalid Date');
-                  this.tasks.controls[i].get(control)?.setErrors({ invalidDate: true });
+                  this.taskDetailArray.controls[i].get(control)?.patchValue('Invalid Date');
+                  this.taskDetailArray.controls[i].get(control)?.setErrors({ invalidDate: true });
               }, 50);
               return;
           }
@@ -96,85 +107,105 @@ export class ApplyTaskTimeScheduleComponent {
               this.value !== '' &&
               this.value !== null 
           ) {
-              this.tasks.controls[i].get(control).patchValue(new Date(this.value));
-              this.tasks.controls[i].get(control)?.setErrors(null);
-               this.tasks.controls[i].markAsDirty();
+              this.taskDetailArray.controls[i].get(control)?.patchValue(new Date(this.value));
+              this.taskDetailArray.controls[i].get(control)?.setErrors(null);
+               this.taskDetailArray.controls[i].markAsDirty();
           }
           if (this.value == '' || this.value == null) {
               if (control == 'fromDate') {
-                  this.tasks.controls[i].get(control)?.patchValue(moment().subtract(30, 'days').toDate());
+                  this.taskDetailArray.controls[i].get(control)?.patchValue(moment().subtract(30, 'days').toDate());
               } else {
-                  this.tasks.controls[i].get(control)?.patchValue(moment().toDate());
+                  this.taskDetailArray.controls[i].get(control)?.patchValue(moment().toDate());
               }
-              this.tasks.controls[i].get(control)?.setErrors(null);
-               this.tasks.controls[i].markAsDirty();
+              this.taskDetailArray.controls[i].get(control)?.setErrors(null);
+               this.taskDetailArray.controls[i].markAsDirty();
           }
       }
 
-  addInitialRows(count: number) {
-    for (let i = 0; i < count; i++) {
-      const newRow: FormGroup =
-        this.formUtilService.buildFormGroup(TaskGridDetailForm);
-      this.tasks.push(newRow);
-    }
-  }
+
 
   selectBatchDetail(item: any, index: any) {
-    if (this.selectedRow == index) {
-      return;
-    } else {
-      this.selectedRow = index;
-      // const event: IApplicationEvent = {
-      //     name: 'SELECT_BATCH_DETAIL',
-      //     component: 'PaymentBatchGridListComponent',
-      //     value: { value: item, index: index },
-      // };
-      // this.applicationEventService.emitAnEvent(event);
-    }
+      const event: IApplicationEvent = {
+            name: 'SELECTED_TASK_DETAILS',
+            component: 'ApplyTaskTimeScheduleComponent',
+            value: { item, index },
+        };
+        this.applicationEventService.emitAnEvent(event);
+    
   }
 
   addTaskRow(): void {
-    const newRow: FormGroup =
-      this.formUtilService.buildFormGroup(TaskGridDetailForm);
-    this.tasks.push(newRow);
+  const event: IApplicationEvent = {
+    name: 'ADDING_NEW_TASK',
+    component: 'ApplyTaskTimeScheduleComponent',
+    value: '',
+  };
+  this.applicationEventService.emitAnEvent(event);
+}
 
-    let newTasksArray: any = this.tasks.getRawValue().map((item: any) => {
-      return this.formUtilService.buildFormGroup(TaskGridDetailForm, item);
-    });
-    this.taskForm.setControl('tasks', this.fb.array(newTasksArray));
-    // const newRow :any= this.createTaskFormGroup()
-    // this.tasks.push(newRow);
-    // this.taskForm.setControl('tasks', this.fb.array(this.tasks));
+ updateActualDuration(i:number): void {
+  let stTime = this.taskDetailArray.controls[i].get('stTime')?.value;
+  let endTime = this.taskDetailArray.controls[i].get('endTime')?.value;
+  
+  if (stTime && endTime) {
+    if (stTime.length >= 3 && stTime.includes(':')) {
+      const [h, m] = stTime.split(':');
+      stTime = `${h.padStart(2, '0')}:${m.padStart(2, '0')}`;
+    }
+    if (endTime.length >= 3 && endTime.includes(':')) {
+      const [h, m] = endTime.split(':');
+      endTime = `${h.padStart(2, '0')}:${m.padStart(2, '0')}`;
+    }
+
+   
+    const [inH, inM] = stTime.split(':').map(Number);
+    const [outH, outM] = endTime.split(':').map(Number);
+
+    const inMinutes = inH * 60 + inM;
+    const outMinutes = outH * 60 + outM;
+
+    if (outMinutes >= inMinutes) {
+      const diff = outMinutes - inMinutes;
+      const hours = Math.floor(diff / 60);
+      const minutes = diff % 60;
+
+      const formatted = `${hours.toString().padStart(2, '0')}:${minutes
+        .toString()
+        .padStart(2, '0')}`;
+
+      this.taskDetailArray.controls[i].get('actHours')?.patchValue(formatted, {
+        emitEvent: false,
+      });
+    } else {
+      this.taskDetailArray.controls[i].get('actHours')?.patchValue('', {
+        emitEvent: false,
+      });
+    }
   }
 
-  createTaskFormGroup(): FormGroup {
-    return this.fb.group({
-      selected: [false],
-      project: [''],
-      sprint: [''],
-      taskName: ['', Validators.required],
-      type: [''],
-      sowIssueNo: [''],
-      isBillable: [''],
-      billingType: [''],
-      resName: [''],
-      team: [''],
-      estStartDate: [''],
-      estEndDate: [''],
-      estHours: [''],
-      actStartDate: [''],
-      actEndDate: [''],
-      startTime: [''],
-      endTime: [''],
-      actHours: [''],
-      percentage: [''],
-      status: [''],
-      comments: [''],
-    });
-  }
 
-  saveSelectedTasks() {
-    // const selectedTasks = this.tasks.controls
+  // addTaskRow(): void {
+  //   const event: IApplicationEvent = {
+  //       name: 'ADDING_NEW_TASK',
+  //       component: 'ApplyTaskTimeScheduleComponent',
+  //       value: '',
+  //   };
+  //   this.applicationEventService.emitAnEvent(event);
+  //   const newRow: FormGroup =
+  //     this.formUtilService.buildFormGroup(TaskGridDetailForm);
+  //   this.taskDetailArray.push(newRow);
+
+  //   let newTasksArray: any = this.taskDetailArray.getRawValue().map((item: any) => {
+  //     return this.formUtilService.buildFormGroup(TaskGridDetailForm, item);
+  //   });
+  //   this.taskDetailFormGroup.setControl('taskDetailArray', this.fb.array(newTasksArray));
+  //   this.taskDetailArray.controls[this.selectDetailIndex].get("resName").patchValue(this.loggeduser?.userName);
+   
+  // }
+
+
+  // saveSelectedTasks() {
+    // const selectedTasks = this.taskDetailArray.controls
     //   .filter(task => task.get('selected')?.value)
     //   .filter(task => task.get('taskName')?.valid)
     //   .map(task => task.value);
@@ -182,7 +213,7 @@ export class ApplyTaskTimeScheduleComponent {
     //   this.showError = true;
     // } else {
     //   this.showError = false;
-    //   console.log('Saved Tasks:', selectedTasks);
+    //   console.log('Saved taskDetailArray:', selectedTasks);
     //   // Save logic goes here
     // }
   }
