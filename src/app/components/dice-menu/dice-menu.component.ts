@@ -50,7 +50,7 @@ export class DiceMenuComponent {
         const event: IApplicationEvent = {
             name: link.codeName,
             component: 'DiceMenuComponent',
-            value: { ...this.item, index: this.index, hostComponent: this.hostComponent },
+            value: {item: {...this.item}, index: this.index, hostComponent: this.hostComponent },
         };
         this.applicationEventService.emitAnEvent(event);
     }

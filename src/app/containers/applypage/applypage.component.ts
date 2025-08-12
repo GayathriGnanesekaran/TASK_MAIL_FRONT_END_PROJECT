@@ -28,6 +28,7 @@ export class ApplypageComponent implements OnInit {
   pageErrors!: InputError[];
   public valpopupInst!: NgbModalRef | null;
   diceOptions: any;
+  headerDatas: any;
 
   constructor(
     private formUtilService: FormUtilService,
@@ -43,6 +44,7 @@ export class ApplypageComponent implements OnInit {
 
   ngOnInit() {
     this.loggeduser = this.taskmailserviceService.getLoginSaveSuccess();
+      this.headerDatas=this.taskmailserviceService.getHeaderSuccess();    
 
     forkJoin({
       type: this.taskmailserviceService.fetchDropDownValue('TYPE_HEADER'),
@@ -62,6 +64,9 @@ export class ApplypageComponent implements OnInit {
       this.ApplyTaskTimeFormGroup?.get('resource')?.patchValue(
         defaultResource.codeName
       );
+        if(this.headerDatas){
+        this.ApplyTaskTimeFormGroup.patchValue(this.headerDatas)
+      }
     });
     this.applicationEventService.appEvent$
       .pipe(takeUntil(this._destroyed$))
@@ -84,6 +89,9 @@ export class ApplypageComponent implements OnInit {
       this.formUtilService.buildFormGroup(ApplyTaskTimeEntity);
        const defaultResource: any = this.resourceDropdown.find(
         (x: any) => x.codeName === this.loggeduser.userName.toUpperCase()
+      );
+        this.ApplyTaskTimeFormGroup?.get('resource')?.patchValue(
+        defaultResource.codeName
       );
             return;
           }         

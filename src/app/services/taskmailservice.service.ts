@@ -17,8 +17,15 @@ export class TaskmailserviceService {
   }
   //use in login
   setLoginSaveSuccess(profile: any) {
-    this.userCredentail$.next(profile);
+    //this.userCredentail$.next(profile);
     localStorage.setItem('loginData', JSON.stringify(profile));
+  }
+  setHeaderSuccess(headerData:any){
+   localStorage.setItem('headerValue',JSON.stringify(headerData))
+  }
+  getHeaderSuccess():any{
+    let header:any=localStorage.getItem('headerValue')
+    return header? JSON.parse(header) : null;
   }
 
   remove(key: string): void {

@@ -18,9 +18,7 @@ export class ViewTaskTimeDetailsComponent {
   @Input() viewTaskTimeArray: any[] = [];
   @Input() selectDetailsRow = 0;
 
-  diceOptions: any = [
-    { codeCode: 'EDIT', screenName: 'Edit', actionType: 'click' },
-  ];
+  @Input() diceOptions: any = [];
 
   constructor(private applicationEventService: ApplicationEventService) {}
 

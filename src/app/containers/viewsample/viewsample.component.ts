@@ -8,6 +8,7 @@ import { TaskmailserviceService } from '../../services/taskmailservice.service';
 import { forkJoin, Subject, takeUntil } from 'rxjs';
 import { ApplicationEventService } from '../../services/application-event.service';
 import moment from 'moment';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-viewsample',
   standalone: false,
@@ -22,14 +23,18 @@ export class ViewsampleComponent implements OnInit {
   viewTaskTimeArray:any[] = [];
   viewTaskScheduleArray = [];
   public _destroyed$ = new Subject();
+  diceOptions: any=[];
+
   constructor(
     private formUtilService: FormUtilService,
     private applicationEventService: ApplicationEventService,
     private taskmailserviceService: TaskmailserviceService,
-    private  cdr:ChangeDetectorRef
+    private  cdr:ChangeDetectorRef,
+    private router:Router
   ) {}
   ngOnInit() {
     this.loggeduser = this.taskmailserviceService.getLoginSaveSuccess();
+  
     this.viewTaskFilterFormGroup =
       this.formUtilService.buildFormGroup(ViewTaskFilterForm);
 
@@ -75,6 +80,20 @@ export class ViewsampleComponent implements OnInit {
             })
             return;
           }
+           case 'DICE_BUTTON_CLICK':{
+            if(event?.value?.hostComponent ==='ViewTaskTimeDetailsComponent')
+                 this.selectDetailsRow=event?.value.index
+            this.taskmailserviceService.fetchDropDownValue('DICE_EDIT').subscribe((res)=>{
+              this.diceOptions =res;
+            })
+            return;
+          }
+          case 'EDIT':{   
+              this.taskmailserviceService.setHeaderSuccess(event.value.item)        
+              this.router.navigate(['task/apply-page']);
+              return;
+          }
+        
           default :
           break;
         }

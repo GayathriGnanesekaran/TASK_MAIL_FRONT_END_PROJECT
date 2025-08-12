@@ -1,5 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { TaskmailserviceService } from '../../services/taskmailservice.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header-common',
@@ -9,7 +11,8 @@ import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@ang
 })
 export class HeaderCommonComponent {
   @Input()loggeduser:any
-  imgsrc='../../../assets/dummy-profile.jpg'
+   
+ 
 saveSelectedRows() {
 throw new Error('Method not implemented.');
 }
@@ -31,7 +34,10 @@ selectedRecipient: string = '';
   isBillableOptions = ['Y', 'N', 'NA'];
   billingTypeOptions = ['Planned', 'Unplanned'];
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder,
+     private taskmailserviceService: TaskmailserviceService,
+      private router: Router,
+  ) {
     this.taskForm = this.fb.group({
       tasks: this.fb.array([])
     });
@@ -41,6 +47,11 @@ selectedRecipient: string = '';
 
   get tasks(): FormArray {
     return this.taskForm.get('tasks') as FormArray;
+  }
+  logout(){
+     this.taskmailserviceService.remove('loginData')
+     this.taskmailserviceService.remove('headerValue')
+     this.router.navigate(['/login-page']);
   }
 
   addInitialRows(count: number) {
