@@ -40,6 +40,7 @@ export class ApplypageComponent implements OnInit {
   taskDetailFormGroup!: FormGroup;
   taskDetailArray!: FormArray;
   selectDetailIndex = 0;
+  resourceName: string = '';
 
   constructor(
     private formUtilService: FormUtilService,
@@ -102,7 +103,7 @@ export class ApplypageComponent implements OnInit {
         this.ApplyTaskTimeFormGroup?.get('resource')?.patchValue(
           defaultResource?.codeName
         );
-      } 
+      }
       if (this.headerDatas) {
         this.ApplyTaskTimeFormGroup.patchValue(this.headerDatas);
         this.ApplyTaskTimeFormGroup.markAsPristine();
@@ -143,16 +144,16 @@ export class ApplypageComponent implements OnInit {
             }
             return;
           }
-          case 'RESET':{          
-           this.ApplyTaskTimeFormGroup =
-           this.formUtilService.buildFormGroup(ApplyTaskTimeEntity);
-           const defaultResource: any = this.resourceDropdown.find(
-           (x: any) => x.codeName === this.loggeduser.userName.toUpperCase()
-          );
-        this.ApplyTaskTimeFormGroup?.get('resource')?.patchValue(
-        defaultResource.codeName
-      );
-      this.taskmailserviceService.remove('headerValue');
+          case 'RESET': {
+            this.ApplyTaskTimeFormGroup =
+              this.formUtilService.buildFormGroup(ApplyTaskTimeEntity);
+            const defaultResource: any = this.resourceDropdown.find(
+              (x: any) => x.codeName === this.loggeduser.userName.toUpperCase()
+            );
+            this.ApplyTaskTimeFormGroup?.get('resource')?.patchValue(
+              defaultResource.codeName
+            );
+            this.taskmailserviceService.remove('headerValue');
             return;
           }
 
@@ -201,7 +202,9 @@ export class ApplypageComponent implements OnInit {
                   )
                   .subscribe((res: any) => {
                     if (res.status == 2) {
-                      this.toaster.success('Task Details Row Deleted Successfully');
+                      this.toaster.success(
+                        'Task Details Row Deleted Successfully'
+                      );
                       this.taskmailserviceService
                         .getTaskTimeHeader(this.headerDatas.headerId)
                         .subscribe((data) => {
@@ -234,6 +237,19 @@ export class ApplypageComponent implements OnInit {
 
               return;
             }
+          }
+          case 'CHANGE_RESOURCE': {
+            this.resourceName =
+              this.ApplyTaskTimeFormGroup?.get('resource')?.value;
+            const resName :any=this.resourceDropdown.find((x:any)=>x.codeName ===this.resourceName)
+            this.taskDetailArray.controls.forEach(
+              (element: any, index: any) => {
+                this.taskDetailArray.controls[index]
+                  .get('resName')
+                  ?.patchValue(resName.screenName);
+              }
+            );
+            return;
           }
         }
       });
@@ -312,7 +328,7 @@ export class ApplypageComponent implements OnInit {
     this.taskDetailArray = <FormArray>(
       this.taskDetailFormGroup.controls['taskDetailsList']
     );
-    res.forEach((element: any) => {
+    res.forEach((element: any, index: any) => {
       this.taskDetailArray.push(
         this.formUtilService.buildFormGroup(
           TaskGridDetailForm['taskDetailsList'].subForm,
@@ -321,7 +337,25 @@ export class ApplypageComponent implements OnInit {
           }
         )
       );
+      setTimeout(() => {
+        this.taskDetailArray.controls[index]
+          .get('actEndDt')
+          ?.patchValue(new Date(element.actEndDt));
+        this.taskDetailArray.controls[index]
+          .get('estEndDt')
+          ?.patchValue(new Date(element.estEndDt));
+        this.taskDetailArray.controls[index]
+          .get('actStDt')
+          ?.patchValue(new Date(element.actStDt));
+        this.taskDetailArray.controls[index]
+          .get('estStDt')
+          ?.patchValue(new Date(element.estStDt));
+      }, 100);
     });
+    setTimeout(() => {
+      this.taskDetailArray.markAsPristine();
+    }, 100);
+
     this.taskDetailArray.updateValueAndValidity();
   }
 
@@ -344,7 +378,7 @@ export class ApplypageComponent implements OnInit {
             if (type == 'ADDING_NEW_TASK') {
               this.addNewTaskDetail();
             }
-            if (type == 'SELECT_DETAILS' ) {
+            if (type == 'SELECT_DETAILS') {
               this.selectDetailIndex = event?.value?.index;
             }
           }
@@ -363,7 +397,7 @@ export class ApplypageComponent implements OnInit {
             if (type == 'ADDING_NEW_TASK') {
               this.addNewTaskDetail();
             }
-            if (type == 'SELECT_DETAILS' ) {
+            if (type == 'SELECT_DETAILS') {
               this.selectDetailIndex = event?.value?.index;
             }
           }

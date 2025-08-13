@@ -58,6 +58,7 @@
                   class="form-control form-control-sm form-select"
                   id="resource"
                   name="resource"
+                  (change)="changeResource()"
                   formControlName="resource"
                   title="{{ ApplyTaskTimeFormGroup?.get('resource')?.value }}"
                 >

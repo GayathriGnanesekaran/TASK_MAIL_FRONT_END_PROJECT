@@ -179,7 +179,13 @@ export const TaskGridDetailForm: IFormObject = {
         label: 'estStDt',
         value: '',
         type: 'text',
-        validations: [],
+        validations: [
+          {
+          validator: 'invalidDate',
+          value: true,
+          message: 'Please enter a valid Est Start Date',
+       },
+        ],
         disabled: false,
       },
       estEndDt: {
@@ -187,7 +193,13 @@ export const TaskGridDetailForm: IFormObject = {
         label: 'estEndDt',
         value: '',
         type: 'text',
-        validations: [],
+        validations: [
+          {
+          validator: 'invalidDate',
+          value: true,
+          message: 'Please enter a valid Est End Date',
+       },
+        ],
         disabled: false,
       },
       estHours: {
@@ -209,6 +221,11 @@ export const TaskGridDetailForm: IFormObject = {
             value: true,
             message: 'Act Start Date is mandatory',
           },
+          {
+          validator: 'invalidDate',
+          value: true,
+          message: 'Please enter a valid Act Start Date',
+       },
         ],
         disabled: false,
       },
@@ -223,6 +240,11 @@ export const TaskGridDetailForm: IFormObject = {
             value: true,
             message: 'Act End Date is mandatory',
           },
+           {
+          validator: 'invalidDate',
+          value: true,
+          message: 'Please enter a valid Act End Date',
+       },
         ],
         disabled: false,
       },
@@ -262,7 +284,6 @@ export const TaskGridDetailForm: IFormObject = {
         type: 'text',
         validations: [
           {
-            validator: 'required',
             value: true,
             message: 'Act Hours is mandatory',
           },

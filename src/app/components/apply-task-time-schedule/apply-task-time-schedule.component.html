@@ -224,6 +224,7 @@
                       class="form-control form-control-sm "
                       type="text"
                       id="resName"
+                      readonly
                       formControlName="resName"
                     />
                   </div>
@@ -254,7 +255,7 @@
                       type="text"
                       class="form-control form-control-sm"
                       placeholder="MM/DD/YYYY"
-                      #accountDateFrom="bsDatepicker"
+                      #estStDt="bsDatepicker"
                       [bsValue]="taskDetailArray.controls[i].get('estStDt')?.value"
                       id="estStDt"
                       name="estStDt"
@@ -268,17 +269,18 @@
                       triggers="dblclick:click"
                       [disabled]="taskDetailArray.disabled"
                       [title]="
-                        (taskDetailArray.controls[i].get('estStDt')?.value
+                       taskDetailArray.controls[i].get('estStDt')?.value !=='Invalid Date' ?
+                       ( (taskDetailArray.controls[i].get('estStDt')?.value
                         | date : 'MM/dd/yyyy')
                           ? (taskDetailArray.controls[i].get('estStDt')?.value
                             | date : 'MM/dd/yyyy')
-                          : ''
+                          : '') : (taskDetailArray.controls[i].get('estStDt')?.value)
                       "
                     />
-                    <div class="input-group-append">
+                    <div class="input-group-append spk-calender">
                       <button
                         class="btn-secondary btn-outline-secondary"
-                        (click)="accountDateFrom.toggle()"
+                        (click)="estStDt.toggle()"
                         type="button"
                         [disabled]="taskDetailArray.disabled"
                         [disabled]="taskDetailArray.disabled"
@@ -303,7 +305,7 @@
                       type="text"
                       class="form-control form-control-sm"
                       placeholder="MM/DD/YYYY"
-                      #accountDateFrom="bsDatepicker"
+                      #estEndDt="bsDatepicker"
                       [bsValue]="taskDetailArray.controls[i].get('estEndDt')?.value"
                       id="estEndDt"
                       name="estEndDt"
@@ -315,17 +317,18 @@
                       triggers="dblclick:click"
                       [disabled]="taskDetailArray.disabled"
                       [title]="
-                        (taskDetailArray.controls[i].get('estEndDt')?.value
+                      taskDetailArray.controls[i].get('estEndDt')?.value !=='Invalid Date' ?
+                       ( (taskDetailArray.controls[i].get('estEndDt')?.value
                         | date : 'MM/dd/yyyy')
                           ? (taskDetailArray.controls[i].get('estEndDt')?.value
                             | date : 'MM/dd/yyyy')
-                          : ''
+                          : '') : (taskDetailArray.controls[i].get('estEndDt')?.value)
                       "
                     />
-                    <div class="input-group-append">
+                    <div class="input-group-append spk-calender">
                       <button
                         class="btn-secondary btn-outline-secondary"
-                        (click)="accountDateFrom.toggle()"
+                        (click)="estEndDt.toggle()"
                         type="button"
                         [disabled]="taskDetailArray.disabled"
                         [disabled]="taskDetailArray.disabled"
@@ -366,7 +369,7 @@
                       type="text"
                       class="form-control form-control-sm"
                       placeholder="MM/DD/YYYY"
-                      #accountDateFrom="bsDatepicker"
+                      #actStDt="bsDatepicker"
                       [bsValue]="taskDetailArray.controls[i].get('actStDt')?.value"
                       id="actStDt"
                       name="actStDt"
@@ -378,23 +381,24 @@
                       bsDatepicker
                       mask="M0/d0/0000"
                       triggers="dblclick:click"
+                      
                       [title]="
-                        (taskDetailArray.controls[i].get('actStDt')?.value
+                        taskDetailArray.controls[i].get('actStDt')?.value !=='Invalid Date' ?
+                       ( (taskDetailArray.controls[i].get('actStDt')?.value
                         | date : 'MM/dd/yyyy')
                           ? (taskDetailArray.controls[i].get('actStDt')?.value
                             | date : 'MM/dd/yyyy')
-                          : ''
+                          : '') : (taskDetailArray.controls[i].get('actStDt')?.value)
                       "
                     />
-                    <div class="input-group-append">
+                    <div class="input-group-append spk-calender">
                       <button
-                        class="btn-secondary btn-outline-secondary"
-                        (click)="accountDateFrom.toggle()"
+                        class="btn btn-secondary btn-outline-secondary"
+                        (click)="actStDt.toggle()"
                         type="button"
                       >
                         <inspire-icon
                           name="calendar"
-                          class="icon icon-sm"
                         ></inspire-icon>
                       </button>
                     </div>
@@ -412,7 +416,7 @@
                       type="text"
                       class="form-control form-control-sm"
                       placeholder="MM/DD/YYYY"
-                      #accountDateFrom="bsDatepicker"
+                      #actEndDt="bsDatepicker"
                       [bsValue]="taskDetailArray.controls[i].get('actEndDt')?.value"
                       id="actEndDt"
                       name="actEndDt"
@@ -425,17 +429,18 @@
                       mask="M0/d0/0000"
                       triggers="dblclick:click"
                       [title]="
-                        (taskDetailArray.controls[i].get('actEndDt')?.value
+                        taskDetailArray.controls[i].get('actEndDt')?.value !=='Invalid Date' ?
+                       ( (taskDetailArray.controls[i].get('actEndDt')?.value
                         | date : 'MM/dd/yyyy')
                           ? (taskDetailArray.controls[i].get('actEndDt')?.value
                             | date : 'MM/dd/yyyy')
-                          : ''
+                          : '') : (taskDetailArray.controls[i].get('actEndDt')?.value)
                       "
                     />
-                    <div class="input-group-append">
+                    <div class="input-group-append spk-calender">
                       <button
                         class="btn-secondary btn-outline-secondary"
-                        (click)="accountDateFrom.toggle()"
+                        (click)="actEndDt.toggle()"
                         type="button"
                       >
                         <inspire-icon
