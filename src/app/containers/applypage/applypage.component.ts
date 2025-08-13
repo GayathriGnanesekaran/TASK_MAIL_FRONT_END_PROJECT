@@ -102,13 +102,7 @@ export class ApplypageComponent implements OnInit {
         this.ApplyTaskTimeFormGroup?.get('resource')?.patchValue(
           defaultResource?.codeName
         );
-      }
-      const defaultResource: any = this.resourceDropdown.find(
-        (x: any) => x.codeName === this.loggeduser.userName.toUpperCase()
-      );
-      this.ApplyTaskTimeFormGroup?.get('resource')?.patchValue(
-        defaultResource.codeName
-      );
+      } 
       if (this.headerDatas) {
         this.ApplyTaskTimeFormGroup.patchValue(this.headerDatas);
         this.ApplyTaskTimeFormGroup.markAsPristine();
@@ -149,15 +143,16 @@ export class ApplypageComponent implements OnInit {
             }
             return;
           }
-          case 'RESET': {
-            this.ApplyTaskTimeFormGroup =
-              this.formUtilService.buildFormGroup(ApplyTaskTimeEntity);
-            const defaultResource: any = this.resourceDropdown.find(
-              (x: any) => x.codeName === this.loggeduser.userName.toUpperCase()
-            );
-            this.ApplyTaskTimeFormGroup?.get('resource')?.patchValue(
-              defaultResource.codeName
-            );
+          case 'RESET':{          
+           this.ApplyTaskTimeFormGroup =
+           this.formUtilService.buildFormGroup(ApplyTaskTimeEntity);
+           const defaultResource: any = this.resourceDropdown.find(
+           (x: any) => x.codeName === this.loggeduser.userName.toUpperCase()
+          );
+        this.ApplyTaskTimeFormGroup?.get('resource')?.patchValue(
+        defaultResource.codeName
+      );
+      this.taskmailserviceService.remove('headerValue');
             return;
           }
 

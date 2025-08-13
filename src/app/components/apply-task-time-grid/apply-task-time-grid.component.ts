@@ -94,13 +94,36 @@ updateActualWorkHours(): void {
 validateMonth(event:any){
   const value=Number(event.target.value)
   if(isNaN(value) || value<1 || value>12){
-    event.target.value=''
+  this.ApplyTaskTimeFormGroup.get('month')?.setErrors({mask:true});
   }
   else{
    event.target.value = value.toString().padStart(2, '0');
   }
 }
+validateDay(event: any) {
+  const month = Number(this.ApplyTaskTimeFormGroup.get('month')?.value)
+  const day = Number(event.target.value)
+  const daysInMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+  let maxDay = daysInMonth[month - 1] || 31;
+  const currentYear = new Date().getFullYear();
+  if (
+    month === 2 &&
+    ((currentYear % 4 === 0 && currentYear % 100 !== 0) ||
+      currentYear % 400 === 0)
+  ) {
+    maxDay = 29;
+  }
+  if (isNaN(day) || day < 1 || day > maxDay) {  
+    this.ApplyTaskTimeFormGroup.get('date')?.setErrors({mask:true});
+  } else {
+    const formatted = day.toString().padStart(2, '0');
+    event.target.value = formatted;
+    this.ApplyTaskTimeFormGroup.get('date')?.patchValue(formatted);
+  }
 }
+
+}
+
 
 
 

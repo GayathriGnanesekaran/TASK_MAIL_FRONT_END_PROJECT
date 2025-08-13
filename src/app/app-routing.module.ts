@@ -7,7 +7,7 @@ import { PagenotfoundComponent } from './components/pagenotfound/pagenotfound.co
 import { NavigationComponent } from './containers/navigation/navigation.component';
 
 const routes: Routes = [
-    {path:'login-page',component:LoginpageComponent},
+    {path:'',component:LoginpageComponent},
     {path:'task',component: NavigationComponent,
       children: [
         { path: '', redirectTo: 'apply-page', pathMatch: 'full' },

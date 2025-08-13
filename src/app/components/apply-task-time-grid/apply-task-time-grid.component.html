@@ -108,6 +108,7 @@
                     (blur)="validateMonth($event)"
                     maxlength="2"
                     formControlName="month"
+                    
                   />
                   <!-- formControlName="month" -->
                   <!-- [title]="
@@ -131,6 +132,8 @@
                     mask="d0"
                     maxlength="2"
                     formControlName="date"
+                    (blur)="validateDay($event)"
+                  
                   />
                   <!-- formControlName="date" -->
                   <!-- [title]="

@@ -20,31 +20,29 @@ export class ViewsampleComponent implements OnInit {
   useridDropdown = [];
   loggeduser: any;
   selectDetailsRow = 0;
-  viewTaskTimeArray:any[] = [];
+  viewTaskTimeArray: any[] = [];
   viewTaskScheduleArray = [];
   public _destroyed$ = new Subject();
-  diceOptions: any=[];
-
+  diceOptions: any = [];
 
   constructor(
     private formUtilService: FormUtilService,
     private applicationEventService: ApplicationEventService,
     private taskmailserviceService: TaskmailserviceService,
-    private  cdr:ChangeDetectorRef,
-    private router:Router
+    private cdr: ChangeDetectorRef,
+    private router: Router
   ) {}
   ngOnInit() {
     this.loggeduser = this.taskmailserviceService.getLoginSaveSuccess();
-  
+
     this.viewTaskFilterFormGroup =
       this.formUtilService.buildFormGroup(ViewTaskFilterForm);
-        const today = new Date();
- const startOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);
- setTimeout(()=>{
-       this.viewTaskFilterFormGroup.get('fromDate')?.patchValue(startOfMonth)
-      this.viewTaskFilterFormGroup.get('toDate')?.patchValue(new Date())
- })
-
+    const today = new Date();
+    const startOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);
+    setTimeout(() => {
+      this.viewTaskFilterFormGroup.get('fromDate')?.patchValue(startOfMonth);
+      this.viewTaskFilterFormGroup.get('toDate')?.patchValue(new Date());
+    });
 
     this.taskmailserviceService
       .fetchDropDownValue('USERSNAME')
@@ -66,10 +64,14 @@ export class ViewsampleComponent implements OnInit {
       .subscribe((event: any) => {
         switch (event.name) {
           case 'SEARCH_TASK': {
-            const fromDate = moment(this.viewTaskFilterFormGroup.get('fromDate')?.value).format('MM/DD/YYYY');
-            const toDate = moment(this.viewTaskFilterFormGroup.get('toDate')?.value).format('MM/DD/YYYY');
-           this.viewTaskFilterFormGroup.get('fromDate')?.patchValue(fromDate);
-           this.viewTaskFilterFormGroup.get('toDate')?.patchValue(toDate)
+            const fromDate = moment(
+              this.viewTaskFilterFormGroup.get('fromDate')?.value
+            ).format('MM/DD/YYYY');
+            const toDate = moment(
+              this.viewTaskFilterFormGroup.get('toDate')?.value
+            ).format('MM/DD/YYYY');
+            this.viewTaskFilterFormGroup.get('fromDate')?.patchValue(fromDate);
+            this.viewTaskFilterFormGroup.get('toDate')?.patchValue(toDate);
             this.taskmailserviceService
               .getTaskHeader(this.viewTaskFilterFormGroup.getRawValue())
               .subscribe((data) => {
@@ -77,41 +79,62 @@ export class ViewsampleComponent implements OnInit {
                 this.cdr.detectChanges();
               });
 
-          return;
+            return;
           }
-          case 'SELECTED__ROW':{
+          case 'SELECTED__ROW': {
             this.selectDetailsRow = event?.value.index;
             this.taskmailserviceService
-            .getTaskTimeHeader(this.viewTaskTimeArray[this.selectDetailsRow].headerId).subscribe((data)=>{
-              this.viewTaskScheduleArray=data;
-                 this.cdr.detectChanges();
-            })
+              .getTaskTimeHeader(
+                this.viewTaskTimeArray[this.selectDetailsRow].headerId
+              )
+              .subscribe((data) => {
+                this.viewTaskScheduleArray = data;
+                this.cdr.detectChanges();
+              });
             return;
           }
-           case 'DICE_BUTTON_CLICK':{
-            if(event?.value?.hostComponent ==='ViewTaskTimeDetailsComponent')
-                 this.selectDetailsRow=event?.value.index
-            this.taskmailserviceService.fetchDropDownValue('DICE_EDIT').subscribe((res)=>{
-              this.diceOptions =res;
-            })
+          case 'DICE_BUTTON_CLICK': {
+            if (event?.value?.hostComponent === 'ViewTaskTimeDetailsComponent')
+              this.selectDetailsRow = event?.value.index;
+            this.taskmailserviceService
+              .fetchDropDownValue('DICE_EDIT')
+              .subscribe((res) => {
+                this.diceOptions = res;
+              });
             return;
           }
-          case 'EDIT':{   
-              this.taskmailserviceService.setHeaderSuccess(event.value.item)        
-              this.router.navigate(['task/apply-page']);
-              return;
+          case 'EDIT': {
+            event.value.item.resource = event.value.item.resource.toUpperCase();
+            event.value.item.type = event.value.item.type.toUpperCase();
+            this.taskmailserviceService.setHeaderSuccess(event.value.item);
+            this.router.navigate(['task/apply-page']);
+            return;
           }
-          case 'RESET':{
-                  const defaultResource: any = this.useridDropdown.find(
-                    (x: any) => x.codeName === this.loggeduser.userName.toUpperCase()
-                  );
-                    this.viewTaskFilterFormGroup?.get('userName')?.patchValue(
-                    defaultResource.codeName
-                  );
-                    return;
+          case 'RESET': {
+            const defaultResource: any = this.useridDropdown.find(
+              (x: any) => x.codeName === this.loggeduser.userName.toUpperCase()
+            );
+            this.viewTaskFilterFormGroup
+              ?.get('userName')
+              ?.patchValue(defaultResource.codeName);
+            const today = new Date();
+            const startOfMonth = new Date(
+              today.getFullYear(),
+              today.getMonth(),
+              1
+            );
+            setTimeout(() => {
+              this.viewTaskFilterFormGroup
+                .get('fromDate')
+                ?.patchValue(startOfMonth);
+              this.viewTaskFilterFormGroup
+                .get('toDate')
+                ?.patchValue(new Date());
+            });
+            return;
           }
-          default :
-          break;
+          default:
+            break;
         }
       });
   }

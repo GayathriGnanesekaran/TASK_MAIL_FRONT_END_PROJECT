@@ -26,6 +26,6 @@ export class HeaderCommonComponent {
   logout() {
     this.taskmailserviceService.remove('loginData');
     this.taskmailserviceService.remove('headerValue');
-    this.router.navigate(['/login-page']);
+    this.router.navigate(['']);
   }
 }

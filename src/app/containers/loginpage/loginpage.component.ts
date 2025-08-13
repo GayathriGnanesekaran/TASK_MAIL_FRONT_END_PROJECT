@@ -39,6 +39,7 @@ export class LoginpageComponent {
           console.log(res);
           if (res.status === 2) {
             this.taskmailserviceService.setLoginSaveSuccess(res.data);
+            this.taskmailserviceService.remove('headerValue');
             this.router.navigate(['/task/apply-page']);
           } else {
             this.loginError = res.message;
