@@ -80,13 +80,22 @@ userList=[]
             this.value !== '' &&
             this.value !== null
         ) {
-            this.viewTaskFilterFormGroup.get(control)?.patchValue(new Date(this.value));
-            this.viewTaskFilterFormGroup.get(control)?.setErrors(null);
-            this.viewTaskFilterFormGroup.markAsDirty();
+             this.viewTaskFilterFormGroup.get(control)?.patchValue(new Date(this.value));
+           const fromDateValue= this.viewTaskFilterFormGroup.get('fromDate')?.value;
+           const toDateValue= this.viewTaskFilterFormGroup.get('toDate')?.value;
+           if(new Date(fromDateValue) > new Date(toDateValue)){
+            this.viewTaskFilterFormGroup.get('fromDate')?.setErrors({ greater: true });
+           }
+           else{
+            this.viewTaskFilterFormGroup.get(control)?.setErrors(null);            
+           }
+           this.viewTaskFilterFormGroup.markAsDirty();
         }
         if (this.value == '' || this.value == null) {
             if (control == 'fromDate') {
-                this.viewTaskFilterFormGroup.get(control)?.patchValue(moment().subtract(30, 'days').toDate());
+                const today = new Date();
+    const startOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);
+                this.viewTaskFilterFormGroup.get(control)?.patchValue(startOfMonth);
             } else {
                 this.viewTaskFilterFormGroup.get(control)?.patchValue(moment().toDate());
             }

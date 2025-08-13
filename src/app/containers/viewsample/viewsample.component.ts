@@ -9,6 +9,11 @@ import { forkJoin, Subject, takeUntil } from 'rxjs';
 import { ApplicationEventService } from '../../services/application-event.service';
 import moment from 'moment';
 import { Router } from '@angular/router';
+import { InputError } from '../../interfaces/input-error.model';
+import { ValidationService } from '../../services/validation.service';
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { AlertPopupComponent } from '../alert-popup/alert-popup.component';
+import { ModalMsg } from '../../interfaces/modal-msg';
 @Component({
   selector: 'app-viewsample',
   standalone: false,
@@ -24,13 +29,17 @@ export class ViewsampleComponent implements OnInit {
   viewTaskScheduleArray = [];
   public _destroyed$ = new Subject();
   diceOptions: any = [];
+  pageErrors!: InputError[];
+  public valpopupInst!: NgbModalRef | null;
 
   constructor(
     private formUtilService: FormUtilService,
     private applicationEventService: ApplicationEventService,
     private taskmailserviceService: TaskmailserviceService,
     private cdr: ChangeDetectorRef,
-    private router: Router
+    private router: Router,
+    private validationService: ValidationService,
+    private modalService: NgbModal
   ) {}
   ngOnInit() {
     this.loggeduser = this.taskmailserviceService.getLoginSaveSuccess();
@@ -64,21 +73,40 @@ export class ViewsampleComponent implements OnInit {
       .subscribe((event: any) => {
         switch (event.name) {
           case 'SEARCH_TASK': {
-            const fromDate = moment(
-              this.viewTaskFilterFormGroup.get('fromDate')?.value
-            ).format('MM/DD/YYYY');
-            const toDate = moment(
-              this.viewTaskFilterFormGroup.get('toDate')?.value
-            ).format('MM/DD/YYYY');
-            this.viewTaskFilterFormGroup.get('fromDate')?.patchValue(fromDate);
-            this.viewTaskFilterFormGroup.get('toDate')?.patchValue(toDate);
-            this.taskmailserviceService
-              .getTaskHeader(this.viewTaskFilterFormGroup.getRawValue())
-              .subscribe((data) => {
-                this.viewTaskTimeArray = data;
-                this.cdr.detectChanges();
-              });
-
+            if (this.viewTaskFilterFormGroup.invalid) {
+              this.validationError(
+                this.viewTaskFilterFormGroup.controls,
+                ViewTaskFilterForm
+              );
+            } else {
+              const fromDate = moment(
+                this.viewTaskFilterFormGroup.get('fromDate')?.value
+              ).format('MM/DD/YYYY');
+              const toDate = moment(
+                this.viewTaskFilterFormGroup.get('toDate')?.value
+              ).format('MM/DD/YYYY');
+              this.viewTaskFilterFormGroup
+                .get('fromDate')
+                ?.patchValue(fromDate);
+              this.viewTaskFilterFormGroup.get('toDate')?.patchValue(toDate);
+              this.taskmailserviceService
+                .getTaskHeader(this.viewTaskFilterFormGroup.getRawValue())
+                .subscribe((data) => {
+                  if(data){
+                  this.viewTaskTimeArray = data;
+                  this.selectDetailsRow = 0;
+                  this.taskmailserviceService
+                    .getTaskTimeHeader(
+                      this.viewTaskTimeArray[this.selectDetailsRow].headerId
+                    )
+                    .subscribe((data) => {
+                      this.viewTaskScheduleArray = data;
+                      this.cdr.detectChanges();
+                    });
+                  }
+              
+                });
+            }
             return;
           }
           case 'SELECTED__ROW': {
@@ -137,5 +165,27 @@ export class ViewsampleComponent implements OnInit {
             break;
         }
       });
+  }
+  validationError(controls?: any, objects?: any) {
+    this.pageErrors = this.validationService.parseValidationErrors(
+      controls,
+      objects
+    );
+    if (this.pageErrors && !this.valpopupInst) {
+      this.valpopupInst = this.modalService.open(AlertPopupComponent, {
+        backdrop: 'static',
+      });
+      this.valpopupInst.componentInstance.content = new ModalMsg(
+        'error',
+        '',
+        this.pageErrors
+      );
+      this.valpopupInst.result.then((result) => {
+        if (result === 'Close click' || result === 'Cross click') {
+          this.valpopupInst?.close();
+          this.valpopupInst = null;
+        }
+      });
+    }
   }
 }

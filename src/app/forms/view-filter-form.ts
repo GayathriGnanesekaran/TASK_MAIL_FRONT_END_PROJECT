@@ -19,13 +19,15 @@ export const ViewTaskFilterForm: IFormObject = {
             {
                 validator: 'invalidDate',
                 value: false,
-                message: 'ERROR_MSG.29393',
+                message: 'Please enter a valid From Date',
             },
-            {
-                validator: 'greaterEffDate',
+               {
+                validator: 'greater',
                 value: false,
-                message: 'ERROR_MSG.29403',
+                message: 'From Date should not be greater than To Date',
             },
+            
+           
         ],
         disabled: false,
     },
@@ -38,7 +40,7 @@ export const ViewTaskFilterForm: IFormObject = {
             {
                 validator: 'invalidDate',
                 value: false,
-                message: 'ERROR_MSG.29394',
+                message: 'Please enter a valid To Date',
             },
         ],
         disabled: false,

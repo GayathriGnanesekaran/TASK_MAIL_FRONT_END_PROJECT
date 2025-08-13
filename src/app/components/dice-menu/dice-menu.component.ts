@@ -18,7 +18,7 @@ export interface IDiceMenu {
 export class DiceMenuComponent {
 @Input() state: 'primary' | 'success' | 'danger' | 'warning' | 'info' = 'primary';
     @Input() position: 'right' | 'left' = 'right';
-    @Input() actionLinks!: IDiceMenu[];
+    @Input() actionLinks!: IDiceMenu[] | null;
     @Input() item: any;
     @Input() index!: number;
     @Input() hostComponent!: string;

@@ -11322,3 +11322,47 @@ label.bullet-point {
     }
 }
 
+ 
+// @mixin theming($name, $color) {
+//   .theme-#{$name} {
+//     .bs-datepicker-container {
+//       padding: 0;
+//     }
+//     .bs-datepicker-head {
+//       background-color: $color;
+//     }
+ 
+//     .bs-datepicker-body {
+//       table {
+//         td {
+//           span.selected,
+//           &.selected span,
+//           span[class*='select-']:after,
+//           &[class*='select-'] span:after {
+//             background-color: $color;
+//           }
+ 
+//           &.week span {
+//             color: $color;
+//           }
+ 
+//           &.active-week span:hover {
+//             cursor: pointer;
+//             background-color: $color;
+//             color: $light;
+//             opacity: 0.5;
+//             transition: 0s;
+//           }
+//         }
+//       }
+//     }
+//   }
+// }
+ 
+  .bs-datepicker-head {
+      background-color:#3b6caa;
+    }
+    .bs-datepicker-container {
+       padding: 0;
+    }
+

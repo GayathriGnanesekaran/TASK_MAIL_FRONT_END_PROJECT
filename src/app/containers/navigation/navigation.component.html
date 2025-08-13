@@ -4,6 +4,7 @@
     <div class="col-3 pr-0">
       <div ngbNav #nav="ngbNav" [(activeId)]="active" class="nav nav-tabs-left nav-pills flex-column" orientation="vertical"
       >
+      {{ active }}
         <ng-container ngbNavItem="apply" >
           <button ngbNavLink class="border-primary p-2" [routerLink]="['/task/apply-page']" routerLinkActive="active">Apply</button>
         </ng-container>

@@ -119,7 +119,8 @@ export const ApplyTaskTimeEntity: IFormObject = {
           validator: 'mask',
           value: true,
           message: 'Please enter a valid OutTime',
-       }
+       },
+     
     ],
     disabled: false,
   },

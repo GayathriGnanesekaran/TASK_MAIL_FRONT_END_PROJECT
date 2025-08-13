@@ -123,7 +123,8 @@
                 <div
                   class="input-group input-group-sm"
                   [ngClass]="{
-                    required: ApplyTaskTimeFormGroup?.get('date')?.errors
+                    required: ApplyTaskTimeFormGroup?.get('date')?.errors,
+                   
                   }"
                 >
                   <input
@@ -158,6 +159,7 @@
                     mask="0000"
                     maxlength="4"
                     formControlName="year"
+                    (blur)="checkYear()"
                   />
                   <!-- formControlName="year" -->
                   <!-- [title]="
@@ -180,7 +182,7 @@
                     id="inTime"
                     maxlength="5"
                     mask="Hh:m0"
-                    (blur)="updateTotalDuration()"
+                    (blur)="updateTotalDuration('inTime')"
                     placeholder="00:00"
                     [dropSpecialCharacters]="false"
                     formControlName="inTime"
@@ -208,7 +210,7 @@
                     maxlength="6"
                     mask="Hh:m0"
                     [dropSpecialCharacters]="false"
-                    (blur)="updateTotalDuration()"
+                    (blur)="updateTotalDuration('outTime')"
                     placeholder="00:00"
                     formControlName="outTime"
                   />

@@ -17,8 +17,8 @@
                     </tr>
                 </thead>
 
-                <tbody>
-                    
+                <tbody>  
+                    <ng-container *ngIf="viewTaskTimeArray.length > 0">             
                     <tr *ngFor="let item of viewTaskTimeArray; let i = index"
                         [ngClass]="{ active: i === selectDetailsRow }"
                         (click)="selectedRow(item, i)">
@@ -42,7 +42,17 @@
                         <td>{{ item?.actWorkHours}}</td>
                         <td>{{ item?.comments}}</td>
                     </tr>
-                    
+                     </ng-container>
+                      <ng-container *ngIf="viewTaskTimeArray.length === 0">
+                <tr>
+                    <td colspan="12" class="text-center">
+                        <span title="No Records found for the search criteria"
+                            class="text-primary">No Records found for the search criteria</span
+                        >
+                    </td>
+                </tr>
+            </ng-container>
                 </tbody>
+                  
             </table>
         </div>
