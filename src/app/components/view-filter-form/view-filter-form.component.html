@@ -48,6 +48,7 @@
           [bsValue]="viewTaskFilterFormGroup.get('fromDate')?.value"
           id="fromDate"
           name="fromDate"
+          placement="top"
           (bsValueChange)="dateValueChange($event, 'fromDate')"
           (blur)="dateValueChange($event, 'fromDate')"
           [bsConfig]="bsConfig"
