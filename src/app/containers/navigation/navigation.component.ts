@@ -3,6 +3,7 @@ import { NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
 import { ApplicationEventService } from '../../services/application-event.service';
 import { Subject, takeUntil } from 'rxjs';
 import { TaskmailserviceService } from '../../services/taskmailservice.service';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-navigation',
   standalone: false,
@@ -16,13 +17,17 @@ export class NavigationComponent {
   public _destroyed$ = new Subject();
   loggeduser: any;
 
-  constructor(private applicationEventService: ApplicationEventService,
-    private taskmailserviceService:TaskmailserviceService
+  constructor(private applicationEventService: ApplicationEventService,    
+    private taskmailserviceService:TaskmailserviceService,
+    private router:Router
   ) {
-        
+    
   }
 
   ngOnInit(): void {
+    if(this.router?.url ==='/task/view-page'){
+      this.active ='view'
+    }
         this.loggeduser = this.taskmailserviceService.getLoginSaveSuccess()
     this.applicationEventService.appEvent$
       .pipe(takeUntil(this._destroyed$))

@@ -11332,30 +11332,7 @@ label.bullet-point {
 //       background-color: $color;
 //     }
  
-//     .bs-datepicker-body {
-//       table {
-//         td {
-//           span.selected,
-//           &.selected span,
-//           span[class*='select-']:after,
-//           &[class*='select-'] span:after {
-//             background-color: $color;
-//           }
- 
-//           &.week span {
-//             color: $color;
-//           }
- 
-//           &.active-week span:hover {
-//             cursor: pointer;
-//             background-color: $color;
-//             color: $light;
-//             opacity: 0.5;
-//             transition: 0s;
-//           }
-//         }
-//       }
-//     }
+
 //   }
 // }
  
@@ -11364,5 +11341,30 @@ label.bullet-point {
     }
     .bs-datepicker-container {
        padding: 0;
+    }
+
+        .bs-datepicker-body {
+      table {
+        td {
+          span.selected,
+          &.selected span,
+          span[class*='select-']:after,
+          &[class*='select-'] span:after {
+            background-color: #3b6caa;
+          }
+ 
+          &.week span {
+            color: #3b6caa;
+          }
+ 
+        //   &.active-week span:hover {
+        //     cursor: pointer;
+        //     background-color: #3b6caa;
+        //     color: $light;
+        //     opacity: 0.5;
+        //     transition: 0s;
+        //   }
+        }
+      }
     }
 
