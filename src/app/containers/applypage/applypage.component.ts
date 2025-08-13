@@ -181,6 +181,7 @@ export class ApplypageComponent implements OnInit {
               this.selectDetailIndex =
                 event?.value?.index != 0 ? event?.value?.index - 1 : 0;
               this.taskDetailArray.removeAt(event?.value?.index);
+              this.taskDetailArray.markAsPristine();
               return;
             } else {
               if (this.taskDetailArray.invalid) {
