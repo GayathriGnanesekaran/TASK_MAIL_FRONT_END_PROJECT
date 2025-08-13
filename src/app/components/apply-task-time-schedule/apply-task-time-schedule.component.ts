@@ -141,10 +141,9 @@ export class ApplyTaskTimeScheduleComponent {
   this.applicationEventService.emitAnEvent(event);
 }
 
- updateActualDuration(i:number): void {
+updateActualDuration(control :string, i:number): void {
   let stTime = this.taskDetailArray.controls[i].get('stTime')?.value;
   let endTime = this.taskDetailArray.controls[i].get('endTime')?.value;
-  
   if (stTime && endTime) {
     if (stTime.length >= 3 && stTime.includes(':')) {
       const [h, m] = stTime.split(':');
@@ -154,15 +153,22 @@ export class ApplyTaskTimeScheduleComponent {
       const [h, m] = endTime.split(':');
       endTime = `${h.padStart(2, '0')}:${m.padStart(2, '0')}`;
     }
-
-   
     const [inH, inM] = stTime.split(':').map(Number);
     const [outH, outM] = endTime.split(':').map(Number);
-
     const inMinutes = inH * 60 + inM;
-    const outMinutes = outH * 60 + outM;
-
-    if (outMinutes >= inMinutes) {
+    let outMinutes = outH * 60 + outM;
+       if(inMinutes ===0) {
+    this.taskDetailArray.controls[i].get('stTime')?.setErrors( {
+    mask:true
+    });}
+          if(outMinutes ===0) {
+    this.taskDetailArray.controls[i].get('endTime')?.setErrors( {
+    mask:true
+    });}
+   else {
+    if (outMinutes < inMinutes) {
+  outMinutes += 24 * 60; // add 24 hours in minutes
+}
       const diff = outMinutes - inMinutes;
       const hours = Math.floor(diff / 60);
       const minutes = diff % 60;
@@ -171,15 +177,52 @@ export class ApplyTaskTimeScheduleComponent {
         .toString()
         .padStart(2, '0')}`;
 
-      this.taskDetailArray.controls[i].get('actHours')?.patchValue(formatted, {
-        emitEvent: false,
-      });
-    } else {
-      this.taskDetailArray.controls[i].get('actHours')?.patchValue('', {
+      this.taskDetailArray.controls[i].get('totalDuration')?.patchValue(formatted, {
         emitEvent: false,
       });
     }
   }
+  
+
+//  updateActualDuration(i:number): void {
+//   let stTime = this.taskDetailArray.controls[i].get('stTime')?.value;
+//   let endTime = this.taskDetailArray.controls[i].get('endTime')?.value;
+  
+//   if (stTime && endTime) {
+//     if (stTime.length >= 3 && stTime.includes(':')) {
+//       const [h, m] = stTime.split(':');
+//       stTime = `${h.padStart(2, '0')}:${m.padStart(2, '0')}`;
+//     }
+//     if (endTime.length >= 3 && endTime.includes(':')) {
+//       const [h, m] = endTime.split(':');
+//       endTime = `${h.padStart(2, '0')}:${m.padStart(2, '0')}`;
+//     }
+
+   
+//     const [inH, inM] = stTime.split(':').map(Number);
+//     const [outH, outM] = endTime.split(':').map(Number);
+
+//     const inMinutes = inH * 60 + inM;
+//     const outMinutes = outH * 60 + outM;
+
+//     if (outMinutes >= inMinutes) {
+//       const diff = outMinutes - inMinutes;
+//       const hours = Math.floor(diff / 60);
+//       const minutes = diff % 60;
+
+//       const formatted = `${hours.toString().padStart(2, '0')}:${minutes
+//         .toString()
+//         .padStart(2, '0')}`;
+
+//       this.taskDetailArray.controls[i].get('actHours')?.patchValue(formatted, {
+//         emitEvent: false,
+//       });
+//     } else {
+//       this.taskDetailArray.controls[i].get('actHours')?.patchValue('', {
+//         emitEvent: false,
+//       });
+//     }
+//   }
 
 
   // addTaskRow(): void {
