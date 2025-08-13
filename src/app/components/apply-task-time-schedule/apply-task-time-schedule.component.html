@@ -56,8 +56,8 @@
               <ng-container [formGroupName]="i">
                 <td class="w-p-28">
                   <app-dice-menu
-                    [actionLinks]="diceOptions"
-                    [hostComponent]="'PaymentBatchDetailsGridListComponent'"
+                    [actionLinks]="diceOptions ? diceOptions : []"
+                    [hostComponent]="'ApplyTaskTimeScheduleComponent'"
                     [item]="task"
                     [index]="i"
                   ></app-dice-menu>
@@ -221,7 +221,7 @@
                   }"
                   >
                     <input
-                      class="form-control form-control-sm form-select"
+                      class="form-control form-control-sm "
                       type="text"
                       id="resName"
                       formControlName="resName"

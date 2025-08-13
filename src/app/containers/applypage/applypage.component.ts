@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { IFormObject } from '../../interfaces/form-object.interface';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
@@ -47,7 +47,8 @@ export class ApplypageComponent implements OnInit {
     private taskmailserviceService: TaskmailserviceService,
     private modalService: NgbModal,
     private validationService: ValidationService,
-    private toaster:ToastrService,
+    private toaster: ToastrService,
+    private cdr: ChangeDetectorRef,
     private fb: FormBuilder
   ) {
     this.ApplyTaskTimeFormGroup =
@@ -110,6 +111,13 @@ export class ApplypageComponent implements OnInit {
       );
       if (this.headerDatas) {
         this.ApplyTaskTimeFormGroup.patchValue(this.headerDatas);
+        this.ApplyTaskTimeFormGroup.markAsPristine();
+        this.taskmailserviceService
+          .getTaskTimeHeader(this.headerDatas.headerId)
+          .subscribe((data) => {
+            this.updateArrayValues(data);
+            this.cdr.detectChanges();
+          });
       }
     });
     this.applicationEventService.appEvent$
@@ -121,42 +129,56 @@ export class ApplypageComponent implements OnInit {
             return;
           }
           case 'DICE_BUTTON_CLICK': {
-            if (event?.value?.hostComponent === 'ApplyTaskTimeGridComponent')
+            this.diceOptions = [];
+            if (event?.value?.hostComponent === 'ApplyTaskTimeGridComponent') {
               this.taskmailserviceService
                 .fetchDropDownValue('DICE_RESET')
                 .subscribe((res) => {
                   this.diceOptions = res;
+                  return;
                 });
+            } else if (
+              event?.value?.hostComponent === 'ApplyTaskTimeScheduleComponent'
+            ) {
+              this.taskmailserviceService
+                .fetchDropDownValue('DICE_DELETE')
+                .subscribe((res) => {
+                  this.diceOptions = res;
+                  return;
+                });
+            }
             return;
           }
-          case 'RESET':{          
-           this.ApplyTaskTimeFormGroup =
-           this.formUtilService.buildFormGroup(ApplyTaskTimeEntity);
-           const defaultResource: any = this.resourceDropdown.find(
-           (x: any) => x.codeName === this.loggeduser.userName.toUpperCase()
-          );
-        this.ApplyTaskTimeFormGroup?.get('resource')?.patchValue(
-        defaultResource.codeName
-      );
+          case 'RESET': {
+            this.ApplyTaskTimeFormGroup =
+              this.formUtilService.buildFormGroup(ApplyTaskTimeEntity);
+            const defaultResource: any = this.resourceDropdown.find(
+              (x: any) => x.codeName === this.loggeduser.userName.toUpperCase()
+            );
+            this.ApplyTaskTimeFormGroup?.get('resource')?.patchValue(
+              defaultResource.codeName
+            );
             return;
           }
 
           case 'ADDING_NEW_TASK': {
-            // if (this.ApplyTaskTimeFormGroup.dirty) {
-            //   this.saveTaskTimeDetails('ADDING_NEW_TASK');
-            // } else if (this.taskDetailArray.invalid) {
-            //   this.validationError(
-            //     (
-            //       this.taskDetailArray.controls[
-            //         this.selectDetailIndex
-            //       ] as FormGroup
-            //     ).controls,
-            //     TaskGridDetailForm['taskDetailsList'].subForm
-            //   );
-            // } else {
-            this.addNewTaskDetail();
-            // return;
-            // }
+            if (this.ApplyTaskTimeFormGroup.dirty) {
+              this.saveTaskTimeDetails('ADDING_NEW_TASK');
+            } else if (this.taskDetailArray.dirty) {
+              this.saveTaskTimeDetails('ADDING_NEW_TASK');
+            } else if (this.taskDetailArray.invalid) {
+              this.validationError(
+                (
+                  this.taskDetailArray.controls[
+                    this.selectDetailIndex
+                  ] as FormGroup
+                ).controls,
+                TaskGridDetailForm['taskDetailsList'].subForm
+              );
+            } else {
+              this.addNewTaskDetail();
+              return;
+            }
             return;
           }
           case 'DELETE': {
@@ -166,18 +188,56 @@ export class ApplypageComponent implements OnInit {
               this.taskDetailArray.removeAt(event?.value?.index);
               return;
             } else {
-              this.taskmailserviceService
-                .deleteTasksDetails(event?.value.item.value.detailsId)
-                .subscribe(() => {
-                  return;
-                });
+              if (this.taskDetailArray.invalid) {
+                this.validationError(
+                  (
+                    this.taskDetailArray.controls[
+                      this.selectDetailIndex
+                    ] as FormGroup
+                  ).controls,
+                  TaskGridDetailForm['taskDetailsList'].subForm
+                );
+              } else {
+                this.taskmailserviceService
+                  .deleteTasksDetails(
+                    event?.value.item.value.detailsId,
+                    event?.value.item.value.headerId
+                  )
+                  .subscribe((res: any) => {
+                    if (res.status == 2) {
+                      this.toaster.success('Task Details Row Deleted Successfully');
+                      this.taskmailserviceService
+                        .getTaskTimeHeader(this.headerDatas.headerId)
+                        .subscribe((data) => {
+                          this.updateArrayValues(data);
+                          this.selectDetailIndex =
+                            event?.value?.index != 0
+                              ? event?.value?.index - 1
+                              : 0;
+                          this.cdr.detectChanges();
+                          return;
+                        });
+                    }
+
+                    return;
+                  });
+              }
             }
 
             return;
           }
           case 'SELECTED_TASK_DETAILS': {
-            this.selectDetailIndex = event?.value?.index;
-            return;
+            if (this.selectDetailIndex === event?.value?.index) {
+              return;
+            } else {
+              if (this.taskDetailArray.dirty) {
+                this.saveTaskTimeDetails('SELECT_DETAILS', event);
+              } else {
+                this.selectDetailIndex = event?.value?.index;
+              }
+
+              return;
+            }
           }
         }
       });
@@ -194,7 +254,7 @@ export class ApplypageComponent implements OnInit {
       .get('headerId')
       ?.patchValue(this.ApplyTaskTimeFormGroup.get('headerId')?.value);
     this.taskDetailArray.controls[this.selectDetailIndex]
-      .get('userName')
+      .get('resName')
       ?.patchValue(this.loggeduser.userName);
     this.taskDetailArray.controls[this.selectDetailIndex]
       .get('userId')
@@ -229,7 +289,7 @@ export class ApplypageComponent implements OnInit {
     this.taskDetailArray.clear();
   }
 
-  saveTaskTimeDetails(type?: string) {
+  saveTaskTimeDetails(type?: string, event?: any) {
     if (this.ApplyTaskTimeFormGroup.invalid) {
       this.validationError(
         this.ApplyTaskTimeFormGroup.controls,
@@ -246,64 +306,69 @@ export class ApplypageComponent implements OnInit {
         this.saveTaskHeader(type);
       }
       if (this.taskDetailArray.dirty) {
-        this.saveTaskDetails(type);
+        this.saveTaskDetails(type, event);
       }
     }
   }
+  updateArrayValues(res?: any) {
+    this.taskDetailFormGroup =
+      this.formUtilService.buildReactiveForm(TaskGridDetailForm);
+    this.taskDetailArray = <FormArray>(
+      this.taskDetailFormGroup.controls['taskDetailsList']
+    );
+    res.forEach((element: any) => {
+      this.taskDetailArray.push(
+        this.formUtilService.buildFormGroup(
+          TaskGridDetailForm['taskDetailsList'].subForm,
+          {
+            ...element,
+          }
+        )
+      );
+    });
+    this.taskDetailArray.updateValueAndValidity();
+  }
 
-  saveTaskDetails(type?: string) {
+  saveTaskDetails(type?: string, event?: any) {
+    const tempArray = [];
     if (
       this.taskDetailArray.controls[this.selectDetailIndex].get('detailsId')
         ?.value === 0
     ) {
+      const data =
+        this.taskDetailArray.controls[this.selectDetailIndex].getRawValue();
+      data.userId = data.userId.toString();
+      tempArray.push(data);
       this.taskmailserviceService
-        .saveTasksDetails(this.taskDetailArray.getRawValue())
+        .saveTasksDetails(tempArray)
         .subscribe((res) => {
           if (res) {
-            this.taskDetailFormGroup =
-              this.formUtilService.buildReactiveForm(TaskGridDetailForm);
-            this.taskDetailArray = <FormArray>(
-              this.taskDetailFormGroup.controls['taskDetailsList']
-            );
-            res.forEach((element: any) => {
-              this.taskDetailArray.push(
-                this.formUtilService.buildFormGroup(
-                  TaskGridDetailForm['taskDetailsList'].subForm,
-                  {
-                    ...element,
-                  }
-                )
-              );
-            });
-            this.taskDetailArray.updateValueAndValidity();
-
+            this.toaster.success('Task Details Saved Successfully');
+            this.updateArrayValues(res);
             if (type == 'ADDING_NEW_TASK') {
               this.addNewTaskDetail();
+            }
+            if (type == 'SELECT_DETAILS' ) {
+              this.selectDetailIndex = event?.value?.index;
             }
           }
         });
     } else {
+      const data =
+        this.taskDetailArray.controls[this.selectDetailIndex].getRawValue();
+      data.userId = data.userId.toString();
+      tempArray.push(data);
       this.taskmailserviceService
-        .updateTasksDetails(this.taskDetailArray.getRawValue())
+        .updateTasksDetails(tempArray)
         .subscribe((res) => {
           if (res) {
-            this.taskDetailArray.push(
-              this.formUtilService.buildFormGroup(
-                TaskGridDetailForm['taskDetailsList'].subForm
-              )
-            );
-            res.forEach((element: any) => {
-              this.taskDetailArray.push(
-                this.formUtilService.buildFormGroup(
-                  TaskGridDetailForm['taskDetailsList'].subForm,
-                  {
-                    ...element,
-                  }
-                )
-              );
-            });
+            this.toaster.success('Task Details Updated Successfully');
+            this.updateArrayValues(res);
             if (type == 'ADDING_NEW_TASK') {
               this.addNewTaskDetail();
+            }
+            if (type == 'SELECT_DETAILS' ) {
+              this.selectDetailIndex = event?.value?.index;
             }
           }
         });
@@ -311,32 +376,41 @@ export class ApplypageComponent implements OnInit {
   }
 
   saveTaskHeader(type?: string) {
-   this.ApplyTaskTimeFormGroup.get('userName')?.patchValue(this.loggeduser.userName)
-      this.ApplyTaskTimeFormGroup.get('userId')?.patchValue(this.loggeduser.userPk)
-      if (this.ApplyTaskTimeFormGroup.get('headerId')?.value === 0) {
-
-        this.taskmailserviceService
-          .saveTaskHeader(this.ApplyTaskTimeFormGroup.getRawValue())
-          .subscribe((res) => {
-            if (res) {
-              this.ApplyTaskTimeFormGroup.patchValue(res);
-              this.taskmailserviceService.setHeaderSuccess(res);
-               this.toaster.success("Task Time Detail Added Successfully")
+    this.ApplyTaskTimeFormGroup.get('userName')?.patchValue(
+      this.loggeduser.userName
+    );
+    this.ApplyTaskTimeFormGroup.get('userId')?.patchValue(
+      this.loggeduser.userPk
+    );
+    if (this.ApplyTaskTimeFormGroup.get('headerId')?.value === 0) {
+      this.taskmailserviceService
+        .saveTaskHeader(this.ApplyTaskTimeFormGroup.getRawValue())
+        .subscribe((res) => {
+          if (res) {
+            this.ApplyTaskTimeFormGroup.patchValue(res);
+            this.taskmailserviceService.setHeaderSuccess(res);
+            this.toaster.success('Task Time Detail Added Successfully');
+            this.ApplyTaskTimeFormGroup.markAsPristine();
+            if (type == 'ADDING_NEW_TASK') {
+              this.addNewTaskDetail();
             }
-          });
-      } else {
-        this.taskmailserviceService
-          .updateTaskHeader(
-            this.ApplyTaskTimeFormGroup.getRawValue()           
-          )
-          .subscribe((res) => {
-            if (res) {
-               this.taskmailserviceService.setHeaderSuccess(res);
-              this.ApplyTaskTimeFormGroup.patchValue(res);
-                    this.toaster.success("Task Time Detail Updated Successfully")
+          }
+        });
+    } else {
+      this.taskmailserviceService
+        .updateTaskHeader(this.ApplyTaskTimeFormGroup.getRawValue())
+        .subscribe((res) => {
+          if (res) {
+            this.taskmailserviceService.setHeaderSuccess(res);
+            this.ApplyTaskTimeFormGroup.patchValue(res);
+            this.toaster.success('Task Time Detail Updated Successfully');
+            this.ApplyTaskTimeFormGroup.markAsPristine();
+            if (type == 'ADDING_NEW_TASK') {
+              this.addNewTaskDetail();
             }
-          });
-        }
+          }
+        });
+    }
   }
 
   ngOnDestroy(): void {

@@ -97,12 +97,12 @@ export class TaskmailserviceService {
   }
   updateTasksDetails(data: any) {
     return this.httpClient
-      .put(`/api/taskDetails/insert`, data)
+      .put(`/api/taskDetails/update`, data)
       .pipe(map((response: any) => response.data));
   }
-  deleteTasksDetails(data: any) {
+  deleteTasksDetails(detailsId: any,headerId:any) {
     return this.httpClient
-      .put(`/api/taskDetails/delete/{detailsId}/{headerId}`, data)
-      .pipe(map((response: any) => response.data));
+      .delete(`/api/taskDetails/delete/${detailsId}/${headerId}`)
+      .pipe(map((response: any) => response));
   }
 }
