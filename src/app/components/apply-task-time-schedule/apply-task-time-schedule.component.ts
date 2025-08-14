@@ -141,7 +141,7 @@ export class ApplyTaskTimeScheduleComponent {
   this.applicationEventService.emitAnEvent(event);
 }
 
-updateActualDuration(control :string, i:number): void {
+updateActualDuration(i:number): void {
   let stTime = this.taskDetailArray.controls[i].get('stTime')?.value;
   let endTime = this.taskDetailArray.controls[i].get('endTime')?.value;
   if (stTime && endTime) {
@@ -177,7 +177,7 @@ updateActualDuration(control :string, i:number): void {
         .toString()
         .padStart(2, '0')}`;
 
-      this.taskDetailArray.controls[i].get('totalDuration')?.patchValue(formatted, {
+      this.taskDetailArray.controls[i].get('actHours')?.patchValue(formatted, {
         emitEvent: false,
       });
     }
