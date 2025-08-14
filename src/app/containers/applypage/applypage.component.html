@@ -28,7 +28,7 @@
 </button>
 
 <button type="button"  class="btn btn-sm btn-secondary me-3"   
-[disabled]="ApplyTaskTimeFormGroup.get('headerId')?.value==0"
+[disabled]="ApplyTaskTimeFormGroup.get('headerId')?.value==0 && taskDetailFormGroup.get()"
     (click)="send()">
    
     
