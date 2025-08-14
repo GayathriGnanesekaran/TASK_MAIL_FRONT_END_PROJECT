@@ -22,6 +22,8 @@ export class ApplyTaskTimeScheduleComponent {
   @Input() isBillableDropdown:any[] = [];
   @Input() billingTypeDropdown:any[] = [];
   @Input() selectDetailIndex= 0;
+  @Input() teamDropdown:any[]=[];
+  @Input() statusDropdown:any[]=[];
     value: any;
 
   private _taskDetailFormGroup!: FormGroup;

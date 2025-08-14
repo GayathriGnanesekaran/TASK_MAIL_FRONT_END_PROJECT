@@ -36,6 +36,8 @@ export class ApplypageComponent implements OnInit {
   isBillableDropdown = [];
   billingTypeDropdown = [];
   typeHeaderDropdown = [];
+  teamDropdown = [];
+  statusDropdown=[];
 
   taskDetailFormGroup!: FormGroup;
   taskDetailArray!: FormArray;
@@ -73,8 +75,10 @@ export class ApplypageComponent implements OnInit {
       project: this.taskmailserviceService.fetchDropDownValue('PROJECT'),
       type: this.taskmailserviceService.fetchDropDownValue('TYPE'),
       isBillable: this.taskmailserviceService.fetchDropDownValue('ISBILLABLE'),
-      billingType:
-        this.taskmailserviceService.fetchDropDownValue('BILLINGTYPE'),
+
+      billingType:this.taskmailserviceService.fetchDropDownValue('BILLINGTYPE'),
+        team:this.taskmailserviceService.fetchDropDownValue('TEAM'),
+         status:this.taskmailserviceService.fetchDropDownValue('STATUS'),
     }).subscribe((data) => {
       if (data) {
         if (data.typeHeader && data.typeHeader.length > 0) {
@@ -94,6 +98,12 @@ export class ApplypageComponent implements OnInit {
         }
         if (data.billingType && data.billingType.length > 0) {
           this.billingTypeDropdown = data.billingType;
+        }
+        if (data.team && data.team.length > 0) {
+          this.teamDropdown = data.team;
+        }
+        if (data.status && data.status.length > 0) {
+          this.statusDropdown = data.status;
         }
       }
       if (this.loggeduser?.userName) {
