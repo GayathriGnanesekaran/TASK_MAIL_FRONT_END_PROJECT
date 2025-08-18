@@ -37,7 +37,7 @@ export class ApplypageComponent implements OnInit {
   billingTypeDropdown = [];
   typeHeaderDropdown = [];
   teamDropdown = [];
-  statusDropdown=[];
+  statusDropdown = [];
 
   taskDetailFormGroup!: FormGroup;
   taskDetailArray!: FormArray;
@@ -76,9 +76,10 @@ export class ApplypageComponent implements OnInit {
       type: this.taskmailserviceService.fetchDropDownValue('TYPE'),
       isBillable: this.taskmailserviceService.fetchDropDownValue('ISBILLABLE'),
 
-      billingType:this.taskmailserviceService.fetchDropDownValue('BILLINGTYPE'),
-        team:this.taskmailserviceService.fetchDropDownValue('TEAM'),
-         status:this.taskmailserviceService.fetchDropDownValue('STATUS'),
+      billingType:
+        this.taskmailserviceService.fetchDropDownValue('BILLINGTYPE'),
+      team: this.taskmailserviceService.fetchDropDownValue('TEAM'),
+      status: this.taskmailserviceService.fetchDropDownValue('STATUS'),
     }).subscribe((data) => {
       if (data) {
         if (data.typeHeader && data.typeHeader.length > 0) {
@@ -251,12 +252,20 @@ export class ApplypageComponent implements OnInit {
           case 'CHANGE_RESOURCE': {
             this.resourceName =
               this.ApplyTaskTimeFormGroup?.get('resource')?.value;
-            const resName :any=this.resourceDropdown.find((x:any)=>x.codeName ===this.resourceName)
+            const resName: any = this.resourceDropdown.find(
+              (x: any) => x.codeName === this.resourceName
+            );
+            this.ApplyTaskTimeFormGroup.get('headerResourceId')?.patchValue(
+              resName.codeId
+            );
             this.taskDetailArray.controls.forEach(
               (element: any, index: any) => {
                 this.taskDetailArray.controls[index]
                   .get('resName')
                   ?.patchValue(resName.screenName);
+                this.taskDetailArray.controls[index]
+                  .get('detailsResourceId')
+                  ?.patchValue(resName.codeId);
               }
             );
             return;
@@ -275,13 +284,28 @@ export class ApplypageComponent implements OnInit {
     this.taskDetailArray.controls[this.selectDetailIndex]
       .get('headerId')
       ?.patchValue(this.ApplyTaskTimeFormGroup.get('headerId')?.value);
-            const resName :any=this.resourceDropdown.find((x:any)=>x.codeName ===this.resourceName)
+    const resName: any = this.resourceDropdown.find(
+      (x: any) => x.codeName === this.resourceName
+    );
     this.taskDetailArray.controls[this.selectDetailIndex]
       .get('resName')
-      ?.patchValue(this.resourceName !=='' ? resName.screenName : this.loggeduser.userName);
+      ?.patchValue(
+        this.resourceName !== '' ? resName.screenName : this.loggeduser.userName
+      );
     this.taskDetailArray.controls[this.selectDetailIndex]
       .get('userId')
       ?.patchValue(this.loggeduser.userId);
+    this.taskDetailArray.controls[this.selectDetailIndex]
+      .get('userName')
+      ?.patchValue(this.loggeduser.userName);
+    this.taskDetailArray.controls[this.selectDetailIndex]
+      .get('detailsResourceId')
+      ?.patchValue(
+        this.resourceName !== '' ? resName.codeId : this.loggeduser.userId
+      );
+    this.ApplyTaskTimeFormGroup.get('headerResourceId')?.patchValue(
+      this.resourceName !== '' ? resName.codeId : this.loggeduser.userId
+    );
     this.taskDetailArray.updateValueAndValidity();
   }
 
@@ -459,21 +483,23 @@ export class ApplypageComponent implements OnInit {
     this._destroyed$.next('');
     this._destroyed$.complete();
   }
-  send(){
-    this.taskmailserviceService.sendTaskMail(this.ApplyTaskTimeFormGroup.get('headerId')?.value).subscribe((res)=>{
-      if(res.status === 2){
-    this.toaster.success('Mail Sent Successfully');
-      }else{
-              this.sendErrorMsg = this.modalService.open(AlertPopupComponent, {
-        backdrop: 'static',
+  send() {
+    this.taskmailserviceService
+      .sendTaskMail(this.ApplyTaskTimeFormGroup.get('headerId')?.value)
+      .subscribe((res) => {
+        if (res.status === 2) {
+          this.toaster.success('Mail Sent Successfully');
+        } else {
+          this.sendErrorMsg = this.modalService.open(AlertPopupComponent, {
+            backdrop: 'static',
+          });
+          const errorArray = [new InputError('select', res.message)];
+          this.sendErrorMsg.componentInstance.content = new ModalMsg(
+            'error',
+            '',
+            errorArray
+          );
+        }
       });
-      const errorArray = [new InputError('select', res.message)];
-      this.sendErrorMsg.componentInstance.content = new ModalMsg(
-        'error',
-        '',
-       errorArray
-      );
-      }
-    })
   }
 }

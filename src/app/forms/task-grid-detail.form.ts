@@ -15,6 +15,14 @@ export const TaskGridDetailForm: IFormObject = {
         validations: [],
         disabled: false,
       },
+      detailsResourceId: {
+        id: 1,
+        label: '',
+        value: 0,
+        type: '',
+        validations: [],
+        disabled: false,
+      },
       headerId: {
         id: 1,
         label: 'headerId',
@@ -181,10 +189,10 @@ export const TaskGridDetailForm: IFormObject = {
         type: 'text',
         validations: [
           {
-          validator: 'invalidDate',
-          value: true,
-          message: 'Please enter a valid Est Start Date',
-       },
+            validator: 'invalidDate',
+            value: true,
+            message: 'Please enter a valid Est Start Date',
+          },
         ],
         disabled: false,
       },
@@ -195,10 +203,10 @@ export const TaskGridDetailForm: IFormObject = {
         type: 'text',
         validations: [
           {
-          validator: 'invalidDate',
-          value: true,
-          message: 'Please enter a valid Est End Date',
-       },
+            validator: 'invalidDate',
+            value: true,
+            message: 'Please enter a valid Est End Date',
+          },
         ],
         disabled: false,
       },
@@ -222,10 +230,10 @@ export const TaskGridDetailForm: IFormObject = {
             message: 'Act Start Date is mandatory',
           },
           {
-          validator: 'invalidDate',
-          value: true,
-          message: 'Please enter a valid Act Start Date',
-       },
+            validator: 'invalidDate',
+            value: true,
+            message: 'Please enter a valid Act Start Date',
+          },
         ],
         disabled: false,
       },
@@ -240,11 +248,11 @@ export const TaskGridDetailForm: IFormObject = {
             value: true,
             message: 'Act End Date is mandatory',
           },
-           {
-          validator: 'invalidDate',
-          value: true,
-          message: 'Please enter a valid Act End Date',
-       },
+          {
+            validator: 'invalidDate',
+            value: true,
+            message: 'Please enter a valid Act End Date',
+          },
         ],
         disabled: false,
       },
@@ -276,7 +284,7 @@ export const TaskGridDetailForm: IFormObject = {
         ],
         disabled: false,
       },
-      
+
       actHours: {
         id: 1,
         label: 'actHours',
@@ -342,7 +350,7 @@ export const TaskGridDetailForm: IFormObject = {
         disabled: false,
       },
     },
-    validations:[],
+    validations: [],
     disabled: false,
   },
 };

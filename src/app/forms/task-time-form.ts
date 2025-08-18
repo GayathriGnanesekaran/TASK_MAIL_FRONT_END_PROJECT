@@ -191,4 +191,12 @@ export const ApplyTaskTimeEntity: IFormObject = {
     validations: [],
     disabled: false,
   },
+  headerResourceId: {
+    id: 1,
+    label: '',
+    value: 0,
+    type: '',
+    validations: [],
+    disabled: false,
+  },
 };
