@@ -28,12 +28,9 @@
     
     Save
 </button>
-
 <button type="button"  class="btn btn-sm btn-secondary me-3"   
-[disabled]="ApplyTaskTimeFormGroup.get('headerId')?.value==0 && taskDetailFormGroup.get()"
-    (click)="send()">
-   
-    
+[disabled]="ApplyTaskTimeFormGroup.get('headerId')?.value==0 || taskDetailArray.invalid || taskDetailArray.length == 0"
+    (click)="send()">    
     Send
 </button>
 </div>
