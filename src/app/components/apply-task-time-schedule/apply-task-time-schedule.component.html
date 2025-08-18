@@ -248,7 +248,7 @@
                     formControlName="team"
                   >
                     <!-- title="{{ taskDetailArray?.get('resource')?.value }}" -->
-                    <!-- <option value="">--Select--</option> -->
+                    <option value="">--Select--</option>
 
                     <option
                       *ngFor="let item of teamDropdown; let i = index"
@@ -559,7 +559,7 @@
                     />
                   </div>
                 </td>
-                <td class="w-4">
+                <td class="w-5">
                   <div class="input-group input-group-sm"
                   [ngClass]="{
                       required: taskDetailArray.controls[i].get('status')?.errors
@@ -578,7 +578,7 @@
                     formControlName="status"
                   >
                     <!-- title="{{ taskDetailArray?.get('resource')?.value }}" -->
-                    <!-- <option value="">--Select--</option> -->
+                    <option value="">--Select--</option>
 
                     <option
                       *ngFor="let item of statusDropdown; let i = index"

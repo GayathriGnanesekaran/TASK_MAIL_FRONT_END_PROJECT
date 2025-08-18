@@ -275,9 +275,10 @@ export class ApplypageComponent implements OnInit {
     this.taskDetailArray.controls[this.selectDetailIndex]
       .get('headerId')
       ?.patchValue(this.ApplyTaskTimeFormGroup.get('headerId')?.value);
+            const resName :any=this.resourceDropdown.find((x:any)=>x.codeName ===this.resourceName)
     this.taskDetailArray.controls[this.selectDetailIndex]
       .get('resName')
-      ?.patchValue(this.loggeduser.userName);
+      ?.patchValue(this.resourceName !=='' ? resName.screenName : this.loggeduser.userName);
     this.taskDetailArray.controls[this.selectDetailIndex]
       .get('userId')
       ?.patchValue(this.loggeduser.userId);
