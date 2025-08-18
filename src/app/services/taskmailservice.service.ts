@@ -34,7 +34,7 @@ export class TaskmailserviceService {
 
   checkLogIn(data: any) {
     return this.httpClient
-      .post(`/api/my-profile/login`, data)
+      .post(`${this.commonUrl}/api/my-profile/login`,data)
       .pipe(map((response: any) => response));
   }
 
@@ -47,7 +47,7 @@ export class TaskmailserviceService {
     );
     queryParams = queryParams.append('codeType', codeType);
     return this.httpClient
-      .get(`/api/CodeMaster/dropdown`, {
+      .get(`${this.commonUrl}/api/CodeMaster/dropdown`, {
         params: queryParams,
       })
       .pipe(map((response: any) => response.data));
@@ -55,13 +55,13 @@ export class TaskmailserviceService {
 
   saveTaskHeader(data: any) {
     return this.httpClient
-      .post(`/api/taskHeader/insert`, data)
+      .post(`${this.commonUrl}/api/taskHeader/insert`, data)
       .pipe(map((response: any) => response.data));
   }
 
   updateTaskHeader(data: any) {
     return this.httpClient
-      .put(`/api/taskHeader/update`, data)
+      .put(`${this.commonUrl}/api/taskHeader/update`, data)
       .pipe(map((response: any) => response.data));
   }
   getTaskHeader(data: any) {
@@ -79,30 +79,42 @@ export class TaskmailserviceService {
       data?.toDate ? data?.toDate : null
     );
     return this.httpClient
-      .get(`/api/taskHeader/retrieve`, {
+      .get(`${this.commonUrl}/api/taskHeader/retrieve`, {
         params: queryParams,
       })
       .pipe(map((response: any) => response.data));
   }
   getTaskTimeHeader(headerId: string) {
     return this.httpClient
-    .get(`/api/taskDetails/retrieve/${headerId}`)
+    .get(`${this.commonUrl}/api/taskDetails/retrieve/${headerId}`)
     .pipe(map((response: any) => response.data));
 
   }
   saveTasksDetails(data: any) {
     return this.httpClient
-      .post(`/api/taskDetails/insert`, data)
+      .post(`${this.commonUrl}/api/taskDetails/insert`, data)
       .pipe(map((response: any) => response.data));
   }
   updateTasksDetails(data: any) {
     return this.httpClient
-      .put(`/api/taskDetails/update`, data)
+      .put(`${this.commonUrl}/api/taskDetails/update`, data)
       .pipe(map((response: any) => response.data));
   }
   deleteTasksDetails(detailsId: any,headerId:any) {
     return this.httpClient
-      .delete(`/api/taskDetails/delete/${detailsId}/${headerId}`)
+      .delete(`${this.commonUrl}/api/taskDetails/delete/${detailsId}/${headerId}`)
       .pipe(map((response: any) => response));
   }
+   sendTaskMail(headerId:any){
+   const loginUser = this.getLoginSaveSuccess();
+   let queryParams=new HttpParams();
+    queryParams=queryParams.append('headerId',headerId ? headerId :0);
+   queryParams=queryParams.append('userId',loginUser ? loginUser?.userId: 0)
+    return this.httpClient
+      .get(`${this.commonUrl}/api/SendMail`,{
+        params: queryParams,
+      })
+      .pipe(map((response: any) => response));
+   }
+
 }

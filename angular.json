@@ -48,7 +48,7 @@
                 {
                   "type": "initial",
                   "maximumWarning": "500kB",
-                  "maximumError": "1MB"
+                  "maximumError": "1000MB"
                 },
                 {
                   "type": "anyComponentStyle",
@@ -75,9 +75,6 @@
             "development": {
               "buildTarget": "taskmail:build:development"
             }
-          },
-          "options": {
-            "proxyConfig": "proxy.conf.json"
           },
           "defaultConfiguration": "development"
         },

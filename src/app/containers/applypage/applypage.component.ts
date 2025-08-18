@@ -43,7 +43,7 @@ export class ApplypageComponent implements OnInit {
   taskDetailArray!: FormArray;
   selectDetailIndex = 0;
   resourceName: string = '';
-
+  sendErrorMsg!: NgbModalRef;
   constructor(
     private formUtilService: FormUtilService,
     private applicationEventService: ApplicationEventService,
@@ -457,5 +457,22 @@ export class ApplypageComponent implements OnInit {
     // unsubcribe Observable
     this._destroyed$.next('');
     this._destroyed$.complete();
+  }
+  send(){
+    this.taskmailserviceService.sendTaskMail(this.ApplyTaskTimeFormGroup.get('headerId')?.value).subscribe((res)=>{
+      if(res.status === 2){
+    this.toaster.success('Mail Sent Successfully');
+      }else{
+              this.sendErrorMsg = this.modalService.open(AlertPopupComponent, {
+        backdrop: 'static',
+      });
+      const errorArray = [new InputError('select', res.message)];
+      this.sendErrorMsg.componentInstance.content = new ModalMsg(
+        'error',
+        '',
+       errorArray
+      );
+      }
+    })
   }
 }
