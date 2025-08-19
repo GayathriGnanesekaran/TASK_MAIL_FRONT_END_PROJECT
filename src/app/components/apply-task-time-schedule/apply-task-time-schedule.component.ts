@@ -72,13 +72,7 @@ export class ApplyTaskTimeScheduleComponent {
   }
   ngOnInit(): void {
     this.loggeduser = this.taskmailserviceService.getLoginSaveSuccess();
-    // this.applicationEventService.appEvent$
-    //   .pipe(takeUntil(this._destroyed$))
-    //   .subscribe((event) => {
-    //     switch (event.name) {
-
-    //     }
-    //   });
+    
   }
 
   dateValueChange(event: any, control: any, i: number) {
@@ -125,16 +119,10 @@ export class ApplyTaskTimeScheduleComponent {
       this.taskDetailArray.controls[i].markAsDirty();
     }
     if (this.value == '' || this.value == null) {
-      if (control == 'fromDate') {
         this.taskDetailArray.controls[i]
           .get(control)
-          ?.patchValue(moment().subtract(30, 'days').toDate());
-      } else {
-        this.taskDetailArray.controls[i]
-          .get(control)
-          ?.patchValue(moment().toDate());
-      }
-      this.taskDetailArray.controls[i].get(control)?.setErrors(null);
+          ?.patchValue(null);
+     
       this.taskDetailArray.controls[i].markAsDirty();
     }
   }

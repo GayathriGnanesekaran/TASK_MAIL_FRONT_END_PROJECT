@@ -182,6 +182,7 @@ export class ApplypageComponent implements OnInit {
               this.addNewTaskDetail();
               return;
             }
+            
             return;
           }
           case 'DELETE': {
@@ -302,6 +303,7 @@ export class ApplypageComponent implements OnInit {
     this.ApplyTaskTimeFormGroup.get('headerResourceId')?.patchValue(
       this.resourceName !== '' ? resName.codeId : this.loggeduser.userId
     );
+    console.log(this.taskDetailArray)
     this.taskDetailArray.updateValueAndValidity();
   }
 

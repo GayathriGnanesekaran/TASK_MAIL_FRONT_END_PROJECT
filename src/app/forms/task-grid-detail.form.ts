@@ -219,7 +219,7 @@ export const TaskGridDetailForm: IFormObject = {
         disabled: false,
       },
       actStDt: {
-        id: 2,
+        id: 1,
         label: 'actStDt',
         value: '',
         type: 'text',
@@ -238,7 +238,7 @@ export const TaskGridDetailForm: IFormObject = {
         disabled: false,
       },
       actEndDt: {
-        id: 2,
+        id: 1,
         label: 'actEndDt',
         value: '',
         type: 'text',
