@@ -184,7 +184,7 @@ export class ApplyTaskTimeScheduleComponent {
         });
       } else {
         if (outMinutes < inMinutes) {
-          outMinutes += 24 * 60; // add 24 hours in minutes
+          outMinutes += 24 * 60; 
         }
         const diff = outMinutes - inMinutes;
         const hours = Math.floor(diff / 60);
