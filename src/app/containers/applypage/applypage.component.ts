@@ -382,18 +382,26 @@ export class ApplypageComponent implements OnInit {
         )
       );
       setTimeout(() => {
-        this.taskDetailArray.controls[index]
+        if(element.actEndDt){
+          this.taskDetailArray.controls[index]
           .get('actEndDt')
           ?.patchValue(new Date(element.actEndDt));
-        this.taskDetailArray.controls[index]
+        }
+        if(element.estEndDt){
+          this.taskDetailArray.controls[index]
           .get('estEndDt')
           ?.patchValue(new Date(element.estEndDt));
-        this.taskDetailArray.controls[index]
+        }
+        if(element.actStDt){
+          this.taskDetailArray.controls[index]
           .get('actStDt')
           ?.patchValue(new Date(element.actStDt));
-        this.taskDetailArray.controls[index]
+        }
+        if(element.estStDt) {
+          this.taskDetailArray.controls[index]
           .get('estStDt')
           ?.patchValue(new Date(element.estStDt));
+        }
       }, 100);
     });
     setTimeout(() => {

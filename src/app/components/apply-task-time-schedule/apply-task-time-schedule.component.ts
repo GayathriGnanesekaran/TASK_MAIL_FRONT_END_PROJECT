@@ -109,8 +109,7 @@ export class ApplyTaskTimeScheduleComponent {
     if (
       this.value !== 'Invalid Date' &&
       this.value !== 'Invalid date' &&
-      this.value !== '' &&
-      this.value !== null
+      this.value
     ) {
       this.taskDetailArray.controls[i]
         .get(control)
