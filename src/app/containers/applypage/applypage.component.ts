@@ -117,6 +117,9 @@ export class ApplypageComponent implements OnInit {
       }
       if (this.headerDatas) {
         this.ApplyTaskTimeFormGroup.patchValue(this.headerDatas);
+        if(this.ApplyTaskTimeFormGroup.get('headerId')?.value !== 0){
+           this.ApplyTaskTimeFormGroup?.get('resource')?.disable()
+        }
         this.ApplyTaskTimeFormGroup.markAsPristine();
         this.taskmailserviceService
           .getTaskTimeHeader(this.headerDatas.headerId)
@@ -132,6 +135,7 @@ export class ApplypageComponent implements OnInit {
         switch (event.name) {
           case 'EDIT': {
             this.ApplyTaskTimeFormGroup.patchValue(event.value);
+             
             return;
           }
           case 'DICE_BUTTON_CLICK': {
@@ -155,18 +159,10 @@ export class ApplypageComponent implements OnInit {
             }
             return;
           }
-          case 'RESET': {
-            this.ApplyTaskTimeFormGroup =
-              this.formUtilService.buildFormGroup(ApplyTaskTimeEntity);
-            const defaultResource: any = this.resourceDropdown.find(
-              (x: any) => x.codeName === this.loggeduser.userName.toUpperCase()
-            );
-            this.ApplyTaskTimeFormGroup?.get('resource')?.patchValue(
-              defaultResource.codeName
-            );
-            this.taskmailserviceService.remove('headerValue');
-            return;
-          }
+          // case 'RESET': {          
+          //   this.cancelTaskDetailArray() 
+          //   return;
+          // }
 
           case 'ADDING_NEW_TASK': {
             if (this.ApplyTaskTimeFormGroup.dirty) {
@@ -332,7 +328,16 @@ export class ApplypageComponent implements OnInit {
     }
   }
 
-  cancelTaskDetailArray() {
+  cancel() {
+      this.ApplyTaskTimeFormGroup =
+              this.formUtilService.buildFormGroup(ApplyTaskTimeEntity);
+            const defaultResource: any = this.resourceDropdown.find(
+              (x: any) => x.codeName === this.loggeduser.userName.toUpperCase()
+            );
+            this.ApplyTaskTimeFormGroup?.get('resource')?.patchValue(
+              defaultResource.codeName
+            );
+            this.taskmailserviceService.remove('headerValue');
     this.taskDetailArray.clear();
   }
 
