@@ -26,8 +26,8 @@ export class ApplypageComponent implements OnInit {
   public ApplyTaskTimeFormGroup!: FormGroup;
   public _destroyed$ = new Subject();
   resourceDropdown = [];
-  typeDropdown = [];
   loggeduser: any;
+  typeDropdown = [];
   pageErrors!: InputError[];
   public valpopupInst!: NgbModalRef | null;
   diceOptions: any;
@@ -452,7 +452,7 @@ export class ApplypageComponent implements OnInit {
       this.loggeduser.userName
     );
     this.ApplyTaskTimeFormGroup.get('userId')?.patchValue(
-      this.loggeduser.userPk
+      this.loggeduser.userId
     );
     if (this.ApplyTaskTimeFormGroup.get('headerId')?.value === 0) {
       this.taskmailserviceService
