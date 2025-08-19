@@ -117,8 +117,8 @@ export class ApplypageComponent implements OnInit {
       }
       if (this.headerDatas) {
         this.ApplyTaskTimeFormGroup.patchValue(this.headerDatas);
-        if(this.ApplyTaskTimeFormGroup.get('headerId')?.value !== 0){
-           this.ApplyTaskTimeFormGroup?.get('resource')?.disable()
+        if (this.ApplyTaskTimeFormGroup.get('headerId')?.value !== 0) {
+          this.ApplyTaskTimeFormGroup?.get('resource')?.disable();
         }
         this.ApplyTaskTimeFormGroup.markAsPristine();
         this.taskmailserviceService
@@ -135,7 +135,7 @@ export class ApplypageComponent implements OnInit {
         switch (event.name) {
           case 'EDIT': {
             this.ApplyTaskTimeFormGroup.patchValue(event.value);
-             
+
             return;
           }
           case 'DICE_BUTTON_CLICK': {
@@ -159,8 +159,8 @@ export class ApplypageComponent implements OnInit {
             }
             return;
           }
-          // case 'RESET': {          
-          //   this.cancelTaskDetailArray() 
+          // case 'RESET': {
+          //   this.cancelTaskDetailArray()
           //   return;
           // }
 
@@ -182,7 +182,7 @@ export class ApplypageComponent implements OnInit {
               this.addNewTaskDetail();
               return;
             }
-            
+
             return;
           }
           case 'DELETE': {
@@ -284,11 +284,13 @@ export class ApplypageComponent implements OnInit {
     const resName: any = this.resourceDropdown.find(
       (x: any) => x.codeName === this.resourceName
     );
+    const savedResource: any = this.resourceDropdown.find(
+      (x: any) =>
+        x.codeName === this.ApplyTaskTimeFormGroup.get('resource')?.value
+    );
     this.taskDetailArray.controls[this.selectDetailIndex]
       .get('resName')
-      ?.patchValue(
-        this.resourceName !== '' ? resName.screenName : this.loggeduser.userName
-      );
+      ?.patchValue(savedResource.screenName);
     this.taskDetailArray.controls[this.selectDetailIndex]
       .get('userId')
       ?.patchValue(this.loggeduser.userId);
@@ -303,7 +305,7 @@ export class ApplypageComponent implements OnInit {
     this.ApplyTaskTimeFormGroup.get('headerResourceId')?.patchValue(
       this.resourceName !== '' ? resName.codeId : this.loggeduser.userId
     );
-    console.log(this.taskDetailArray)
+    console.log(this.taskDetailArray);
     this.taskDetailArray.updateValueAndValidity();
   }
 
@@ -331,15 +333,15 @@ export class ApplypageComponent implements OnInit {
   }
 
   cancel() {
-      this.ApplyTaskTimeFormGroup =
-              this.formUtilService.buildFormGroup(ApplyTaskTimeEntity);
-            const defaultResource: any = this.resourceDropdown.find(
-              (x: any) => x.codeName === this.loggeduser.userName.toUpperCase()
-            );
-            this.ApplyTaskTimeFormGroup?.get('resource')?.patchValue(
-              defaultResource.codeName
-            );
-            this.taskmailserviceService.remove('headerValue');
+    this.ApplyTaskTimeFormGroup =
+      this.formUtilService.buildFormGroup(ApplyTaskTimeEntity);
+    const defaultResource: any = this.resourceDropdown.find(
+      (x: any) => x.codeName === this.loggeduser.userName.toUpperCase()
+    );
+    this.ApplyTaskTimeFormGroup?.get('resource')?.patchValue(
+      defaultResource.codeName
+    );
+    this.taskmailserviceService.remove('headerValue');
     this.taskDetailArray.clear();
   }
 
