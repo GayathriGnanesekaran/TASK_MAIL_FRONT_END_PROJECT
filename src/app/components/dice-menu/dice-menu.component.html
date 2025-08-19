@@ -11,7 +11,7 @@
             <!-- <div class="list-group" *ngIf="actionLinks.length > 0"> -->
                 <button
                     type="button"
-                    class="btn-outline-primary list-group-item list-group-item-action"
+                    class="p-2 list-group-item list-group-item-action"
                     *ngFor="let link of actionLinks"
                     (click)="triggerEvent(link)"
                 >
@@ -22,7 +22,7 @@
 
         <button
             type="button"
-            class="btn btn-sm btn-outline-light btn-icon dice-menu"
+            class="p-2 btn btn-sm btn-outline-light btn-icon dice-menu"
             [ngbPopover]="popContent"
             
             [placement]="position"
