@@ -1,3 +1,4 @@
+import { Validators } from '@angular/forms';
 import { IFormObject } from '../interfaces/form-object.interface';
 
 export const TaskGridDetailForm: IFormObject = {
@@ -309,6 +310,11 @@ export const TaskGridDetailForm: IFormObject = {
             value: true,
             message: 'Percentage is mandatory',
           },
+          {
+            validator:'mask',
+            value:false,
+            message:'Please enter a Percentage from 0 to 100'
+          }
         ],
         disabled: false,
       },

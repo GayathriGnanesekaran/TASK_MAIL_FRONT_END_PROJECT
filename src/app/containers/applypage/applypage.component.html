@@ -1,37 +1,49 @@
-<app-apply-task-time-grid 
-[ApplyTaskTimeFormGroup]="ApplyTaskTimeFormGroup"
-[typeHeaderDropdown]="typeHeaderDropdown"
-[resourceDropdown]="resourceDropdown"
-[diceOptions]="diceOptions"
+<app-apply-task-time-grid
+  [ApplyTaskTimeFormGroup]="ApplyTaskTimeFormGroup"
+  [typeHeaderDropdown]="typeHeaderDropdown"
+  [resourceDropdown]="resourceDropdown"
+  [diceOptions]="diceOptions"
 ></app-apply-task-time-grid>
-<app-apply-task-time-schedule 
-[projectDropdown]="projectDropdown"
-[typeDropdown]="typeDropdown"
-[diceOptions]="diceOptions"
-[isBillableDropdown]="isBillableDropdown"
-[billingTypeDropdown]="billingTypeDropdown"
-[taskDetailFormGroup]="taskDetailFormGroup"
-[taskDetailArray]="taskDetailArray"
-[selectDetailIndex]="selectDetailIndex"
-[teamDropdown]="teamDropdown"
-[statusDropdown]="statusDropdown"
+<app-apply-task-time-schedule
+  [projectDropdown]="projectDropdown"
+  [typeDropdown]="typeDropdown"
+  [diceOptions]="diceOptions"
+  [isBillableDropdown]="isBillableDropdown"
+  [billingTypeDropdown]="billingTypeDropdown"
+  [taskDetailFormGroup]="taskDetailFormGroup"
+  [taskDetailArray]="taskDetailArray"
+  [selectDetailIndex]="selectDetailIndex"
+  [teamDropdown]="teamDropdown"
+  [statusDropdown]="statusDropdown"
 >
-    
 </app-apply-task-time-schedule>
-<div class="d-flex justify-content-center align-content-between my-3 ">
-
-<button type="button" class="btn btn-sm btn-secondary me-3" (click)="cancel()"
->    
+<div class="d-flex justify-content-center align-content-between my-3">
+  <button
+    type="button"
+    class="btn btn-sm btn-secondary me-3"
+    (click)="cancel()"
+  >
     Cancel
-</button>
-     
-<button type="button" class="btn btn-sm btn-secondary me-3" (click)="saveTaskTimeDetails()">
-    
+  </button>
+
+  <button
+    type="button"
+    class="btn btn-sm btn-secondary me-3"
+    (click)="saveTaskTimeDetails()"
+  >
     Save
-</button>
-<button type="button"  class="btn btn-sm btn-secondary me-3"   
-[disabled]="ApplyTaskTimeFormGroup.get('headerId')?.value==0 || taskDetailArray.invalid || taskDetailArray.length == 0"
-    (click)="send()">    
+  </button>
+  <button
+    type="button"
+    class="btn btn-sm btn-secondary me-3"
+    [disabled]="
+      ApplyTaskTimeFormGroup.get('headerId')?.value == 0 ||
+      ApplyTaskTimeFormGroup.invalid ||
+      taskDetailArray.invalid ||
+      taskDetailArray.length == 0
+    "
+    (click)="sendEmailCheck()"
+  >
     Send
-</button>
+  </button>
 </div>

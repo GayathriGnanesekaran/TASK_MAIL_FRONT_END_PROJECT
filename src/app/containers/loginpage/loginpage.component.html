@@ -1,49 +1,77 @@
 <div class="login-bg">
-    <div class="d-flex justify-content-center align-items-center bg-glossy w-20  rounded">
+  <div
+    class="d-flex justify-content-center align-items-center bg-glossy w-20 rounded"
+  >
     <div class="col p-3 border-left">
-        <form action="" class="" [formGroup]="loginform" (ngSubmit)="onsubmit()">
-         <P class="text-primary text-center fw-bold" >Welcome To Task Mail</P>
+      <form
+        action=""
+        class=""
+        [formGroup]="loginform"
+        (ngSubmit)="onsubmit()"
+        autocomplete="off"
+      >
+        <P class="text-primary text-center fw-bold">Welcome To Task Mail</P>
         <div class="form-group">
-            <input type="text" class="form-control" placeholder="UserID" id="username" name="username" formControlName="userName">
-             <div *ngIf="loginform.get('username')?.touched  && loginform.get('username')?.errors">
-             <span class="text-danger" *ngIf="loginform.get('username')?.errors?.['required']">
-             Username is required
-            </span>
+          <input
+            type="text"
+            class="form-control"
+            placeholder="UserID"
+            id="username"
+            name="username"
+            formControlName="userName"
+          />
+        </div>
+        <div class="form-group">
+          <input
+            [type]="showpassword ? 'text' : 'password'"
+            class="form-control"
+            placeholder="Password"
+            id="password"
+            name="password"
+            formControlName="passcode"
+          />
+          <span (click)="togglepassword()">
+            <i
+              [ngClass]="
+                showpassword ? 'fa-solid fa-eye' : 'fa-solid fa-eye-slash'
+              "
+            ></i>
+          </span>
+        </div>
+        <div class="form-check">
+          <input type="checkbox" class="login-remember form-check-input p-2 mt-1" />
+          <label class="font-weight-bold mb-1">Remember My Login</label>
+        </div>
+        <div class="text-center text-danger">
+          <div class="danger validation-summary-errors">
+            <div *ngIf="loginform.get('userName')?.touched || submitted">
+              <span
+                class="text-danger"
+                *ngIf="loginform.get('userName')?.errors?.['required']"
+                class="my-1"
+              >
+                Username is required
+              </span>
             </div>
+            <div *ngIf="loginform.get('passcode')?.touched || submitted">
+              <span
+                class="text-danger"
+                *ngIf="loginform.get('passcode')?.errors?.['required']"
+              >
+                Password is required
+              </span>
+            </div>
+          </div>
+          <div class="text-center text-danger" *ngIf="loginError">
+            <div class="danger validation-summary-errors">
+              {{ loginError }}
+            </div>
+          </div>
         </div>
-        <div class="form-group">
-            <input [type]="showpassword?'text':'password'" class="form-control" placeholder="Password" id="password" name="password" formControlName="passcode">
-            <span (click)="togglepassword()">
-                <i  [ngClass]="showpassword?'fa-solid fa-eye':'fa-solid fa-eye-slash'"></i>
-            </span>
-            <div *ngIf="loginform.get('password')?.touched && loginform.get('password')?.errors">
-             <span class="text-danger" *ngIf="loginform.get('password')?.errors?.['required']">
-                 Password is required
-             </span>
-           </div>
-        </div>
-        <div class="form-group custom-control custom-checkbox ml-2 mt-1 login-remember ">
-         
-            <input type="checkbox" checked="checked"  id="RememberLogin" name="RememberLogin" value="true" class="custom-control-input form-control form-control-sm">
-           <label class="custom-control-label font-weight-bold">Remember My Login</label>
-          
-        </div>
-        <div class="text-center text-danger" *ngIf="loginError">
-            <div class="alert alert-danger">
-                <strong>Error</strong>
-                <div class="danger validation-summary-errors">
-                     {{loginError}}
-                </div>
-               
-        </div>
-       </div>
         <div class="form-group text-center">
-           <button class="btn btn-secondary text-white" >Login</button>
-          
+          <button class="btn btn-secondary text-white">Login</button>
         </div>
-         
-    </form>
-
+      </form>
     </div>
-</div>
+  </div>
 </div>

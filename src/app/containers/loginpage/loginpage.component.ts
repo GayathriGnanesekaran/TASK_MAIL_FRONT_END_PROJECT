@@ -24,6 +24,7 @@ export class LoginpageComponent {
 
   showpassword: boolean = false;
   loginError: string = '';
+  submitted=false
   togglepassword(): void {
     this.showpassword = !this.showpassword;
   }
@@ -32,6 +33,7 @@ export class LoginpageComponent {
     private taskmailserviceService: TaskmailserviceService
   ) {}
   onsubmit() {
+    this.submitted=true
     if (this.loginform.valid) {
       this.taskmailserviceService
         .checkLogIn(this.loginform.getRawValue())

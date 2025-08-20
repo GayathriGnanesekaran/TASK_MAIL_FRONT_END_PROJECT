@@ -556,9 +556,10 @@
                       class="form-control form-control-sm"
                       type="text"
                       id="percentage"
-                       maxlength="3"
-                       mask="000"
+                       maxlength="4"
+                       mask="percent"
                       formControlName="percentage"
+                      (blur)="validatePercentage(i)"
                     />
                   </div>
                 </td>

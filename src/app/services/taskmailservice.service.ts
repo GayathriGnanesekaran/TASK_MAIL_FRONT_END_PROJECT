@@ -93,7 +93,7 @@ export class TaskmailserviceService {
   saveTasksDetails(data: any) {
     return this.httpClient
       .post(`${this.commonUrl}/api/taskDetails/insert`, data)
-      .pipe(map((response: any) => response.data));
+      .pipe(map((response: any) => response));
   }
   updateTasksDetails(data: any) {
     return this.httpClient

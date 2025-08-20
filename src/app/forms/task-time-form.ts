@@ -138,16 +138,18 @@ export const ApplyTaskTimeEntity: IFormObject = {
     value: null,
     type: 'text',
     validations: [
-      {
-        validator: 'required',
-        value: true,
-        message: 'Break Duration should not be blank',
-      },
+     
       {
           validator: 'mask',
           value: true,
           message: 'Please enter a valid Break Duration',
+       },
+       {
+         validator: 'greater',
+          value: true,
+          message: 'Break Duration should not be greater than Total Duration',
        }
+
     ],
     disabled: false,
   },

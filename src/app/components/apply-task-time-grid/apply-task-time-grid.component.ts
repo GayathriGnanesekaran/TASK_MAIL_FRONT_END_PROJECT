@@ -87,12 +87,6 @@ export class ApplyTaskTimeGridComponent implements OnInit {
   updateActualWorkHours(): void {
     let totalDuration = this.ApplyTaskTimeFormGroup.get('totalDuration')?.value;
     let breakDuration = this.ApplyTaskTimeFormGroup.get('breakDuration')?.value;
-    if (breakDuration === '00:00') {
-      this.ApplyTaskTimeFormGroup.get('breakDuration')?.setErrors({
-        mask: true,
-      });
-    }
-
     if (
       totalDuration &&
       breakDuration &&
@@ -107,6 +101,12 @@ export class ApplyTaskTimeGridComponent implements OnInit {
       const [breakH, breakM] = breakDuration.split(':').map(Number);
       const totalMinutes = totalH * 60 + totalM;
       const breakMinutes = breakH * 60 + breakM;
+       if( breakMinutes>=totalMinutes){
+        this.ApplyTaskTimeFormGroup.get('breakDuration')?.setErrors({
+        greater: true,
+      });
+      return
+      }
       let actualMinutes = totalMinutes - breakMinutes;
       if (actualMinutes < 0) actualMinutes = 0;
       const hours = Math.floor(actualMinutes / 60);

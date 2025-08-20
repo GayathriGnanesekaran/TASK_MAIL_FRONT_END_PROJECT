@@ -15,6 +15,7 @@ import { AlertPopupComponent } from '../alert-popup/alert-popup.component';
 import { ToastrService } from 'ngx-toastr';
 import { TaskGridDetailForm } from '../../forms/task-grid-detail.form';
 import { subscribe } from 'diagnostics_channel';
+import { IfStmt } from '@angular/compiler';
 
 @Component({
   selector: 'app-applypage',
@@ -44,6 +45,8 @@ export class ApplypageComponent implements OnInit {
   selectDetailIndex = 0;
   resourceName: string = '';
   sendErrorMsg!: NgbModalRef;
+  taskDetialErrorMsg!:NgbModalRef;
+  
   constructor(
     private formUtilService: FormUtilService,
     private applicationEventService: ApplicationEventService,
@@ -382,25 +385,25 @@ export class ApplypageComponent implements OnInit {
         )
       );
       setTimeout(() => {
-        if(element.actEndDt){
+        if (element.actEndDt) {
           this.taskDetailArray.controls[index]
-          .get('actEndDt')
-          ?.patchValue(new Date(element.actEndDt));
+            .get('actEndDt')
+            ?.patchValue(new Date(element.actEndDt));
         }
-        if(element.estEndDt){
+        if (element.estEndDt) {
           this.taskDetailArray.controls[index]
-          .get('estEndDt')
-          ?.patchValue(new Date(element.estEndDt));
+            .get('estEndDt')
+            ?.patchValue(new Date(element.estEndDt));
         }
-        if(element.actStDt){
+        if (element.actStDt) {
           this.taskDetailArray.controls[index]
-          .get('actStDt')
-          ?.patchValue(new Date(element.actStDt));
+            .get('actStDt')
+            ?.patchValue(new Date(element.actStDt));
         }
-        if(element.estStDt) {
+        if (element.estStDt) {
           this.taskDetailArray.controls[index]
-          .get('estStDt')
-          ?.patchValue(new Date(element.estStDt));
+            .get('estStDt')
+            ?.patchValue(new Date(element.estStDt));
         }
       }, 100);
     });
@@ -424,15 +427,31 @@ export class ApplypageComponent implements OnInit {
       this.taskmailserviceService
         .saveTasksDetails(tempArray)
         .subscribe((res) => {
-          if (res) {
+                    if(res.status==2){
+          if (res.data) {
             this.toaster.success('Task Details Saved Successfully');
-            this.updateArrayValues(res);
+            this.updateArrayValues(res.data);
             if (type == 'ADDING_NEW_TASK') {
               this.addNewTaskDetail();
             }
             if (type == 'SELECT_DETAILS') {
               this.selectDetailIndex = event?.value?.index;
             }
+            if (type == 'SEND_EMAIL') {
+              this.send();
+            }
+            }
+          }
+          else{
+            this.taskDetialErrorMsg = this.modalService.open(AlertPopupComponent, {
+            backdrop: 'static',
+          });
+          const errorArray = [new InputError('select', res.message)];
+          this.taskDetialErrorMsg.componentInstance.content = new ModalMsg(
+            'error',
+            '',
+            errorArray
+          );
           }
         });
     } else {
@@ -451,6 +470,9 @@ export class ApplypageComponent implements OnInit {
             }
             if (type == 'SELECT_DETAILS') {
               this.selectDetailIndex = event?.value?.index;
+            }
+            if (type == 'SEND_EMAIL') {
+              this.send();
             }
           }
         });
@@ -476,6 +498,9 @@ export class ApplypageComponent implements OnInit {
             if (type == 'ADDING_NEW_TASK') {
               this.addNewTaskDetail();
             }
+            if (type == 'SEND_EMAIL' && this.taskDetailArray.pristine) {
+              this.send();
+            }
           }
         });
     } else {
@@ -490,6 +515,9 @@ export class ApplypageComponent implements OnInit {
             if (type == 'ADDING_NEW_TASK') {
               this.addNewTaskDetail();
             }
+            if (type == 'SEND_EMAIL' && this.taskDetailArray.pristine) {
+              this.send();
+            }
           }
         });
     }
@@ -500,6 +528,15 @@ export class ApplypageComponent implements OnInit {
     this._destroyed$.next('');
     this._destroyed$.complete();
   }
+
+  sendEmailCheck() {
+    if (this.ApplyTaskTimeFormGroup.dirty || this.taskDetailArray.dirty) {
+      this.saveTaskTimeDetails('SEND_EMAIL');
+    } else {
+      this.send();
+    }
+  }
+
   send() {
     this.taskmailserviceService
       .sendTaskMail(this.ApplyTaskTimeFormGroup.get('headerId')?.value)

@@ -190,6 +190,20 @@ export class ApplyTaskTimeScheduleComponent {
     }
 
   }
+  validatePercentage(i: number): void {
+  const control = this.taskDetailArray.controls[i].get('percentage');
+  let value = control?.value;
+  if (typeof value === 'string') {
+    value = value.replace('%', '');
+  }
+  const numericValue = Number(value);
+  if (isNaN(numericValue) || numericValue < 0 || numericValue > 100) {
+    control?.setErrors({ mask: true });
+  } else {
+    control?.setErrors(null);
+  }
+}
+
   ngOnDestroy(): void {
     // unsubcribe Observable
     this._destroyed$.next('');
