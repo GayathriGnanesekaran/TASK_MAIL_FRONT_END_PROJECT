@@ -120,6 +120,11 @@ export const ApplyTaskTimeEntity: IFormObject = {
           value: true,
           message: 'Please enter a valid OutTime',
        },
+      {
+          validator: 'outTimeErr',
+          value: true,
+          message: 'Please enter a valid OutTime within 24:00',
+       },
      
     ],
     disabled: false,

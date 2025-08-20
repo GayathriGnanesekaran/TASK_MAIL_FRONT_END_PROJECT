@@ -29,18 +29,33 @@ export class ApplyTaskTimeGridComponent implements OnInit {
         const [h, m] = inTime.split(':');
         inTime = `${h.padStart(2, '0')}:${m.padStart(2, '0')}`;
       }
+      this.ApplyTaskTimeFormGroup.get('inTime')?.patchValue(inTime, { emitEvent: false });
       if (outTime.length >= 3 && outTime.includes(':')) {
         const [h, m] = outTime.split(':');
         outTime = `${h.padStart(2, '0')}:${m.padStart(2, '0')}`;
       }
+      this.ApplyTaskTimeFormGroup.get('outTime')?.patchValue(outTime, { emitEvent: false });
       const [inH, inM] = inTime.split(':').map(Number);
-      const [outH, outM] = outTime.split(':').map(Number);
+      let outH: number;
+      let outM: number;
+      if (outTime === '24:00') {
+        outH = 24;
+        outM = 0;
+      } else {
+        [outH, outM] = outTime.split(':').map(Number);
+      }
       const inMinutes = inH * 60 + inM;
-      let outMinutes = outH * 60 + outM;
+      let outMinutes = outH === 24 && outM === 0 ? 24 * 60 : outH * 60 + outM;
       if (inMinutes === 0) {
         this.ApplyTaskTimeFormGroup.get('inTime')?.setErrors({
           mask: true,
         });
+      }
+      if (outH > 24 || (outH === 24 && outM > 0)) {
+        this.ApplyTaskTimeFormGroup.get('outTime')?.setErrors({
+          outTimeErr: true,
+        });
+        return;
       }
       if (outMinutes === 0) {
         this.ApplyTaskTimeFormGroup.get('outTime')?.setErrors({
