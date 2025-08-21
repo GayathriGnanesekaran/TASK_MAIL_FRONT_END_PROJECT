@@ -98,7 +98,7 @@ export class TaskmailserviceService {
   updateTasksDetails(data: any) {
     return this.httpClient
       .put(`${this.commonUrl}/api/taskDetails/update`, data)
-      .pipe(map((response: any) => response.data));
+      .pipe(map((response: any) => response));
   }
   deleteTasksDetails(detailsId: any,headerId:any) {
     return this.httpClient

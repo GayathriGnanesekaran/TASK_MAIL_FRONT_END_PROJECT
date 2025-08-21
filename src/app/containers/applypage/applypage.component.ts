@@ -46,6 +46,7 @@ export class ApplypageComponent implements OnInit {
   resourceName: string = '';
   sendErrorMsg!: NgbModalRef;
   taskDetialErrorMsg!:NgbModalRef;
+  taskDetialUpdateErrorMsg!:NgbModalRef;
   
   constructor(
     private formUtilService: FormUtilService,
@@ -462,7 +463,8 @@ export class ApplypageComponent implements OnInit {
       this.taskmailserviceService
         .updateTasksDetails(tempArray)
         .subscribe((res) => {
-          if (res) {
+          if(res.status==2){
+            if (res.data) {
             this.toaster.success('Task Details Updated Successfully');
             this.updateArrayValues(res);
             if (type == 'ADDING_NEW_TASK') {
@@ -475,6 +477,19 @@ export class ApplypageComponent implements OnInit {
               this.send();
             }
           }
+          }
+          else{
+              this.taskDetialUpdateErrorMsg = this.modalService.open(AlertPopupComponent, {
+            backdrop: 'static',
+          });
+          const errorArray = [new InputError('select', res.message)];
+          this.taskDetialUpdateErrorMsg.componentInstance.content = new ModalMsg(
+            'error',
+            '',
+            errorArray
+          );
+          }
+
         });
     }
   }
