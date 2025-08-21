@@ -22,8 +22,13 @@ export class ApplyTaskTimeGridComponent implements OnInit {
   ngOnInit(): void {}
 
   updateTotalDuration(control: string): void {
-    let inTime = this.ApplyTaskTimeFormGroup.get('inTime')?.value;
-    let outTime = this.ApplyTaskTimeFormGroup.get('outTime')?.value;
+    // let inTime = this.ApplyTaskTimeFormGroup.get('inTime')?.value;
+    // let outTime = this.ApplyTaskTimeFormGroup.get('outTime')?.value;
+    let inTime = this.formatTimeInput(this.ApplyTaskTimeFormGroup.get('inTime')?.value);
+let outTime = this.formatTimeInput(this.ApplyTaskTimeFormGroup.get('outTime')?.value);
+ 
+this.ApplyTaskTimeFormGroup.get('inTime')?.patchValue(inTime, { emitEvent: false });
+this.ApplyTaskTimeFormGroup.get('outTime')?.patchValue(outTime, { emitEvent: false });
     if (inTime && outTime) {
       if (inTime.length >= 3 && inTime.includes(':')) {
         const [h, m] = inTime.split(':');
@@ -36,8 +41,7 @@ export class ApplyTaskTimeGridComponent implements OnInit {
       }
       this.ApplyTaskTimeFormGroup.get('outTime')?.patchValue(outTime, { emitEvent: false });
       const [inH, inM] = inTime.split(':').map(Number);
-      let outH: number;
-      let outM: number;
+      let [outH, outM] = outTime.split(':').map(Number);
       if (outTime === '24:00') {
         outH = 24;
         outM = 0;
@@ -45,7 +49,8 @@ export class ApplyTaskTimeGridComponent implements OnInit {
         [outH, outM] = outTime.split(':').map(Number);
       }
       const inMinutes = inH * 60 + inM;
-      let outMinutes = outH === 24 && outM === 0 ? 24 * 60 : outH * 60 + outM;
+            let outMinutes = outH === 24 && outM === 0 ? 24 * 60 : outH * 60 + outM;
+      // let outMinutes = outH === 24 && outM === 0 ? 24 * 60 : outH * 60 + outM;
       if (inMinutes === 0) {
         this.ApplyTaskTimeFormGroup.get('inTime')?.setErrors({
           mask: true,
@@ -93,6 +98,34 @@ export class ApplyTaskTimeGridComponent implements OnInit {
     //   mask:true
     //   });
   }
+  formatTimeInput(value: string): string {
+  if (!value) return '';
+ 
+  // Case 1: Only hour, like "1" or "19"
+  if (/^\d{1,2}$/.test(value)) {
+    return value.padStart(2, '0') + ':00';
+  }
+ 
+  // Case 2: hour and colon only, like "4:"
+  if (/^\d{1,2}:$/.test(value)) {
+    const [h] = value.split(':');
+    return h.padStart(2, '0') + ':00';
+  }
+ 
+  // Case 3: colon and minute only, like ":5"
+  if (/^:\d{1,2}$/.test(value)) {
+    const [, m] = value.split(':');
+    return '00:' + m.padStart(2, '0');
+  }
+ 
+  // Case 4: full hour:minute like "4:5"
+  if (/^\d{1,2}:\d{1,2}$/.test(value)) {
+    const [h, m] = value.split(':');
+    return h.padStart(2, '0') + ':' + m.padStart(2, '0');
+  }
+ 
+  return value;
+}
   checkYear(): void {
     let year = +this.ApplyTaskTimeFormGroup.get('year')?.value;
     if (year === 0) {
@@ -100,8 +133,14 @@ export class ApplyTaskTimeGridComponent implements OnInit {
     }
   }
   updateActualWorkHours(): void {
-    let totalDuration = this.ApplyTaskTimeFormGroup.get('totalDuration')?.value;
-    let breakDuration = this.ApplyTaskTimeFormGroup.get('breakDuration')?.value;
+    // let totalDuration = this.ApplyTaskTimeFormGroup.get('totalDuration')?.value;
+    // let breakDuration = this.ApplyTaskTimeFormGroup.get('breakDuration')?.value;
+    let totalDuration = this.formatTimeInput(this.ApplyTaskTimeFormGroup.get('totalDuration')?.value);
+let breakDuration = this.formatTimeInput(this.ApplyTaskTimeFormGroup.get('breakDuration')?.value);
+ 
+// Patch formatted values back
+this.ApplyTaskTimeFormGroup.get('totalDuration')?.patchValue(totalDuration, { emitEvent: false });
+this.ApplyTaskTimeFormGroup.get('breakDuration')?.patchValue(breakDuration, { emitEvent: false });
     if (
       totalDuration &&
       breakDuration &&
