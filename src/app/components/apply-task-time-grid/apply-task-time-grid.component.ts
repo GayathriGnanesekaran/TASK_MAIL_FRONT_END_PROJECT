@@ -24,22 +24,34 @@ export class ApplyTaskTimeGridComponent implements OnInit {
   updateTotalDuration(control: string): void {
     // let inTime = this.ApplyTaskTimeFormGroup.get('inTime')?.value;
     // let outTime = this.ApplyTaskTimeFormGroup.get('outTime')?.value;
-    let inTime = this.formatTimeInput(this.ApplyTaskTimeFormGroup.get('inTime')?.value);
-let outTime = this.formatTimeInput(this.ApplyTaskTimeFormGroup.get('outTime')?.value);
- 
-this.ApplyTaskTimeFormGroup.get('inTime')?.patchValue(inTime, { emitEvent: false });
-this.ApplyTaskTimeFormGroup.get('outTime')?.patchValue(outTime, { emitEvent: false });
+    let inTime = this.formatTimeInput(
+      this.ApplyTaskTimeFormGroup.get('inTime')?.value
+    );
+    let outTime = this.formatTimeInput(
+      this.ApplyTaskTimeFormGroup.get('outTime')?.value
+    );
+
+    this.ApplyTaskTimeFormGroup.get('inTime')?.patchValue(inTime, {
+      emitEvent: false,
+    });
+    this.ApplyTaskTimeFormGroup.get('outTime')?.patchValue(outTime, {
+      emitEvent: false,
+    });
     if (inTime && outTime) {
       if (inTime.length >= 3 && inTime.includes(':')) {
         const [h, m] = inTime.split(':');
         inTime = `${h.padStart(2, '0')}:${m.padStart(2, '0')}`;
       }
-      this.ApplyTaskTimeFormGroup.get('inTime')?.patchValue(inTime, { emitEvent: false });
+      this.ApplyTaskTimeFormGroup.get('inTime')?.patchValue(inTime, {
+        emitEvent: false,
+      });
       if (outTime.length >= 3 && outTime.includes(':')) {
         const [h, m] = outTime.split(':');
         outTime = `${h.padStart(2, '0')}:${m.padStart(2, '0')}`;
       }
-      this.ApplyTaskTimeFormGroup.get('outTime')?.patchValue(outTime, { emitEvent: false });
+      this.ApplyTaskTimeFormGroup.get('outTime')?.patchValue(outTime, {
+        emitEvent: false,
+      });
       const [inH, inM] = inTime.split(':').map(Number);
       let [outH, outM] = outTime.split(':').map(Number);
       if (outTime === '24:00') {
@@ -49,7 +61,7 @@ this.ApplyTaskTimeFormGroup.get('outTime')?.patchValue(outTime, { emitEvent: fal
         [outH, outM] = outTime.split(':').map(Number);
       }
       const inMinutes = inH * 60 + inM;
-            let outMinutes = outH === 24 && outM === 0 ? 24 * 60 : outH * 60 + outM;
+      let outMinutes = outH === 24 && outM === 0 ? 24 * 60 : outH * 60 + outM;
       // let outMinutes = outH === 24 && outM === 0 ? 24 * 60 : outH * 60 + outM;
       if (inMinutes === 0) {
         this.ApplyTaskTimeFormGroup.get('inTime')?.setErrors({
@@ -99,33 +111,33 @@ this.ApplyTaskTimeFormGroup.get('outTime')?.patchValue(outTime, { emitEvent: fal
     //   });
   }
   formatTimeInput(value: string): string {
-  if (!value) return '';
- 
-  // Case 1: Only hour, like "1" or "19"
-  if (/^\d{1,2}$/.test(value)) {
-    return value.padStart(2, '0') + ':00';
+    if (!value) return '';
+
+    // Case 1: Only hour, like "1" or "19"
+    if (/^\d{1,2}$/.test(value)) {
+      return value.padStart(2, '0') + ':00';
+    }
+
+    // Case 2: hour and colon only, like "4:"
+    if (/^\d{1,2}:$/.test(value)) {
+      const [h] = value.split(':');
+      return h.padStart(2, '0') + ':00';
+    }
+
+    // Case 3: colon and minute only, like ":5"
+    if (/^:\d{1,2}$/.test(value)) {
+      const [, m] = value.split(':');
+      return '00:' + m.padStart(2, '0');
+    }
+
+    // Case 4: full hour:minute like "4:5"
+    if (/^\d{1,2}:\d{1,2}$/.test(value)) {
+      const [h, m] = value.split(':');
+      return h.padStart(2, '0') + ':' + m.padStart(2, '0');
+    }
+
+    return value;
   }
- 
-  // Case 2: hour and colon only, like "4:"
-  if (/^\d{1,2}:$/.test(value)) {
-    const [h] = value.split(':');
-    return h.padStart(2, '0') + ':00';
-  }
- 
-  // Case 3: colon and minute only, like ":5"
-  if (/^:\d{1,2}$/.test(value)) {
-    const [, m] = value.split(':');
-    return '00:' + m.padStart(2, '0');
-  }
- 
-  // Case 4: full hour:minute like "4:5"
-  if (/^\d{1,2}:\d{1,2}$/.test(value)) {
-    const [h, m] = value.split(':');
-    return h.padStart(2, '0') + ':' + m.padStart(2, '0');
-  }
- 
-  return value;
-}
   checkYear(): void {
     let year = +this.ApplyTaskTimeFormGroup.get('year')?.value;
     if (year === 0) {
@@ -135,12 +147,22 @@ this.ApplyTaskTimeFormGroup.get('outTime')?.patchValue(outTime, { emitEvent: fal
   updateActualWorkHours(): void {
     // let totalDuration = this.ApplyTaskTimeFormGroup.get('totalDuration')?.value;
     // let breakDuration = this.ApplyTaskTimeFormGroup.get('breakDuration')?.value;
-    let totalDuration = this.formatTimeInput(this.ApplyTaskTimeFormGroup.get('totalDuration')?.value);
-let breakDuration = this.formatTimeInput(this.ApplyTaskTimeFormGroup.get('breakDuration')?.value);
- 
-// Patch formatted values back
-this.ApplyTaskTimeFormGroup.get('totalDuration')?.patchValue(totalDuration, { emitEvent: false });
-this.ApplyTaskTimeFormGroup.get('breakDuration')?.patchValue(breakDuration, { emitEvent: false });
+    let totalDuration = this.formatTimeInput(
+      this.ApplyTaskTimeFormGroup.get('totalDuration')?.value
+    );
+    let breakDuration = this.formatTimeInput(
+      this.ApplyTaskTimeFormGroup.get('breakDuration')?.value
+    );
+
+    // Patch formatted values back
+    this.ApplyTaskTimeFormGroup.get('totalDuration')?.patchValue(
+      totalDuration,
+      { emitEvent: false }
+    );
+    this.ApplyTaskTimeFormGroup.get('breakDuration')?.patchValue(
+      breakDuration,
+      { emitEvent: false }
+    );
     if (
       totalDuration &&
       breakDuration &&
@@ -155,11 +177,11 @@ this.ApplyTaskTimeFormGroup.get('breakDuration')?.patchValue(breakDuration, { em
       const [breakH, breakM] = breakDuration.split(':').map(Number);
       const totalMinutes = totalH * 60 + totalM;
       const breakMinutes = breakH * 60 + breakM;
-       if( breakMinutes>=totalMinutes){
+      if (breakMinutes >= totalMinutes) {
         this.ApplyTaskTimeFormGroup.get('breakDuration')?.setErrors({
-        greater: true,
-      });
-      return
+          greater: true,
+        });
+        return;
       }
       let actualMinutes = totalMinutes - breakMinutes;
       if (actualMinutes < 0) actualMinutes = 0;

@@ -72,7 +72,6 @@ export class ApplyTaskTimeScheduleComponent {
   }
   ngOnInit(): void {
     this.loggeduser = this.taskmailserviceService.getLoginSaveSuccess();
-    
   }
 
   dateValueChange(event: any, control: any, i: number) {
@@ -118,10 +117,8 @@ export class ApplyTaskTimeScheduleComponent {
       this.taskDetailArray.controls[i].markAsDirty();
     }
     if (this.value == '' || this.value == null) {
-        this.taskDetailArray.controls[i]
-          .get(control)
-          ?.patchValue(null);
-     
+      this.taskDetailArray.controls[i].get(control)?.patchValue(null);
+
       this.taskDetailArray.controls[i].markAsDirty();
     }
   }
@@ -147,19 +144,27 @@ export class ApplyTaskTimeScheduleComponent {
   updateActualDuration(i: number): void {
     // let stTime = this.taskDetailArray.controls[i].get('stTime')?.value;
     // let endTime = this.taskDetailArray.controls[i].get('endTime')?.value;
-     let stTime = this.timeFormat(this.taskDetailArray.controls[i].get('stTime')?.value);
-let endTime = this.timeFormat(this.taskDetailArray.controls[i].get('endTime')?.value);
+    let stTime = this.timeFormat(
+      this.taskDetailArray.controls[i].get('stTime')?.value
+    );
+    let endTime = this.timeFormat(
+      this.taskDetailArray.controls[i].get('endTime')?.value
+    );
     if (stTime && endTime) {
       if (stTime.length >= 3 && stTime.includes(':')) {
         const [h, m] = stTime.split(':');
         stTime = `${h.padStart(2, '0')}:${m.padStart(2, '0')}`;
       }
-      this.taskDetailArray.controls[i].get('stTime')?.patchValue(stTime, { emitEvent: false });
+      this.taskDetailArray.controls[i]
+        .get('stTime')
+        ?.patchValue(stTime, { emitEvent: false });
       if (endTime.length >= 3 && endTime.includes(':')) {
         const [h, m] = endTime.split(':');
         endTime = `${h.padStart(2, '0')}:${m.padStart(2, '0')}`;
       }
-      this.taskDetailArray.controls[i].get('endTime')?.patchValue(endTime, { emitEvent: false });
+      this.taskDetailArray.controls[i]
+        .get('endTime')
+        ?.patchValue(endTime, { emitEvent: false });
       const [inH, inM] = stTime.split(':').map(Number);
       const [outH, outM] = endTime.split(':').map(Number);
       const inMinutes = inH * 60 + inM;
@@ -175,7 +180,7 @@ let endTime = this.timeFormat(this.taskDetailArray.controls[i].get('endTime')?.v
         });
       } else {
         if (outMinutes < inMinutes) {
-          outMinutes += 24 * 60; 
+          outMinutes += 24 * 60;
         }
         const diff = outMinutes - inMinutes;
         const hours = Math.floor(diff / 60);
@@ -194,46 +199,46 @@ let endTime = this.timeFormat(this.taskDetailArray.controls[i].get('endTime')?.v
     }
   }
   timeFormat(value: string): string {
-  if (!value) return '';
- 
-  // Case 1: Only hour, like "1" or "19"
-  if (/^\d{1,2}$/.test(value)) {
-    return value.padStart(2, '0') + ':00';
+    if (!value) return '';
+
+    // Case 1: Only hour, like "1" or "19"
+    if (/^\d{1,2}$/.test(value)) {
+      return value.padStart(2, '0') + ':00';
+    }
+
+    // Case 2: hour and colon only, like "4:"
+    if (/^\d{1,2}:$/.test(value)) {
+      const [h] = value.split(':');
+      return h.padStart(2, '0') + ':00';
+    }
+
+    // Case 3: colon and minute only, like ":5"
+    if (/^:\d{1,2}$/.test(value)) {
+      const [, m] = value.split(':');
+      return '00:' + m.padStart(2, '0');
+    }
+
+    // Case 4: full hour:minute like "4:5"
+    if (/^\d{1,2}:\d{1,2}$/.test(value)) {
+      const [h, m] = value.split(':');
+      return h.padStart(2, '0') + ':' + m.padStart(2, '0');
+    }
+
+    return value;
   }
- 
-  // Case 2: hour and colon only, like "4:"
-  if (/^\d{1,2}:$/.test(value)) {
-    const [h] = value.split(':');
-    return h.padStart(2, '0') + ':00';
-  }
- 
-  // Case 3: colon and minute only, like ":5"
-  if (/^:\d{1,2}$/.test(value)) {
-    const [, m] = value.split(':');
-    return '00:' + m.padStart(2, '0');
-  }
- 
-  // Case 4: full hour:minute like "4:5"
-  if (/^\d{1,2}:\d{1,2}$/.test(value)) {
-    const [h, m] = value.split(':');
-    return h.padStart(2, '0') + ':' + m.padStart(2, '0');
-  }
- 
-  return value;
-}
   validatePercentage(i: number): void {
-  const control = this.taskDetailArray.controls[i].get('percentage');
-  let value = control?.value;
-  if (typeof value === 'string') {
-    value = value.replace('%', '');
+    const control = this.taskDetailArray.controls[i].get('percentage');
+    let value = control?.value;
+    if (typeof value === 'string') {
+      value = value.replace('%', '');
+    }
+    const numericValue = Number(value);
+    if (isNaN(numericValue) || numericValue < 0 || numericValue > 100) {
+      control?.setErrors({ mask: true });
+    } else {
+      control?.setErrors(null);
+    }
   }
-  const numericValue = Number(value);
-  if (isNaN(numericValue) || numericValue < 0 || numericValue > 100) {
-    control?.setErrors({ mask: true });
-  } else {
-    control?.setErrors(null);
-  }
-}
 
   ngOnDestroy(): void {
     // unsubcribe Observable

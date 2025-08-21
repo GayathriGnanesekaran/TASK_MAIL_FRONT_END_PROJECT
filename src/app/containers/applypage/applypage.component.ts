@@ -14,8 +14,7 @@ import { ModalMsg } from '../../interfaces/modal-msg';
 import { AlertPopupComponent } from '../alert-popup/alert-popup.component';
 import { ToastrService } from 'ngx-toastr';
 import { TaskGridDetailForm } from '../../forms/task-grid-detail.form';
-import { subscribe } from 'diagnostics_channel';
-import { IfStmt } from '@angular/compiler';
+import moment from 'moment';
 
 @Component({
   selector: 'app-applypage',
@@ -45,9 +44,14 @@ export class ApplypageComponent implements OnInit {
   selectDetailIndex = 0;
   resourceName: string = '';
   sendErrorMsg!: NgbModalRef;
+<<<<<<< Updated upstream
   taskDetialErrorMsg!:NgbModalRef;
   taskDetialUpdateErrorMsg!:NgbModalRef;
   
+=======
+  taskDetialErrorMsg!: NgbModalRef;
+
+>>>>>>> Stashed changes
   constructor(
     private formUtilService: FormUtilService,
     private applicationEventService: ApplicationEventService,
@@ -423,36 +427,40 @@ export class ApplypageComponent implements OnInit {
     ) {
       const data =
         this.taskDetailArray.controls[this.selectDetailIndex].getRawValue();
+      // data.actStDt = moment(data.actStDt).format('MM/DD/YYYY');
+      //     data.actEndDt = moment( data.actEndDt).format('MM/DD/YYYY');
       data.userId = data.userId.toString();
       tempArray.push(data);
       this.taskmailserviceService
         .saveTasksDetails(tempArray)
         .subscribe((res) => {
-                    if(res.status==2){
-          if (res.data) {
-            this.toaster.success('Task Details Saved Successfully');
-            this.updateArrayValues(res.data);
-            if (type == 'ADDING_NEW_TASK') {
-              this.addNewTaskDetail();
+          if (res.status == 2) {
+            if (res.data) {
+              this.toaster.success('Task Details Saved Successfully');
+              this.updateArrayValues(res.data);
+              if (type == 'ADDING_NEW_TASK') {
+                this.addNewTaskDetail();
+              }
+              if (type == 'SELECT_DETAILS') {
+                this.selectDetailIndex = event?.value?.index;
+              }
+              if (type == 'SEND_EMAIL') {
+                this.send();
+              }
             }
-            if (type == 'SELECT_DETAILS') {
-              this.selectDetailIndex = event?.value?.index;
-            }
-            if (type == 'SEND_EMAIL') {
-              this.send();
-            }
-            }
-          }
-          else{
-            this.taskDetialErrorMsg = this.modalService.open(AlertPopupComponent, {
-            backdrop: 'static',
-          });
-          const errorArray = [new InputError('select', res.message)];
-          this.taskDetialErrorMsg.componentInstance.content = new ModalMsg(
-            'error',
-            '',
-            errorArray
-          );
+          } else {
+            this.taskDetialErrorMsg = this.modalService.open(
+              AlertPopupComponent,
+              {
+                backdrop: 'static',
+              }
+            );
+            const errorArray = [new InputError('select', res.message)];
+            this.taskDetialErrorMsg.componentInstance.content = new ModalMsg(
+              'error',
+              '',
+              errorArray
+            );
           }
         });
     } else {
