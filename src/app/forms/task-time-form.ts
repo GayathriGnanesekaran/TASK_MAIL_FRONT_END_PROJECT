@@ -140,7 +140,7 @@ export const ApplyTaskTimeEntity: IFormObject = {
   breakDuration: {
     id: 1,
     label: '',
-    value: null,
+    value: '00:00',
     type: 'text',
     validations: [
      
