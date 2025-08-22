@@ -44,14 +44,9 @@ export class ApplypageComponent implements OnInit {
   selectDetailIndex = 0;
   resourceName: string = '';
   sendErrorMsg!: NgbModalRef;
-<<<<<<< Updated upstream
   taskDetialErrorMsg!:NgbModalRef;
   taskDetialUpdateErrorMsg!:NgbModalRef;
   
-=======
-  taskDetialErrorMsg!: NgbModalRef;
-
->>>>>>> Stashed changes
   constructor(
     private formUtilService: FormUtilService,
     private applicationEventService: ApplicationEventService,
