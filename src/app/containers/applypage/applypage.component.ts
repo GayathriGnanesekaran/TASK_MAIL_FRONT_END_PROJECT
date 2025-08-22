@@ -512,8 +512,8 @@ saveTaskHeader(type?: string) {
         .subscribe((res) => {
           if(res.status===2){
             if (res.data) {
-            this.ApplyTaskTimeFormGroup.patchValue(res);
-            this.taskmailserviceService.setHeaderSuccess(res);
+            this.ApplyTaskTimeFormGroup.patchValue(res.data);
+            this.taskmailserviceService.setHeaderSuccess(res.data);
             this.toaster.success('Task Time Detail Added Successfully');
             this.ApplyTaskTimeFormGroup.markAsPristine();
             if (type == 'ADDING_NEW_TASK') {
@@ -545,9 +545,9 @@ saveTaskHeader(type?: string) {
         .updateTaskHeader(this.ApplyTaskTimeFormGroup.getRawValue())
         .subscribe((res) => {
           if(res.status===2){
-            if (res) {
-            this.taskmailserviceService.setHeaderSuccess(res);
-            this.ApplyTaskTimeFormGroup.patchValue(res);
+            if (res.data) {
+            this.taskmailserviceService.setHeaderSuccess(res.data);
+            this.ApplyTaskTimeFormGroup.patchValue(res.data);
             this.toaster.success('Task Time Detail Updated Successfully');
             this.ApplyTaskTimeFormGroup.markAsPristine();
             if (type == 'ADDING_NEW_TASK') {
