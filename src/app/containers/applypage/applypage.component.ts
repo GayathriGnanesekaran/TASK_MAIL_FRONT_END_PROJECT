@@ -120,6 +120,9 @@ export class ApplypageComponent implements OnInit {
           defaultResource?.codeName
         );
       }
+       this.ApplyTaskTimeFormGroup?.get('headerResourceId')?.patchValue(
+           this.loggeduser?.userId
+        );
       if (this.headerDatas) {
         this.ApplyTaskTimeFormGroup.patchValue(this.headerDatas);
         if (this.ApplyTaskTimeFormGroup.get('headerId')?.value !== 0) {
