@@ -56,7 +56,7 @@ export const TaskGridDetailForm: IFormObject = {
         validations: [],
         disabled: false,
       },
-      project: {
+      ProjectCode: {
         id: 1,
         label: 'project',
         value: '',
@@ -98,7 +98,7 @@ export const TaskGridDetailForm: IFormObject = {
         ],
         disabled: false,
       },
-      type: {
+      TypeCode: {
         id: 1,
         label: 'type',
         value: '',
@@ -141,7 +141,7 @@ export const TaskGridDetailForm: IFormObject = {
         disabled: false,
       },
 
-      billingType: {
+      BillingTypeCode: {
         id: 1,
         label: 'billingType',
         value: '',
@@ -169,7 +169,7 @@ export const TaskGridDetailForm: IFormObject = {
         ],
         disabled: false,
       },
-      team: {
+      TeamCode: {
         id: 1,
         label: 'team',
         value: '',
@@ -318,7 +318,7 @@ export const TaskGridDetailForm: IFormObject = {
         ],
         disabled: false,
       },
-      status: {
+      StatusCode: {
         id: 1,
         label: 'status',
         value: '',

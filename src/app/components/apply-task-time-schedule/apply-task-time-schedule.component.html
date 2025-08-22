@@ -74,14 +74,14 @@
                 <td class="w-6 ps-2">
                   <div class="input-group input-group-sm"
                   [ngClass]="{
-                    required:taskDetailArray.controls[i].get('project')?.errors
+                    required:taskDetailArray.controls[i].get('ProjectCode')?.errors
                   }"
                   >
                   <select
                     class="form-control form-control-sm form-select"
-                    id="resource"
-                    name="resource"
-                    formControlName="project"
+                    id="ProjectCode"
+                    name="ProjectCode"
+                    formControlName="ProjectCode"
                   >
                     <!-- title="{{ taskDetailArray?.get('resource')?.value }}" -->
                     <option value="">--Select--</option>

@@ -1,6 +1,6 @@
 import { IFormObject } from '../interfaces/form-object.interface';
 export const ApplyTaskTimeEntity: IFormObject = {
-  resource: {
+  ResourceCode: {
     id: 1,
     label: '',
     value: null,
@@ -14,7 +14,7 @@ export const ApplyTaskTimeEntity: IFormObject = {
     ],
     disabled: false,
   },
-  type: {
+  TypeCode: {
     id: 1,
     label: '',
     value: 'PRESENT',
