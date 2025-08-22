@@ -116,14 +116,14 @@ export class ApplypageComponent implements OnInit {
         const defaultResource: any = this.resourceDropdown.find(
           (x: any) => x.codeName === this.loggeduser?.userName.toUpperCase()
         );
-        this.ApplyTaskTimeFormGroup?.get('ResourceCode')?.patchValue(
+        this.ApplyTaskTimeFormGroup?.get('resourceCode')?.patchValue(
           defaultResource?.codeName
         );
       }
       if (this.headerDatas) {
         this.ApplyTaskTimeFormGroup.patchValue(this.headerDatas);
         if (this.ApplyTaskTimeFormGroup.get('headerId')?.value !== 0) {
-          this.ApplyTaskTimeFormGroup?.get('ResourceCode')?.disable();
+          this.ApplyTaskTimeFormGroup?.get('resourceCode')?.disable();
         }
         this.ApplyTaskTimeFormGroup.markAsPristine();
         this.taskmailserviceService
@@ -253,7 +253,7 @@ export class ApplypageComponent implements OnInit {
           }
           case 'CHANGE_RESOURCE': {
             this.resourceName =
-              this.ApplyTaskTimeFormGroup?.get('ResourceCode')?.value;
+              this.ApplyTaskTimeFormGroup?.get('resourceCode')?.value;
             const resName: any = this.resourceDropdown.find(
               (x: any) => x.codeName === this.resourceName
             );
@@ -291,7 +291,7 @@ export class ApplypageComponent implements OnInit {
     );
     const savedResource: any = this.resourceDropdown.find(
       (x: any) =>
-        x.codeName === this.ApplyTaskTimeFormGroup.get('ResourceCode')?.value
+        x.codeName === this.ApplyTaskTimeFormGroup.get('resourceCode')?.value
     );
     this.taskDetailArray.controls[this.selectDetailIndex]
       .get('resName')
@@ -343,7 +343,7 @@ export class ApplypageComponent implements OnInit {
     const defaultResource: any = this.resourceDropdown.find(
       (x: any) => x.codeName === this.loggeduser.userName.toUpperCase()
     );
-    this.ApplyTaskTimeFormGroup?.get('ResourceCode')?.patchValue(
+    this.ApplyTaskTimeFormGroup?.get('resourceCode')?.patchValue(
       defaultResource.codeName
     );
     this.taskmailserviceService.remove('headerValue');

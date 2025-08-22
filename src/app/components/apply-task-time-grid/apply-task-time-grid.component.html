@@ -51,16 +51,16 @@
                 <div
                   class="input-group input-group-sm"
                   [ngClass]="{
-                    required:ApplyTaskTimeFormGroup?.get('ResourceCode')?.errors
+                    required:ApplyTaskTimeFormGroup?.get('resourceCode')?.errors
                   }"
                 >
                <select
                   class="form-control form-control-sm form-select"
-                  id="ResourceCode"
-                  name="ResourceCode"
+                  id="resourceCode"
+                  name="resourceCode"
                   (change)="changeResource()"
-                  formControlName="ResourceCode"
-                  title="{{ ApplyTaskTimeFormGroup?.get('ResourceCode')?.value }}"
+                  formControlName="resourceCode"
+                  title="{{ ApplyTaskTimeFormGroup?.get('resourceCode')?.value }}"
                 >
                 <option
                     *ngFor="let item of resourceDropdown; let i = index"
@@ -75,15 +75,15 @@
                 <div
                   class="input-group input-group-sm"
                   [ngClass]="{
-                    required: ApplyTaskTimeFormGroup?.get('TypeCode')?.errors
+                    required: ApplyTaskTimeFormGroup?.get('typeCode')?.errors
                   }"
                 ></div>
                 <select
                   class="form-control form-control-sm form-select"
-                  id="TypeCode"
-                  name="TypeCode"
-                  title="{{ ApplyTaskTimeFormGroup?.get('TypeCode')?.value }}"
-                  formControlName="TypeCode"
+                  id="typeCode"
+                  name="typeCode"
+                  title="{{ ApplyTaskTimeFormGroup?.get('typeCode')?.value }}"
+                  formControlName="typeCode"
                 >
                   
                   <option
