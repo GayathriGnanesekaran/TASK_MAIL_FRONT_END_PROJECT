@@ -131,16 +131,16 @@
                   <div 
                   class="input-group input-group-sm"
                   [ngClass]="{
-                    required:taskDetailArray.controls[i].get('type')?.errors
+                    required:taskDetailArray.controls[i].get('TypeCode')?.errors
                   }"
                   >
                   <select
                     class="form-control form-control-sm form-select"
-                    id="type"
-                    name="type"
-                    formControlName="type"
+                    id="TypeCode"
+                    name="TypeCode"
+                    formControlName="TypeCode"
+                    title="{{ taskDetailArray.controls[i].get('TypeCode')?.value }}"
                   >
-                    title="{{ taskDetailArray.controls[i].get('resource')?.value }}"
                     <option value="">--Select--</option>
 
                     <option
@@ -195,14 +195,14 @@
                 <td class="w-5 ps-2">
                   <div class="input-group input-group-sm"
                   [ngClass]="{
-                    required:taskDetailArray.controls[i].get('billingType')?.errors
+                    required:taskDetailArray.controls[i].get('BillingTypeCode')?.errors
                   }"
                   >
                   <select
                     class="form-control form-control-sm form-select"
-                    id="billingType"
-                    name="billingType"
-                    formControlName="billingType"
+                    id="BillingTypeCode"
+                    name="BillingTypeCode"
+                    formControlName="BillingTypeCode"
                   >
                     <!-- title="{{ taskDetailArray?.get('resource')?.value }}" -->
                     <option value="">--Select--</option>
@@ -234,7 +234,7 @@
                 <td class="w-5 pe-2">
                   <div class="input-group input-group-sm"
                   [ngClass]="{
-                    required:taskDetailArray.controls[i].get('team')?.errors
+                    required:taskDetailArray.controls[i].get('TeamCode')?.errors
                   }"
                   >
                     <!-- <input
@@ -245,9 +245,9 @@
                     /> -->
                     <select
                     class="form-control form-control-sm form-select"
-                    id="team"
-                    name="team"
-                    formControlName="team"
+                    id="TeamCode"
+                    name="TeamCode"
+                    formControlName="TeamCode"
                   >
                     <!-- title="{{ taskDetailArray?.get('resource')?.value }}" -->
                     <option value="">--Select--</option>
@@ -568,7 +568,7 @@
                 <td class="w-5">
                   <div class="input-group input-group-sm"
                   [ngClass]="{
-                      required: taskDetailArray.controls[i].get('status')?.errors
+                      required: taskDetailArray.controls[i].get('StatusCode')?.errors
                     }"
                     >
                     <!-- <input
@@ -579,11 +579,11 @@
                     /> -->
                     <select
                     class="form-control form-control-sm form-select"
-                    id="status"
-                    name="status"
-                    formControlName="status"
+                    id="StatusCode"
+                    name="StatusCode"
+                    formControlName="StatusCode"
+                    title="{{ taskDetailArray.controls[i].get('resource')?.value }}"
                   >
-                    <!-- title="{{ taskDetailArray?.get('resource')?.value }}" -->
                     <option value="">--Select--</option>
 
                     <option

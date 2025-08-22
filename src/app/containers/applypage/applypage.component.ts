@@ -44,11 +44,14 @@ export class ApplypageComponent implements OnInit {
   selectDetailIndex = 0;
   resourceName: string = '';
   sendErrorMsg!: NgbModalRef;
+<<<<<<< Updated upstream
   taskDetialErrorMsg!:NgbModalRef;
   taskDetialUpdateErrorMsg!:NgbModalRef;
-  taskHeaderErrorMsg!:NgbModalRef;
-  taskHeaderUpdateErrorMsg!:NgbModalRef;
   
+=======
+  taskDetialErrorMsg!: NgbModalRef;
+
+>>>>>>> Stashed changes
   constructor(
     private formUtilService: FormUtilService,
     private applicationEventService: ApplicationEventService,
@@ -116,14 +119,14 @@ export class ApplypageComponent implements OnInit {
         const defaultResource: any = this.resourceDropdown.find(
           (x: any) => x.codeName === this.loggeduser?.userName.toUpperCase()
         );
-        this.ApplyTaskTimeFormGroup?.get('ResourceCode')?.patchValue(
+        this.ApplyTaskTimeFormGroup?.get('resource')?.patchValue(
           defaultResource?.codeName
         );
       }
       if (this.headerDatas) {
         this.ApplyTaskTimeFormGroup.patchValue(this.headerDatas);
         if (this.ApplyTaskTimeFormGroup.get('headerId')?.value !== 0) {
-          this.ApplyTaskTimeFormGroup?.get('ResourceCode')?.disable();
+          this.ApplyTaskTimeFormGroup?.get('resource')?.disable();
         }
         this.ApplyTaskTimeFormGroup.markAsPristine();
         this.taskmailserviceService
@@ -253,7 +256,7 @@ export class ApplypageComponent implements OnInit {
           }
           case 'CHANGE_RESOURCE': {
             this.resourceName =
-              this.ApplyTaskTimeFormGroup?.get('ResourceCode')?.value;
+              this.ApplyTaskTimeFormGroup?.get('resource')?.value;
             const resName: any = this.resourceDropdown.find(
               (x: any) => x.codeName === this.resourceName
             );
@@ -291,7 +294,7 @@ export class ApplypageComponent implements OnInit {
     );
     const savedResource: any = this.resourceDropdown.find(
       (x: any) =>
-        x.codeName === this.ApplyTaskTimeFormGroup.get('ResourceCode')?.value
+        x.codeName === this.ApplyTaskTimeFormGroup.get('resource')?.value
     );
     this.taskDetailArray.controls[this.selectDetailIndex]
       .get('resName')
@@ -343,7 +346,7 @@ export class ApplypageComponent implements OnInit {
     const defaultResource: any = this.resourceDropdown.find(
       (x: any) => x.codeName === this.loggeduser.userName.toUpperCase()
     );
-    this.ApplyTaskTimeFormGroup?.get('ResourceCode')?.patchValue(
+    this.ApplyTaskTimeFormGroup?.get('resource')?.patchValue(
       defaultResource.codeName
     );
     this.taskmailserviceService.remove('headerValue');
@@ -510,8 +513,7 @@ export class ApplypageComponent implements OnInit {
       this.taskmailserviceService
         .saveTaskHeader(this.ApplyTaskTimeFormGroup.getRawValue())
         .subscribe((res) => {
-          if(res.status===2){
-            if (res.data) {
+          if (res) {
             this.ApplyTaskTimeFormGroup.patchValue(res);
             this.taskmailserviceService.setHeaderSuccess(res);
             this.toaster.success('Task Time Detail Added Successfully');
@@ -523,29 +525,12 @@ export class ApplypageComponent implements OnInit {
               this.send();
             }
           }
-         }
-         else {
-            this.taskHeaderErrorMsg = this.modalService.open(
-              AlertPopupComponent,
-              {
-                backdrop: 'static',
-              }
-            );
-            const errorArray = [new InputError('select', res.message)];
-            this.taskHeaderErrorMsg.componentInstance.content = new ModalMsg(
-              'error',
-              '',
-              errorArray
-            );
-          }
-    });
-    } 
-    else {
+        });
+    } else {
       this.taskmailserviceService
         .updateTaskHeader(this.ApplyTaskTimeFormGroup.getRawValue())
         .subscribe((res) => {
-          if(res.status===2){
-            if (res) {
+          if (res) {
             this.taskmailserviceService.setHeaderSuccess(res);
             this.ApplyTaskTimeFormGroup.patchValue(res);
             this.toaster.success('Task Time Detail Updated Successfully');
@@ -557,23 +542,6 @@ export class ApplypageComponent implements OnInit {
               this.send();
             }
           }
-          }
-           else {
-            this.taskHeaderUpdateErrorMsg = this.modalService.open(
-              AlertPopupComponent,
-              {
-                backdrop: 'static',
-              }
-            );
-            const errorArray = [new InputError('select', res.message)];
-            this.taskHeaderUpdateErrorMsg.componentInstance.content = new ModalMsg(
-              'error',
-              '',
-              errorArray
-            );
-          }
-          
-          
         });
     }
   }
