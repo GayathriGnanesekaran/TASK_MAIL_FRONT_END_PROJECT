@@ -56,13 +56,13 @@ export class TaskmailserviceService {
   saveTaskHeader(data: any) {
     return this.httpClient
       .post(`${this.commonUrl}/api/taskHeader/insert`, data)
-      .pipe(map((response: any) => response.data));
+      .pipe(map((response: any) => response));
   }
 
   updateTaskHeader(data: any) {
     return this.httpClient
       .put(`${this.commonUrl}/api/taskHeader/update`, data)
-      .pipe(map((response: any) => response.data));
+      .pipe(map((response: any) => response));
   }
   getTaskHeader(data: any) {
     let queryParams = new HttpParams();

@@ -46,6 +46,8 @@ export class ApplypageComponent implements OnInit {
   sendErrorMsg!: NgbModalRef;
   taskDetialErrorMsg!:NgbModalRef;
   taskDetialUpdateErrorMsg!:NgbModalRef;
+  taskHeaderErrorMsg!:NgbModalRef;
+  taskHeaderUpdateErrorMsg!:NgbModalRef;
   
   constructor(
     private formUtilService: FormUtilService,
@@ -508,7 +510,8 @@ export class ApplypageComponent implements OnInit {
       this.taskmailserviceService
         .saveTaskHeader(this.ApplyTaskTimeFormGroup.getRawValue())
         .subscribe((res) => {
-          if (res) {
+          if(res.status===2){
+            if (res.data) {
             this.ApplyTaskTimeFormGroup.patchValue(res);
             this.taskmailserviceService.setHeaderSuccess(res);
             this.toaster.success('Task Time Detail Added Successfully');
@@ -520,12 +523,29 @@ export class ApplypageComponent implements OnInit {
               this.send();
             }
           }
-        });
-    } else {
+         }
+         else {
+            this.taskHeaderErrorMsg = this.modalService.open(
+              AlertPopupComponent,
+              {
+                backdrop: 'static',
+              }
+            );
+            const errorArray = [new InputError('select', res.message)];
+            this.taskHeaderErrorMsg.componentInstance.content = new ModalMsg(
+              'error',
+              '',
+              errorArray
+            );
+          }
+    });
+    } 
+    else {
       this.taskmailserviceService
         .updateTaskHeader(this.ApplyTaskTimeFormGroup.getRawValue())
         .subscribe((res) => {
-          if (res) {
+          if(res.status===2){
+            if (res) {
             this.taskmailserviceService.setHeaderSuccess(res);
             this.ApplyTaskTimeFormGroup.patchValue(res);
             this.toaster.success('Task Time Detail Updated Successfully');
@@ -537,6 +557,23 @@ export class ApplypageComponent implements OnInit {
               this.send();
             }
           }
+          }
+           else {
+            this.taskHeaderUpdateErrorMsg = this.modalService.open(
+              AlertPopupComponent,
+              {
+                backdrop: 'static',
+              }
+            );
+            const errorArray = [new InputError('select', res.message)];
+            this.taskHeaderUpdateErrorMsg.componentInstance.content = new ModalMsg(
+              'error',
+              '',
+              errorArray
+            );
+          }
+          
+          
         });
     }
   }
