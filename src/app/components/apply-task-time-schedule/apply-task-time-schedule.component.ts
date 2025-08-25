@@ -43,7 +43,7 @@ export class ApplyTaskTimeScheduleComponent {
   }
   get taskDetailArray() {
     return this._taskDetailArray;
-  } 
+  }
   public minDate: Date = moment('01/01/1800 12:00:00 AM').toDate();
   public maxDate: Date = moment('12/31/9999 11:59:59 PM').toDate();
   bsConfig = {
@@ -120,6 +120,9 @@ export class ApplyTaskTimeScheduleComponent {
       this.taskDetailArray.controls[i].get(control)?.patchValue(null);
 
       this.taskDetailArray.controls[i].markAsDirty();
+    }
+      if (control === 'actStDt' || control === 'actEndDt') {
+      this.validateSameDate(i);
     }
   }
 
@@ -198,6 +201,53 @@ export class ApplyTaskTimeScheduleComponent {
       }
     }
   }
+  //valdiadtion for actual start date and end date
+  
+  validateSameDate(currentIndex: number): void {
+  const currentCtrl = this.taskDetailArray.controls[currentIndex];
+
+  const currentStartStr = currentCtrl.get('actStDt')?.value
+    ? new Date(currentCtrl.get('actStDt')?.value).toISOString().split('T')[0]
+    : null;
+
+  const currentEndStr = currentCtrl.get('actEndDt')?.value
+    ? new Date(currentCtrl.get('actEndDt')?.value).toISOString().split('T')[0]
+    : null;
+
+  if (!currentStartStr || !currentEndStr) return;
+
+  let isDifferent = false;
+
+  this.taskDetailArray.controls.forEach((ctrl, idx) => {
+    if (idx !== currentIndex) {
+      const otherStartStr = ctrl.get('actStDt')?.value
+        ? new Date(ctrl.get('actStDt')?.value).toISOString().split('T')[0]
+        : null;
+
+      const otherEndStr = ctrl.get('actEndDt')?.value
+        ? new Date(ctrl.get('actEndDt')?.value).toISOString().split('T')[0]
+        : null;
+
+      if (
+        (otherStartStr && otherStartStr !== currentStartStr) ||
+        (otherEndStr && otherEndStr !== currentEndStr)
+      ) {
+        isDifferent = true;
+      }
+    }
+  });
+
+  if (isDifferent) {
+    currentCtrl.get('actStDt')?.setErrors({ notSameDate: true });
+    currentCtrl.get('actEndDt')?.setErrors({ notSameDate: true });
+  } else {
+    currentCtrl.get('actStDt')?.setErrors(null);
+    currentCtrl.get('actEndDt')?.setErrors(null);
+  }
+}
+
+  
+  
   timeFormat(value: string): string {
     if (!value) return '';
 

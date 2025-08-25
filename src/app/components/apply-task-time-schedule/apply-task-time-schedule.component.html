@@ -110,7 +110,7 @@
                     />
                   </div>
                 </td>
-                <td class="w-7 pe-2">
+                <td class="w-10 pe-2">
                   <div
                   class="input-group input-group-sm"
                   [ngClass]="{
@@ -417,6 +417,7 @@
                         class="btn btn-secondary btn-outline-secondary"
                         (click)="actStDt.toggle()"
                         type="button"
+                        (blur)="validateSameDate(i)"
                       >
                         <inspire-icon
                           name="calendar"

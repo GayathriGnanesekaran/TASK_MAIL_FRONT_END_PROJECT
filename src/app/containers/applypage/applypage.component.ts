@@ -73,6 +73,8 @@ export class ApplypageComponent implements OnInit {
   ngOnInit() {
     this.loggeduser = this.taskmailserviceService.getLoginSaveSuccess();
     this.headerDatas = this.taskmailserviceService.getHeaderSuccess();
+  
+
 
     forkJoin({
       typeHeader: this.taskmailserviceService.fetchDropDownValue('TYPE_HEADER'),
@@ -119,6 +121,10 @@ export class ApplypageComponent implements OnInit {
         this.ApplyTaskTimeFormGroup?.get('resourceCode')?.patchValue(
           defaultResource?.codeName
         );
+         const today = new Date();
+       this.ApplyTaskTimeFormGroup?.get('month')?.patchValue((today.getMonth()+1).toString().padStart(2, '0'))
+       this.ApplyTaskTimeFormGroup?.get('year')?.patchValue(today.getFullYear().toString())
+       this.ApplyTaskTimeFormGroup?.get('date')?.patchValue(today.getDate().toString())
       }
        this.ApplyTaskTimeFormGroup?.get('headerResourceId')?.patchValue(
            this.loggeduser?.userId
@@ -135,6 +141,7 @@ export class ApplypageComponent implements OnInit {
             this.updateArrayValues(data);
             this.cdr.detectChanges();
           });
+
       }
     });
     this.applicationEventService.appEvent$
@@ -173,6 +180,7 @@ export class ApplypageComponent implements OnInit {
           // }
 
           case 'ADDING_NEW_TASK': {
+          
             if (this.ApplyTaskTimeFormGroup.dirty) {
               this.saveTaskTimeDetails('ADDING_NEW_TASK');
             } else if (this.taskDetailArray.dirty) {
@@ -287,6 +295,12 @@ export class ApplypageComponent implements OnInit {
       )
     );
     this.taskDetailArray.controls[this.selectDetailIndex]
+      .get('actStDt')
+      ?.patchValue(new Date());
+       this.taskDetailArray.controls[this.selectDetailIndex]
+      .get('actEndDt')
+      ?.patchValue(new Date());
+      this.taskDetailArray.controls[this.selectDetailIndex]
       .get('headerId')
       ?.patchValue(this.ApplyTaskTimeFormGroup.get('headerId')?.value);
     const resName: any = this.resourceDropdown.find(
@@ -595,7 +609,18 @@ saveTaskHeader(type?: string) {
   }
 
   send() {
-    this.taskmailserviceService
+     
+  const confirmPopup = this.modalService.open(AlertPopupComponent, {
+    backdrop: 'static',
+  });
+
+  confirmPopup.componentInstance.content = new ModalMsg(
+    'confirm',
+  'Are you sure you want to send the email?',
+ );
+ confirmPopup.result.then((result)=>{
+if(result ==='OK'){
+this.taskmailserviceService
       .sendTaskMail(this.ApplyTaskTimeFormGroup.get('headerId')?.value)
       .subscribe((res) => {
         if (res.status === 2) {
@@ -612,5 +637,11 @@ saveTaskHeader(type?: string) {
           );
         }
       });
+}
+else{
+  confirmPopup.close();
+}
+ })
+
   }
 }
