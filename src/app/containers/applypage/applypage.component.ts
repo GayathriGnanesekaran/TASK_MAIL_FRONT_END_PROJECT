@@ -488,7 +488,7 @@ export class ApplypageComponent implements OnInit {
           if(res.status==2){
             if (res.data) {
             this.toaster.success('Task Details Updated Successfully');
-            this.updateArrayValues(res);
+            this.updateArrayValues(res.data);
             if (type == 'ADDING_NEW_TASK') {
               this.addNewTaskDetail();
             }
