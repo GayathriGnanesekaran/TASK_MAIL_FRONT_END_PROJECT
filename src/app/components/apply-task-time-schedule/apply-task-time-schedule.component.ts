@@ -176,15 +176,45 @@ export class ApplyTaskTimeScheduleComponent {
         this.taskDetailArray.controls[i].get('stTime')?.setErrors({
           mask: true,
         });
+        return;
       }
       if (outMinutes === 0) {
         this.taskDetailArray.controls[i].get('endTime')?.setErrors({
           mask: true,
         });
+        return;
       } else {
         if (outMinutes < inMinutes) {
           outMinutes += 24 * 60;
         }
+        for (let j = 0; j < this.taskDetailArray.length; j++) {
+      if (j !== i) {
+        const otherSt = this.timeFormat(this.taskDetailArray.controls[j].get('stTime')?.value);
+        const otherEnd = this.timeFormat(this.taskDetailArray.controls[j].get('endTime')?.value);
+ 
+        if (otherSt && otherEnd && otherSt.includes(':') && otherEnd.includes(':')) {
+          let [oh, om] = otherSt.split(':').map(Number);
+          let [eh, em] = otherEnd.split(':').map(Number);
+          let otherStart = oh * 60 + om;
+          let otherEndMin = eh * 60 + em;
+ 
+          if (otherEndMin < otherStart) {
+            otherEndMin += 24 * 60;
+          }
+ 
+          // Check for overlap
+          const overlap =
+            (inMinutes < otherEndMin && outMinutes > otherStart) ||
+            (otherStart < outMinutes && otherEndMin > inMinutes);
+ 
+          if (overlap) {
+            this.taskDetailArray.controls[i].get('stTime')?.setErrors({ overlap: true });
+            this.taskDetailArray.controls[i].get('endTime')?.setErrors({ overlap: true });
+            return;
+          }
+        }
+      }
+    }
         const diff = outMinutes - inMinutes;
         const hours = Math.floor(diff / 60);
         const minutes = diff % 60;
@@ -201,6 +231,7 @@ export class ApplyTaskTimeScheduleComponent {
       }
     }
   }
+<<<<<<< Updated upstream
   //valdiadtion for actual start date and end date
   
   validateSameDate(currentIndex: number): void {
@@ -248,6 +279,9 @@ export class ApplyTaskTimeScheduleComponent {
 
   
   
+=======
+
+>>>>>>> Stashed changes
   timeFormat(value: string): string {
     if (!value) return '';
 

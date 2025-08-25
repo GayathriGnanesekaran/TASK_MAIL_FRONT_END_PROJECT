@@ -273,6 +273,11 @@ export const TaskGridDetailForm: IFormObject = {
             value: true,
             message: 'Start Time is mandatory',
           },
+          {
+            validator: 'overlap',
+            value: true,
+            message: 'Entered Start and End Time overlap with the existing timesheet entries',
+          },
         ],
         disabled: false,
       },
@@ -287,6 +292,7 @@ export const TaskGridDetailForm: IFormObject = {
             value: true,
             message: 'End Time is mandatory',
           },
+          
         ],
         disabled: false,
       },
@@ -316,10 +322,10 @@ export const TaskGridDetailForm: IFormObject = {
             message: 'Percentage is mandatory',
           },
           {
-            validator:'mask',
-            value:false,
-            message:'Please enter a Percentage from 0 to 100'
-          }
+            validator: 'mask',
+            value: false,
+            message: 'Please enter a Percentage from 0 to 100',
+          },
         ],
         disabled: false,
       },

@@ -72,34 +72,38 @@
                 </td>
 
                 <td class="w-6 ps-2">
-                  <div class="input-group input-group-sm"
-                  [ngClass]="{
-                    required:taskDetailArray.controls[i].get('projectCode')?.errors
-                  }"
+                  <div
+                    class="input-group input-group-sm"
+                    [ngClass]="{
+                      required:
+                        taskDetailArray.controls[i].get('projectCode')?.errors
+                    }"
                   >
-                  <select
-                    class="form-control form-control-sm form-select"
-                    id="projectCode"
-                    name="projectCode"
-                    formControlName="projectCode"
-                  >
-                    <!-- title="{{ taskDetailArray?.get('resource')?.value }}" -->
-                    <option value="">--Select--</option>
-
-                    <option
-                       *ngFor="let item of projectDropdown; let i = index"
-                    [ngValue]="item.codeName"
+                    <select
+                      class="form-control form-control-sm form-select"
+                      id="projectCode"
+                      name="projectCode"
+                      formControlName="projectCode"
                     >
-                      {{ item.screenName }}
-                    </option>
-                  </select>
+                      <!-- title="{{ taskDetailArray?.get('resource')?.value }}" -->
+                      <option value="">--Select--</option>
+
+                      <option
+                        *ngFor="let item of projectDropdown; let i = index"
+                        [ngValue]="item.codeName"
+                      >
+                        {{ item.screenName }}
+                      </option>
+                    </select>
                   </div>
                 </td>
                 <td class="w-5 pe-2">
-                  <div class="input-group input-group-sm"
-                  [ngClass]="{
-                    required:taskDetailArray.controls[i].get('sprint')?.errors
-                  }"
+                  <div
+                    class="input-group input-group-sm"
+                    [ngClass]="{
+                      required:
+                        taskDetailArray.controls[i].get('sprint')?.errors
+                    }"
                   >
                     <input
                       class="form-control form-control-sm"
@@ -112,11 +116,12 @@
                 </td>
                 <td class="w-10 pe-2">
                   <div
-                  class="input-group input-group-sm"
-                  [ngClass]="{
-                    required:taskDetailArray.controls[i].get('taskName')?.errors
-                  }"
-                >
+                    class="input-group input-group-sm"
+                    [ngClass]="{
+                      required:
+                        taskDetailArray.controls[i].get('taskName')?.errors
+                    }"
+                  >
                     <input
                       class="form-control form-control-sm"
                       type="text"
@@ -128,36 +133,40 @@
                 </td>
                 <!-- <td><input type="text" formControlName="taskName" required /></td> -->
                 <td class="w-7 ps-2">
-                  <div 
-                  class="input-group input-group-sm"
-                  [ngClass]="{
-                    required:taskDetailArray.controls[i].get('typeCode')?.errors
-                  }"
+                  <div
+                    class="input-group input-group-sm"
+                    [ngClass]="{
+                      required:
+                        taskDetailArray.controls[i].get('typeCode')?.errors
+                    }"
                   >
-                  <select
-                    class="form-control form-control-sm form-select"
-                    id="typeCode"
-                    name="typeCode"
-                    formControlName="typeCode"
-                    title="{{ taskDetailArray.controls[i].get('typeCode')?.value }}"
-                  >
-                    <option value="">--Select--</option>
-
-                    <option
-                    *ngFor="let item of typeDropdown; let i = index"
-                    [ngValue]="item.codeName"
+                    <select
+                      class="form-control form-control-sm form-select"
+                      id="typeCode"
+                      name="typeCode"
+                      formControlName="typeCode"
+                      title="{{
+                        taskDetailArray.controls[i].get('typeCode')?.value
+                      }}"
                     >
-                      {{ item.screenName }}
-                    </option>
-                  </select>
+                      <option value="">--Select--</option>
+
+                      <option
+                        *ngFor="let item of typeDropdown; let i = index"
+                        [ngValue]="item.codeName"
+                      >
+                        {{ item.screenName }}
+                      </option>
+                    </select>
                   </div>
                 </td>
                 <td class="w-5 pe-2">
-                  <div 
-                  class="input-group input-group-sm"
-                  [ngClass]="{
-                    required:taskDetailArray.controls[i].get('sowIssueNo')?.errors
-                  }"
+                  <div
+                    class="input-group input-group-sm"
+                    [ngClass]="{
+                      required:
+                        taskDetailArray.controls[i].get('sowIssueNo')?.errors
+                    }"
                   >
                     <input
                       class="form-control form-control-sm"
@@ -165,77 +174,96 @@
                       id="sowIssueNo"
                       maxlength="25"
                       formControlName="sowIssueNo"
+                      title="{{
+                        taskDetailArray.controls[i].get('sowIssueNo')?.value
+                      }}"
                     />
                   </div>
                 </td>
                 <td class="w-5 ps-2">
-                  <div class="input-group input-group-sm"
-                  [ngClass]="{
-                    required:taskDetailArray.controls[i].get('isBillable')?.errors
-                  }"
+                  <div
+                    class="input-group input-group-sm"
+                    [ngClass]="{
+                      required:
+                        taskDetailArray.controls[i].get('isBillable')?.errors
+                    }"
                   >
-                  <select
-                    class="form-control form-control-sm form-select"
-                    id="isBillable"
-                    name="isBillable"
-                    formControlName="isBillable"
-                  >
-                    <!-- title="{{ taskDetailArray?.get('resource')?.value }}" -->
-                    <option value="">--Select--</option>
-
-                    <option
-                      *ngFor="let item of isBillableDropdown; let i = index"
-                    [ngValue]="item.codeName"
+                    <select
+                      class="form-control form-control-sm form-select"
+                      id="isBillable"
+                      name="isBillable"
+                      formControlName="isBillable"
+                      title="{{
+                        taskDetailArray.controls[i].get('isBillable')?.value
+                      }}"
                     >
-                      {{ item.screenName }}
-                    </option>
-                  </select>
+                      <option value="">--Select--</option>
+
+                      <option
+                        *ngFor="let item of isBillableDropdown; let i = index"
+                        [ngValue]="item.codeName"
+                      >
+                        {{ item.screenName }}
+                      </option>
+                    </select>
                   </div>
                 </td>
                 <td class="w-5 ps-2">
-                  <div class="input-group input-group-sm"
-                  [ngClass]="{
-                    required:taskDetailArray.controls[i].get('billingTypeCode')?.errors
-                  }"
+                  <div
+                    class="input-group input-group-sm"
+                    [ngClass]="{
+                      required:
+                        taskDetailArray.controls[i].get('billingTypeCode')
+                          ?.errors
+                    }"
                   >
-                  <select
-                    class="form-control form-control-sm form-select"
-                    id="billingTypeCode"
-                    name="billingTypeCode"
-                    formControlName="billingTypeCode"
-                  >
-                    <!-- title="{{ taskDetailArray?.get('resource')?.value }}" -->
-                    <option value="">--Select--</option>
-
-                    <option
-                      *ngFor="let item of billingTypeDropdown; let i = index"
-                    [ngValue]="item.codeName"
+                    <select
+                      class="form-control form-control-sm form-select"
+                      id="billingTypeCode"
+                      name="billingTypeCode"
+                      formControlName="billingTypeCode"
+                      title="{{
+                        taskDetailArray.controls[i].get('billingTypeCode')?.value
+                      }}"
                     >
-                      {{ item.screenName }}
-                    </option>
-                  </select>
+                      <option value="">--Select--</option>
+
+                      <option
+                        *ngFor="let item of billingTypeDropdown; let i = index"
+                        [ngValue]="item.codeName"
+                      >
+                        {{ item.screenName }}
+                      </option>
+                    </select>
                   </div>
                 </td>
                 <td class="w-10 pe-2">
-                  <div class="input-group input-group-sm"
-                  [ngClass]="{
-                    required:taskDetailArray.controls[i].get('resName')?.errors
-                  }"
+                  <div
+                    class="input-group input-group-sm"
+                    [ngClass]="{
+                      required:
+                        taskDetailArray.controls[i].get('resName')?.errors
+                    }"
                   >
                     <input
-                      class="form-control form-control-sm "
+                      class="form-control form-control-sm"
                       type="text"
                       id="resName"
                       readonly
                       formControlName="resName"
+                      title="{{
+                        taskDetailArray.controls[i].get('resName')?.value
+                      }}"
                     />
                   </div>
                 </td>
                 <td class="w-5 pe-2">
-                  <div class="input-group input-group-sm"
-                  [ngClass]="{
-                    required:taskDetailArray.controls[i].get('teamCode')?.errors
-                  }"
+                  <div
+                    class="input-group input-group-sm"
+                    [ngClass]="{
+                      required:
+                        taskDetailArray.controls[i].get('teamCode')?.errors
+                    }"
                   >
                     <!-- <input
                       class="form-control form-control-sm"
@@ -244,22 +272,23 @@
                       formControlName="team"
                     /> -->
                     <select
-                    class="form-control form-control-sm form-select"
-                    id="teamCode"
-                    name="teamCode"
-                    formControlName="teamCode"
-                  >
-                    <!-- title="{{ taskDetailArray?.get('resource')?.value }}" -->
-                    <option value="">--Select--</option>
-
-                    <option
-                      *ngFor="let item of teamDropdown; let i = index"
-                    [ngValue]="item.codeName"
+                      class="form-control form-control-sm form-select"
+                      id="teamCode"
+                      name="teamCode"
+                      formControlName="teamCode"
+                      title="{{
+                        taskDetailArray.controls[i].get('teamCode')?.value
+                      }}"
                     >
-                      {{ item.screenName }}
-                    </option>
-                  </select>
-                    
+                      <option value="">--Select--</option>
+
+                      <option
+                        *ngFor="let item of teamDropdown; let i = index"
+                        [ngValue]="item.codeName"
+                      >
+                        {{ item.screenName }}
+                      </option>
+                    </select>
                   </div>
                 </td>
 
@@ -267,7 +296,8 @@
                   <div
                     class="input-group input-group-sm"
                     [ngClass]="{
-                      required: taskDetailArray.controls[i].get('estStDt')?.errors
+                      required:
+                        taskDetailArray.controls[i].get('estStDt')?.errors
                     }"
                   >
                     <input
@@ -275,12 +305,12 @@
                       class="form-control form-control-sm"
                       placeholder="MM/DD/YYYY"
                       #estStDt="bsDatepicker"
-                      [bsValue]="taskDetailArray.controls[i].get('estStDt')?.value"
+                      [bsValue]="
+                        taskDetailArray.controls[i].get('estStDt')?.value
+                      "
                       id="estStDt"
                       name="estStDt"
-                      (bsValueChange)="
-                        dateValueChange($event, 'estStDt', i)
-                      "
+                      (bsValueChange)="dateValueChange($event, 'estStDt', i)"
                       (blur)="dateValueChange($event, 'estStDt', i)"
                       [bsConfig]="bsConfig"
                       bsDatepicker
@@ -288,12 +318,14 @@
                       triggers="dblclick:click"
                       [disabled]="taskDetailArray.disabled"
                       [title]="
-                       taskDetailArray.controls[i].get('estStDt')?.value !=='Invalid Date' ?
-                       ( (taskDetailArray.controls[i].get('estStDt')?.value
-                        | date : 'MM/dd/yyyy')
+                        taskDetailArray.controls[i].get('estStDt')?.value !==
+                        'Invalid Date'
                           ? (taskDetailArray.controls[i].get('estStDt')?.value
                             | date : 'MM/dd/yyyy')
-                          : '') : (taskDetailArray.controls[i].get('estStDt')?.value)
+                            ? (taskDetailArray.controls[i].get('estStDt')?.value
+                              | date : 'MM/dd/yyyy')
+                            : ''
+                          : taskDetailArray.controls[i].get('estStDt')?.value
                       "
                     />
                     <div class="input-group-append spk-calender">
@@ -317,7 +349,8 @@
                   <div
                     class="input-group input-group-sm"
                     [ngClass]="{
-                      required: taskDetailArray.controls[i].get('estEndDt')?.errors
+                      required:
+                        taskDetailArray.controls[i].get('estEndDt')?.errors
                     }"
                   >
                     <input
@@ -325,7 +358,9 @@
                       class="form-control form-control-sm"
                       placeholder="MM/DD/YYYY"
                       #estEndDt="bsDatepicker"
-                      [bsValue]="taskDetailArray.controls[i].get('estEndDt')?.value"
+                      [bsValue]="
+                        taskDetailArray.controls[i].get('estEndDt')?.value
+                      "
                       id="estEndDt"
                       name="estEndDt"
                       (bsValueChange)="dateValueChange($event, 'estEndDt', i)"
@@ -336,12 +371,14 @@
                       triggers="dblclick:click"
                       [disabled]="taskDetailArray.disabled"
                       [title]="
-                      taskDetailArray.controls[i].get('estEndDt')?.value !=='Invalid Date' ?
-                       ( (taskDetailArray.controls[i].get('estEndDt')?.value
-                        | date : 'MM/dd/yyyy')
+                        taskDetailArray.controls[i].get('estEndDt')?.value !==
+                        'Invalid Date'
                           ? (taskDetailArray.controls[i].get('estEndDt')?.value
                             | date : 'MM/dd/yyyy')
-                          : '') : (taskDetailArray.controls[i].get('estEndDt')?.value)
+                            ? (taskDetailArray.controls[i].get('estEndDt')
+                                ?.value | date : 'MM/dd/yyyy')
+                            : ''
+                          : taskDetailArray.controls[i].get('estEndDt')?.value
                       "
                     />
                     <div class="input-group-append spk-calender">
@@ -366,7 +403,6 @@
 
                 <td class="w-2 pe-2">
                   <div class="input-group input-group-sm">
-                   
                     <input
                       class="form-control form-control-sm"
                       type="text"
@@ -374,16 +410,19 @@
                       placeholder="000"
                       maxlength="3"
                       formControlName="estHours"
+                      title="{{
+                        taskDetailArray.controls[i].get('estHours')?.value
+                      }}"
                     />
                   </div>
                 </td>
 
-                
                 <td class="w-6">
                   <div
                     class="input-group input-group-sm"
                     [ngClass]="{
-                      required: taskDetailArray.controls[i].get('actStDt')?.errors
+                      required:
+                        taskDetailArray.controls[i].get('actStDt')?.errors
                     }"
                   >
                     <input
@@ -391,25 +430,26 @@
                       class="form-control form-control-sm"
                       placeholder="MM/DD/YYYY"
                       #actStDt="bsDatepicker"
-                      [bsValue]="taskDetailArray.controls[i].get('actStDt')?.value"
+                      [bsValue]="
+                        taskDetailArray.controls[i].get('actStDt')?.value
+                      "
                       id="actStDt"
                       name="actStDt"
-                      (bsValueChange)="
-                        dateValueChange($event, 'actStDt', i)
-                      "
+                      (bsValueChange)="dateValueChange($event, 'actStDt', i)"
                       (blur)="dateValueChange($event, 'actStDt', i)"
                       [bsConfig]="bsConfig"
                       bsDatepicker
                       mask="M0/d0/0000"
                       triggers="dblclick:click"
-                      
                       [title]="
-                        taskDetailArray.controls[i].get('actStDt')?.value !=='Invalid Date' ?
-                       ( (taskDetailArray.controls[i].get('actStDt')?.value
-                        | date : 'MM/dd/yyyy')
+                        taskDetailArray.controls[i].get('actStDt')?.value !==
+                        'Invalid Date'
                           ? (taskDetailArray.controls[i].get('actStDt')?.value
                             | date : 'MM/dd/yyyy')
-                          : '') : (taskDetailArray.controls[i].get('actStDt')?.value)
+                            ? (taskDetailArray.controls[i].get('actStDt')?.value
+                              | date : 'MM/dd/yyyy')
+                            : ''
+                          : taskDetailArray.controls[i].get('actStDt')?.value
                       "
                     />
                     <div class="input-group-append spk-calender">
@@ -419,9 +459,7 @@
                         type="button"
                         (blur)="validateSameDate(i)"
                       >
-                        <inspire-icon
-                          name="calendar"
-                        ></inspire-icon>
+                        <inspire-icon name="calendar"></inspire-icon>
                       </button>
                     </div>
                   </div>
@@ -431,7 +469,8 @@
                   <div
                     class="input-group input-group-sm"
                     [ngClass]="{
-                      required: taskDetailArray.controls[i].get('actEndDt')?.errors
+                      required:
+                        taskDetailArray.controls[i].get('actEndDt')?.errors
                     }"
                   >
                     <input
@@ -439,24 +478,26 @@
                       class="form-control form-control-sm"
                       placeholder="MM/DD/YYYY"
                       #actEndDt="bsDatepicker"
-                      [bsValue]="taskDetailArray.controls[i].get('actEndDt')?.value"
+                      [bsValue]="
+                        taskDetailArray.controls[i].get('actEndDt')?.value
+                      "
                       id="actEndDt"
                       name="actEndDt"
-                      (bsValueChange)="
-                        dateValueChange($event, 'actEndDt', i)
-                      "
+                      (bsValueChange)="dateValueChange($event, 'actEndDt', i)"
                       (blur)="dateValueChange($event, 'actEndDt', i)"
                       [bsConfig]="bsConfig"
                       bsDatepicker
                       mask="M0/d0/0000"
                       triggers="dblclick:click"
                       [title]="
-                        taskDetailArray.controls[i].get('actEndDt')?.value !=='Invalid Date' ?
-                       ( (taskDetailArray.controls[i].get('actEndDt')?.value
-                        | date : 'MM/dd/yyyy')
+                        taskDetailArray.controls[i].get('actEndDt')?.value !==
+                        'Invalid Date'
                           ? (taskDetailArray.controls[i].get('actEndDt')?.value
                             | date : 'MM/dd/yyyy')
-                          : '') : (taskDetailArray.controls[i].get('actEndDt')?.value)
+                            ? (taskDetailArray.controls[i].get('actEndDt')
+                                ?.value | date : 'MM/dd/yyyy')
+                            : ''
+                          : taskDetailArray.controls[i].get('actEndDt')?.value
                       "
                     />
                     <div class="input-group-append spk-calender">
@@ -473,7 +514,7 @@
                     </div>
                   </div>
                 </td>
-              
+
                 <!-- <td><input type="date" formControlName="actStDt" /></td>
               <td><input type="date" formControlName="actEndDt" /></td> -->
 
@@ -481,7 +522,8 @@
                   <div
                     class="input-group input-group-sm"
                     [ngClass]="{
-                      required: taskDetailArray.controls[i].get('stTime')?.errors
+                      required:
+                        taskDetailArray.controls[i].get('stTime')?.errors
                     }"
                   >
                     <input
@@ -494,6 +536,9 @@
                       placeholder="00:00"
                       [dropSpecialCharacters]="false"
                       formControlName="stTime"
+                      title="{{
+                        taskDetailArray.controls[i].get('stTime')?.value
+                      }}"
                     />
                     <!-- formControlName="day" -->
                     <!-- [title]="
@@ -507,7 +552,8 @@
                   <div
                     class="input-group input-group-sm"
                     [ngClass]="{
-                      required: taskDetailArray.controls[i].get('endTime')?.errors
+                      required:
+                        taskDetailArray.controls[i].get('endTime')?.errors
                     }"
                   >
                     <input
@@ -520,6 +566,9 @@
                       placeholder="00:00"
                       mask="Hh:m0"
                       formControlName="endTime"
+                       title="{{
+                        taskDetailArray.controls[i].get('endTime')?.value
+                      }}"
                     />
                     <!-- formControlName="day" -->
                     <!-- [title]="
@@ -534,11 +583,13 @@
               <td><input type="time" formControlName="endTime" /></td> -->
 
                 <td class="w-2">
-                  <div class="input-group input-group-sm"
-                  [ngClass]="{
-                      required: taskDetailArray.controls[i].get('actHours')?.errors
+                  <div
+                    class="input-group input-group-sm"
+                    [ngClass]="{
+                      required:
+                        taskDetailArray.controls[i].get('actHours')?.errors
                     }"
-                    >
+                  >
                     <input
                       class="form-control"
                       type="text"
@@ -546,32 +597,42 @@
                       readonly
                       maxlength="5"
                       formControlName="actHours"
+                      title="{{
+                        taskDetailArray.controls[i].get('actHours')?.value
+                      }}"
                     />
                   </div>
                 </td>
                 <td class="w-2">
-                  <div class="input-group input-group-sm"
-                  [ngClass]="{
-                      required: taskDetailArray.controls[i].get('percentage')?.errors
+                  <div
+                    class="input-group input-group-sm"
+                    [ngClass]="{
+                      required:
+                        taskDetailArray.controls[i].get('percentage')?.errors
                     }"
-                    >
+                  >
                     <input
                       class="form-control form-control-sm"
                       type="text"
                       id="percentage"
-                       maxlength="4"
-                       mask="percent"
+                      maxlength="4"
+                      mask="percent"
                       formControlName="percentage"
                       (blur)="validatePercentage(i)"
+                      title="{{
+                        taskDetailArray.controls[i].get('percentage')?.value
+                      }}"
                     />
                   </div>
                 </td>
                 <td class="w-5">
-                  <div class="input-group input-group-sm"
-                  [ngClass]="{
-                      required: taskDetailArray.controls[i].get('statusCode')?.errors
+                  <div
+                    class="input-group input-group-sm"
+                    [ngClass]="{
+                      required:
+                        taskDetailArray.controls[i].get('statusCode')?.errors
                     }"
-                    >
+                  >
                     <!-- <input
                       class="form-control form-control-sm"
                       type="text"
@@ -579,22 +640,23 @@
                       formControlName="status"
                     /> -->
                     <select
-                    class="form-control form-control-sm form-select"
-                    id="statusCode"
-                    name="statusCode"
-                    formControlName="statusCode"
-                    title="{{ taskDetailArray.controls[i].get('resource')?.value }}"
-                  >
-                    <option value="">--Select--</option>
-
-                    <option
-                      *ngFor="let item of statusDropdown; let i = index"
-                    [ngValue]="item.codeName"
+                      class="form-control form-control-sm form-select"
+                      id="statusCode"
+                      name="statusCode"
+                      formControlName="statusCode"
+                      title="{{
+                        taskDetailArray.controls[i].get('statusCode')?.value
+                      }}"
                     >
-                      {{ item.screenName }}
-                    </option>
-                  </select>
-                    
+                      <option value="">--Select--</option>
+
+                      <option
+                        *ngFor="let item of statusDropdown; let i = index"
+                        [ngValue]="item.codeName"
+                      >
+                        {{ item.screenName }}
+                      </option>
+                    </select>
                   </div>
                 </td>
                 <td class="w-4">
@@ -605,6 +667,9 @@
                       id="comments"
                       maxlength="50"
                       formControlName="comments"
+                      title="{{
+                        taskDetailArray.controls[i].get('comments')?.value
+                      }}"
                     />
                   </div>
                 </td>
