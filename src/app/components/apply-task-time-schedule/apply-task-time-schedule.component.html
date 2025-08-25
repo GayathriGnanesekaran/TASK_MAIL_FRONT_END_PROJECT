@@ -84,8 +84,10 @@
                       id="projectCode"
                       name="projectCode"
                       formControlName="projectCode"
+                      title="{{
+                        taskDetailArray.controls[i].get('projectCode')?.value
+                      }}"
                     >
-                      <!-- title="{{ taskDetailArray?.get('resource')?.value }}" -->
                       <option value="">--Select--</option>
 
                       <option
@@ -111,6 +113,9 @@
                       id="sprint"
                       maxlength="25"
                       formControlName="sprint"
+                      title="{{
+                        taskDetailArray.controls[i].get('sprint')?.value
+                      }}"
                     />
                   </div>
                 </td>
@@ -128,6 +133,9 @@
                       id="taskName"
                       maxlength="50"
                       formControlName="taskName"
+                      title="{{
+                        taskDetailArray.controls[i].get('taskName')?.value
+                      }}"
                     />
                   </div>
                 </td>

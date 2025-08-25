@@ -231,7 +231,6 @@ export class ApplyTaskTimeScheduleComponent {
       }
     }
   }
-<<<<<<< Updated upstream
   //valdiadtion for actual start date and end date
   
   validateSameDate(currentIndex: number): void {
@@ -279,9 +278,7 @@ export class ApplyTaskTimeScheduleComponent {
 
   
   
-=======
 
->>>>>>> Stashed changes
   timeFormat(value: string): string {
     if (!value) return '';
 
