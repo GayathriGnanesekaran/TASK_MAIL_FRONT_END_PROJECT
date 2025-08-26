@@ -290,10 +290,6 @@ export class ApplyTaskTimeScheduleComponent {
     }
   }
 
-<<<<<<< Updated upstream
-  
-  
-=======
   onEstHoursInput(index: number): void {
     const control = this.taskDetailArray.at(index).get('estHours');
     let val: string = control?.value?.toString().trim();
@@ -321,7 +317,6 @@ export class ApplyTaskTimeScheduleComponent {
     }
   }
 
->>>>>>> Stashed changes
   timeFormat(value: string): string {
     if (!value) return '';
 
