@@ -188,7 +188,7 @@ export class ViewsampleComponent implements OnInit {
         this.pageErrors
       );
       this.valpopupInst.result.then((result) => {
-        if (result === 'Close click' || result === 'Cross click') {
+        if (result === 'OK' || result === 'CLOSE') {
           this.valpopupInst?.close();
           this.valpopupInst = null;
         }

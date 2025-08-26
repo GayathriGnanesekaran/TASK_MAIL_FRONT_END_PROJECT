@@ -512,7 +512,7 @@ export class ApplypageComponent implements OnInit {
             const errorArray = [new InputError('select', res.message)];
             this.taskDetialUpdateErrorMsg.componentInstance.content =
               new ModalMsg('error', '', errorArray);
-          }
+          }}
         });
     }
   }
