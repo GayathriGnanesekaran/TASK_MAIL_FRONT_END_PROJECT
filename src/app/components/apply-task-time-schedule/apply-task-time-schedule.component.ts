@@ -278,7 +278,6 @@ export class ApplyTaskTimeScheduleComponent {
 
   
   
-
   timeFormat(value: string): string {
     if (!value) return '';
 

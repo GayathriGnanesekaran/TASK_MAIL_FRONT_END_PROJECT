@@ -259,6 +259,11 @@ export const TaskGridDetailForm: IFormObject = {
             value: true,
             message: 'Please enter a valid Act End Date',
           },
+           {
+            validator:'notSameDate',
+            value: true,
+            message: 'The Entered date is not match with previous row date',
+          }
         ],
         disabled: false,
       },
