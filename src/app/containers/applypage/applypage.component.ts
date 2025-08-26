@@ -491,17 +491,16 @@ export class ApplypageComponent implements OnInit {
         .subscribe((res) => {
           if (res.status == 2) {
             if (res.data) {
-              this.toaster.success('Task Details Updated Successfully');
-              this.updateArrayValues(res);
-              if (type == 'ADDING_NEW_TASK') {
-                this.addNewTaskDetail();
-              }
-              if (type == 'SELECT_DETAILS') {
-                this.selectDetailIndex = event?.value?.index;
-              }
-              if (type == 'SEND_EMAIL') {
-                this.send();
-              }
+            this.toaster.success('Task Details Updated Successfully');
+            this.updateArrayValues(res.data);
+            if (type == 'ADDING_NEW_TASK') {
+              this.addNewTaskDetail();
+            }
+            if (type == 'SELECT_DETAILS') {
+              this.selectDetailIndex = event?.value?.index;
+            }
+            if (type == 'SEND_EMAIL') {
+              this.send();
             }
           } else {
             this.taskDetialUpdateErrorMsg = this.modalService.open(
