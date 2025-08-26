@@ -19,11 +19,11 @@
         <inspire-icon name="x"></inspire-icon>
     </button>
 </div>
-<div class="modal-body" [ngClass]="{'text-danger': content?.type == 'error'}">
+<div class="modal-body " [ngClass]="{'text-danger': content?.type == 'error'}">
     <div *ngIf="content" [ngSwitch]="content?.type">
         <ul class="list-group list-group-flush" *ngSwitchCase="'error'">
             <li *ngFor="let err of content.errors" [id]="err.name" class="list-group-item">
-                <span class="text-danger">{{ err.content }}</span>
+                <span class="text-danger ">{{ err.content }}</span>
             </li>
         </ul>
         <p *ngSwitchCase="'text'">{{ content.text }}</p>

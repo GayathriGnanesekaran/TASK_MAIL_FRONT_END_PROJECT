@@ -289,6 +289,12 @@ export class ApplyTaskTimeScheduleComponent {
       currentCtrl.get('actEndDt')?.setErrors(null);
     }
   }
+  
+  spaceRetrict(i:any, control: string) {
+        const trimVal = this.taskDetailArray.controls[i].get(control)?.value?.trim();
+        this.taskDetailArray.controls[i].get(control)?.patchValue(trimVal);
+    }
+
 
   onEstHoursInput(index: number): void {
     const control = this.taskDetailArray.at(index).get('estHours');

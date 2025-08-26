@@ -152,7 +152,7 @@ export const ApplyTaskTimeEntity: IFormObject = {
        {
          validator: 'greater',
           value: true,
-          message: 'Break Duration should not be greater than Total Duration',
+          message: 'Break Duration should not be greater than or equal to Total Duration',
        }
 
     ],

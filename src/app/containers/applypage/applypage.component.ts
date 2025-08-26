@@ -135,7 +135,7 @@ export class ApplypageComponent implements OnInit {
         this.loggeduser?.userId
       );
       if (this.headerDatas) {
-        this.mailCount =this.headerDatas.mailCount;
+        this.mailCount = this.headerDatas.mailCount;
         this.ApplyTaskTimeFormGroup.patchValue(this.headerDatas);
         if (this.ApplyTaskTimeFormGroup.get('headerId')?.value !== 0) {
           this.ApplyTaskTimeFormGroup?.get('resourceCode')?.disable();
@@ -353,7 +353,7 @@ export class ApplypageComponent implements OnInit {
         if (result === 'CLOSE' || result === 'OK') {
           this.valpopupInst?.close();
           this.valpopupInst = null;
-          this.pageErrors=[]
+          this.pageErrors = [];
         }
       });
     }
@@ -492,16 +492,17 @@ export class ApplypageComponent implements OnInit {
         .subscribe((res) => {
           if (res.status == 2) {
             if (res.data) {
-            this.toaster.success('Task Details Updated Successfully');
-            this.updateArrayValues(res.data);
-            if (type == 'ADDING_NEW_TASK') {
-              this.addNewTaskDetail();
-            }
-            if (type == 'SELECT_DETAILS') {
-              this.selectDetailIndex = event?.value?.index;
-            }
-            if (type == 'SEND_EMAIL') {
-              this.send();
+              this.toaster.success('Task Details Updated Successfully');
+              this.updateArrayValues(res.data);
+              if (type == 'ADDING_NEW_TASK') {
+                this.addNewTaskDetail();
+              }
+              if (type == 'SELECT_DETAILS') {
+                this.selectDetailIndex = event?.value?.index;
+              }
+              if (type == 'SEND_EMAIL') {
+                this.send();
+              }
             }
           } else {
             this.taskDetialUpdateErrorMsg = this.modalService.open(
@@ -514,7 +515,6 @@ export class ApplypageComponent implements OnInit {
             this.taskDetialUpdateErrorMsg.componentInstance.content =
               new ModalMsg('error', '', errorArray);
           }
-        }
         });
     }
   }

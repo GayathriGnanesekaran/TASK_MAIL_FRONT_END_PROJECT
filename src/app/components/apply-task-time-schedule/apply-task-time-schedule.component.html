@@ -113,6 +113,7 @@
                       id="sprint"
                       maxlength="25"
                       formControlName="sprint"
+                      (blur)="spaceRetrict(i,'sprint')"
                       title="{{
                         taskDetailArray.controls[i].get('sprint')?.value
                       }}"
@@ -133,6 +134,7 @@
                       id="taskName"
                       maxlength="50"
                       formControlName="taskName"
+                      (blur)="spaceRetrict(i,'taskName')"
                       title="{{
                         taskDetailArray.controls[i].get('taskName')?.value
                       }}"
@@ -182,6 +184,7 @@
                       id="sowIssueNo"
                       maxlength="25"
                       formControlName="sowIssueNo"
+                      (blur)="spaceRetrict(i,'sowIssueNo')"
                       title="{{
                         taskDetailArray.controls[i].get('sowIssueNo')?.value
                       }}"
