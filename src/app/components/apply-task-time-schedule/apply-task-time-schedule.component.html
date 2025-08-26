@@ -231,7 +231,8 @@
                       name="billingTypeCode"
                       formControlName="billingTypeCode"
                       title="{{
-                        taskDetailArray.controls[i].get('billingTypeCode')?.value
+                        taskDetailArray.controls[i].get('billingTypeCode')
+                          ?.value
                       }}"
                     >
                       <option value="">--Select--</option>
@@ -415,9 +416,9 @@
                       class="form-control form-control-sm"
                       type="text"
                       id="estHours"
-                      placeholder="000"
-                      maxlength="3"
+                      placeholder="000:00"
                       formControlName="estHours"
+                      (blur)="onEstHoursInput(i)"
                       title="{{
                         taskDetailArray.controls[i].get('estHours')?.value
                       }}"
@@ -534,6 +535,7 @@
                         taskDetailArray.controls[i].get('stTime')?.errors
                     }"
                   >
+                  
                     <input
                       class="form-control"
                       type="text"
@@ -548,12 +550,6 @@
                         taskDetailArray.controls[i].get('stTime')?.value
                       }}"
                     />
-                    <!-- formControlName="day" -->
-                    <!-- [title]="
-                                            taskDetailArray.get('day')?.value
-                                            ? taskDetailArray.get('day')?.value
-                                            : ''
-                                            " -->
                   </div>
                 </td>
                 <td class="w-1">
@@ -574,16 +570,10 @@
                       placeholder="00:00"
                       mask="Hh:m0"
                       formControlName="endTime"
-                       title="{{
+                      title="{{
                         taskDetailArray.controls[i].get('endTime')?.value
                       }}"
                     />
-                    <!-- formControlName="day" -->
-                    <!-- [title]="
-                                            taskDetailArray.get('day')?.value
-                                            ? taskDetailArray.get('day')?.value
-                                            : ''
-                                            " -->
                   </div>
                 </td>
 

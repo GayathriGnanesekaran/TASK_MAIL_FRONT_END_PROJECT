@@ -121,7 +121,7 @@ export class ApplyTaskTimeScheduleComponent {
 
       this.taskDetailArray.controls[i].markAsDirty();
     }
-      if (control === 'actStDt' || control === 'actEndDt') {
+    if (control === 'actStDt' || control === 'actEndDt') {
       this.validateSameDate(i);
     }
   }
@@ -188,33 +188,46 @@ export class ApplyTaskTimeScheduleComponent {
           outMinutes += 24 * 60;
         }
         for (let j = 0; j < this.taskDetailArray.length; j++) {
-      if (j !== i) {
-        const otherSt = this.timeFormat(this.taskDetailArray.controls[j].get('stTime')?.value);
-        const otherEnd = this.timeFormat(this.taskDetailArray.controls[j].get('endTime')?.value);
- 
-        if (otherSt && otherEnd && otherSt.includes(':') && otherEnd.includes(':')) {
-          let [oh, om] = otherSt.split(':').map(Number);
-          let [eh, em] = otherEnd.split(':').map(Number);
-          let otherStart = oh * 60 + om;
-          let otherEndMin = eh * 60 + em;
- 
-          if (otherEndMin < otherStart) {
-            otherEndMin += 24 * 60;
-          }
- 
-          // Check for overlap
-          const overlap =
-            (inMinutes < otherEndMin && outMinutes > otherStart) ||
-            (otherStart < outMinutes && otherEndMin > inMinutes);
- 
-          if (overlap) {
-            this.taskDetailArray.controls[i].get('stTime')?.setErrors({ overlap: true });
-            this.taskDetailArray.controls[i].get('endTime')?.setErrors({ overlap: true });
-            return;
+          if (j !== i) {
+            const otherSt = this.timeFormat(
+              this.taskDetailArray.controls[j].get('stTime')?.value
+            );
+            const otherEnd = this.timeFormat(
+              this.taskDetailArray.controls[j].get('endTime')?.value
+            );
+
+            if (
+              otherSt &&
+              otherEnd &&
+              otherSt.includes(':') &&
+              otherEnd.includes(':')
+            ) {
+              let [oh, om] = otherSt.split(':').map(Number);
+              let [eh, em] = otherEnd.split(':').map(Number);
+              let otherStart = oh * 60 + om;
+              let otherEndMin = eh * 60 + em;
+
+              if (otherEndMin < otherStart) {
+                otherEndMin += 24 * 60;
+              }
+
+              // Check for overlap
+              const overlap =
+                (inMinutes < otherEndMin && outMinutes > otherStart) ||
+                (otherStart < outMinutes && otherEndMin > inMinutes);
+
+              if (overlap) {
+                this.taskDetailArray.controls[i]
+                  .get('stTime')
+                  ?.setErrors({ overlap: true });
+                this.taskDetailArray.controls[i]
+                  .get('endTime')
+                  ?.setErrors({ overlap: true });
+                return;
+              }
+            }
           }
         }
-      }
-    }
         const diff = outMinutes - inMinutes;
         const hours = Math.floor(diff / 60);
         const minutes = diff % 60;
@@ -231,53 +244,84 @@ export class ApplyTaskTimeScheduleComponent {
       }
     }
   }
-  //valdiadtion for actual start date and end date
-  
+
+
+ 
   validateSameDate(currentIndex: number): void {
-  const currentCtrl = this.taskDetailArray.controls[currentIndex];
+    const currentCtrl = this.taskDetailArray.controls[currentIndex];
 
-  const currentStartStr = currentCtrl.get('actStDt')?.value
-    ? new Date(currentCtrl.get('actStDt')?.value).toISOString().split('T')[0]
-    : null;
+    const currentStartStr = currentCtrl.get('actStDt')?.value
+      ? new Date(currentCtrl.get('actStDt')?.value).toISOString().split('T')[0]
+      : null;
 
-  const currentEndStr = currentCtrl.get('actEndDt')?.value
-    ? new Date(currentCtrl.get('actEndDt')?.value).toISOString().split('T')[0]
-    : null;
+    const currentEndStr = currentCtrl.get('actEndDt')?.value
+      ? new Date(currentCtrl.get('actEndDt')?.value).toISOString().split('T')[0]
+      : null;
 
-  if (!currentStartStr || !currentEndStr) return;
+    if (!currentStartStr || !currentEndStr) return;
 
-  let isDifferent = false;
+    let isDifferent = false;
 
-  this.taskDetailArray.controls.forEach((ctrl, idx) => {
-    if (idx !== currentIndex) {
-      const otherStartStr = ctrl.get('actStDt')?.value
-        ? new Date(ctrl.get('actStDt')?.value).toISOString().split('T')[0]
-        : null;
+    this.taskDetailArray.controls.forEach((ctrl, idx) => {
+      if (idx !== currentIndex) {
+        const otherStartStr = ctrl.get('actStDt')?.value
+          ? new Date(ctrl.get('actStDt')?.value).toISOString().split('T')[0]
+          : null;
 
-      const otherEndStr = ctrl.get('actEndDt')?.value
-        ? new Date(ctrl.get('actEndDt')?.value).toISOString().split('T')[0]
-        : null;
+        const otherEndStr = ctrl.get('actEndDt')?.value
+          ? new Date(ctrl.get('actEndDt')?.value).toISOString().split('T')[0]
+          : null;
 
-      if (
-        (otherStartStr && otherStartStr !== currentStartStr) ||
-        (otherEndStr && otherEndStr !== currentEndStr)
-      ) {
-        isDifferent = true;
+        if (
+          (otherStartStr && otherStartStr !== currentStartStr) ||
+          (otherEndStr && otherEndStr !== currentEndStr)
+        ) {
+          isDifferent = true;
+        }
+      }
+    });
+
+    if (isDifferent) {
+      currentCtrl.get('actStDt')?.setErrors({ notSameDate: true });
+      currentCtrl.get('actEndDt')?.setErrors({ notSameDate: true });
+    } else {
+      currentCtrl.get('actStDt')?.setErrors(null);
+      currentCtrl.get('actEndDt')?.setErrors(null);
+    }
+  }
+
+<<<<<<< Updated upstream
+  
+  
+=======
+  onEstHoursInput(index: number): void {
+    const control = this.taskDetailArray.at(index).get('estHours');
+    let val: string = control?.value?.toString().trim();
+
+    if (!val) return;
+
+    if (val.includes(':')) {
+      const [h, m = '00'] = val.split(':');
+      const formatted = `${h.padStart(2, '0')}:${m.padStart(2, '0')}`;
+      control?.setValue(formatted, { emitEvent: false });
+      return;
+    }
+
+    if (/^\d+$/.test(val)) {
+      if (val.length === 4) {
+        const hours = val.substring(0, 2);
+        const minutes = val.substring(2, 4);
+        control?.setValue(
+          `${hours.padStart(2, '0')}:${minutes.padStart(2, '0')}`,
+          { emitEvent: false }
+        );
+      } else {
+        control?.setValue(`${val.padStart(2, '0')}:00`, { emitEvent: false });
       }
     }
-  });
-
-  if (isDifferent) {
-    currentCtrl.get('actStDt')?.setErrors({ notSameDate: true });
-    currentCtrl.get('actEndDt')?.setErrors({ notSameDate: true });
-  } else {
-    currentCtrl.get('actStDt')?.setErrors(null);
-    currentCtrl.get('actEndDt')?.setErrors(null);
   }
-}
 
-  
-  
+>>>>>>> Stashed changes
   timeFormat(value: string): string {
     if (!value) return '';
 
@@ -286,19 +330,16 @@ export class ApplyTaskTimeScheduleComponent {
       return value.padStart(2, '0') + ':00';
     }
 
-    // Case 2: hour and colon only, like "4:"
     if (/^\d{1,2}:$/.test(value)) {
       const [h] = value.split(':');
       return h.padStart(2, '0') + ':00';
     }
 
-    // Case 3: colon and minute only, like ":5"
     if (/^:\d{1,2}$/.test(value)) {
       const [, m] = value.split(':');
       return '00:' + m.padStart(2, '0');
     }
 
-    // Case 4: full hour:minute like "4:5"
     if (/^\d{1,2}:\d{1,2}$/.test(value)) {
       const [h, m] = value.split(':');
       return h.padStart(2, '0') + ':' + m.padStart(2, '0');
