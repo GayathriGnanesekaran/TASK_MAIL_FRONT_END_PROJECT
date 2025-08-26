@@ -350,9 +350,10 @@ export class ApplypageComponent implements OnInit {
         this.pageErrors
       );
       this.valpopupInst.result.then((result) => {
-        if (result === 'Close click' || result === 'Cross click') {
+        if (result === 'CLOSE' || result === 'OK') {
           this.valpopupInst?.close();
           this.valpopupInst = null;
+          this.pageErrors=[]
         }
       });
     }
@@ -513,6 +514,7 @@ export class ApplypageComponent implements OnInit {
             this.taskDetialUpdateErrorMsg.componentInstance.content =
               new ModalMsg('error', '', errorArray);
           }
+        }
         });
     }
   }
