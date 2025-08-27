@@ -32,7 +32,7 @@ userList=[]
         showWeekNumbers: false,
         adaptivePosition: true,
         customTodayClass: 'custom-today-class',
-        isAnimated: true,
+        isAnimated: false,
         minDate: this.minDate,
         maxDate: this.maxDate,
     };
