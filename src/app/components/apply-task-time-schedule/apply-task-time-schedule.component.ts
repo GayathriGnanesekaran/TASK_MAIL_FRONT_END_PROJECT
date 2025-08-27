@@ -52,7 +52,7 @@ export class ApplyTaskTimeScheduleComponent {
     showWeekNumbers: false,
     adaptivePosition: true,
     customTodayClass: 'custom-today-class',
-    isAnimated: true,
+    isAnimated:false,
     minDate: this.minDate,
     maxDate: this.maxDate,
   };
@@ -120,10 +120,10 @@ export class ApplyTaskTimeScheduleComponent {
       this.taskDetailArray.controls[i].get(control)?.patchValue(null);
 
       this.taskDetailArray.controls[i].markAsDirty();
-    }
+    }/*
     if (control === 'actStDt' || control === 'actEndDt') {
-      this.validateSameDate(i);
-    }
+     // this.validateSameDate(i);
+    }*/
   }
 
   selectBatchDetail(item: any, index: any) {
@@ -246,7 +246,7 @@ export class ApplyTaskTimeScheduleComponent {
   }
 
 
- 
+ /*
   validateSameDate(currentIndex: number): void {
     const currentCtrl = this.taskDetailArray.controls[currentIndex];
 
@@ -289,7 +289,7 @@ export class ApplyTaskTimeScheduleComponent {
       currentCtrl.get('actEndDt')?.setErrors(null);
     }
   }
-  
+  */
   spaceRetrict(i:any, control: string) {
         const trimVal = this.taskDetailArray.controls[i].get(control)?.value?.trim();
         this.taskDetailArray.controls[i].get(control)?.patchValue(trimVal);
