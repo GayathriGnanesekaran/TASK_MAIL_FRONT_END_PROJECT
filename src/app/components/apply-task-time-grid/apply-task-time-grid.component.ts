@@ -205,17 +205,22 @@ export class ApplyTaskTimeGridComponent implements OnInit {
     }
   }
 
+
   validateMonth(event: any) {
-    const value = Number(event.target.value);
-    if (isNaN(value) || value < 1 || value > 12) {
-      this.ApplyTaskTimeFormGroup.get('month')?.setErrors({ mask: true });
-    } else {
-      event.target.value = value.toString().padStart(2, '0');
-      if (this.ApplyTaskTimeFormGroup.get('date')?.value) {
-        this.validateDay(this.ApplyTaskTimeFormGroup.get('date')?.value);
-      }
+  const num = Number(event.target.value);
+
+  if (isNaN(num) || num < 1 || num > 12) {
+    this.ApplyTaskTimeFormGroup.get('month')?.setErrors({ mask: true });
+  } else {
+    const formatted = num.toString().padStart(2, '0');
+    event.target.value = formatted;
+    this.ApplyTaskTimeFormGroup.get('month')?.setValue(formatted, { emitEvent: false });
+   if (this.ApplyTaskTimeFormGroup.get('date')?.value) {
+      this.validateDay(this.ApplyTaskTimeFormGroup.get('date')?.value);
     }
   }
+}
+
   validateDay(event: any) {
     let value = event?.target?.value ? event?.target?.value : event;
     const month = Number(this.ApplyTaskTimeFormGroup.get('month')?.value);
