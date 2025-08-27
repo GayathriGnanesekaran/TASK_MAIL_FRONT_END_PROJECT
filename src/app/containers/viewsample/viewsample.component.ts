@@ -6,7 +6,10 @@ import { FormUtilService } from '../../services/form-util.service';
 import { ViewTaskFilterForm } from '../../forms/view-filter-form';
 import { TaskmailserviceService } from '../../services/taskmailservice.service';
 import { forkJoin, Subject, takeUntil } from 'rxjs';
-import { ApplicationEventService, IApplicationEvent } from '../../services/application-event.service';
+import {
+  ApplicationEventService,
+  IApplicationEvent,
+} from '../../services/application-event.service';
 import moment from 'moment';
 import { Router } from '@angular/router';
 import { InputError } from '../../interfaces/input-error.model';
@@ -70,12 +73,12 @@ export class ViewsampleComponent implements OnInit {
         this.viewTaskFilterFormGroup
           ?.get('userName')
           ?.patchValue(defaultResource.codeName);
-            const event: IApplicationEvent = {
-                      name: 'SEARCH_TASK',
-                      component: 'ViewFilterFormComponent',
-                      value:'',
-                  };
-                  this.applicationEventService.emitAnEvent(event);
+        const event: IApplicationEvent = {
+          name: 'SEARCH_TASK',
+          component: 'ViewFilterFormComponent',
+          value: '',
+        };
+        this.applicationEventService.emitAnEvent(event);
       });
     this.applicationEventService.appEvent$
       .pipe(takeUntil(this._destroyed$))
@@ -101,19 +104,18 @@ export class ViewsampleComponent implements OnInit {
               this.taskmailserviceService
                 .getTaskHeader(this.viewTaskFilterFormGroup.getRawValue())
                 .subscribe((data) => {
-                  if(data){
-                  this.viewTaskTimeArray = data;
-                  this.selectDetailsRow = 0;
-                  this.taskmailserviceService
-                    .getTaskTimeHeader(
-                      this.viewTaskTimeArray[this.selectDetailsRow].headerId
-                    )
-                    .subscribe((data) => {
-                      this.viewTaskScheduleArray = data;
-                      this.cdr.detectChanges();
-                    });
+                  if (data) {
+                    this.viewTaskTimeArray = data;
+                    this.selectDetailsRow = 0;
+                    this.taskmailserviceService
+                      .getTaskTimeHeader(
+                        this.viewTaskTimeArray[this.selectDetailsRow].headerId
+                      )
+                      .subscribe((data) => {
+                        this.viewTaskScheduleArray = data;
+                        this.cdr.detectChanges();
+                      });
                   }
-              
                 });
             }
             return;
@@ -131,13 +133,17 @@ export class ViewsampleComponent implements OnInit {
             return;
           }
           case 'DICE_BUTTON_CLICK': {
-            if (event?.value?.hostComponent === 'ViewTaskTimeDetailsComponent')
+            if (
+              event?.value?.hostComponent === 'ViewTaskTimeDetailsComponent'
+            ) {
               this.selectDetailsRow = event?.value.index;
-            this.taskmailserviceService
-              .fetchDropDownValue('DICE_EDIT')
-              .subscribe((res) => {
-                this.diceOptions = res;
-              });
+              this.taskmailserviceService
+                .fetchDropDownValue('DICE_EDIT')
+                .subscribe((res) => {
+                  this.diceOptions = res;
+                });
+            }
+
             return;
           }
           case 'EDIT': {
@@ -145,7 +151,7 @@ export class ViewsampleComponent implements OnInit {
             event.value.item.type = event.value.item.type.toUpperCase();
             this.taskmailserviceService.setHeaderSuccess(event.value.item);
             this.router.navigate(['task/apply-page']);
-      
+
             return;
           }
           case 'RESET': {
