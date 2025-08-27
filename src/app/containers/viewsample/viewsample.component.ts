@@ -43,7 +43,10 @@ export class ViewsampleComponent implements OnInit {
   ) {}
   ngOnInit() {
     this.loggeduser = this.taskmailserviceService.getLoginSaveSuccess();
-
+    if (!this.loggeduser) {
+      this.router.navigate(['']);
+      return;
+    }
     this.viewTaskFilterFormGroup =
       this.formUtilService.buildFormGroup(ViewTaskFilterForm);
     const today = new Date();

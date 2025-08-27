@@ -15,6 +15,7 @@ import { AlertPopupComponent } from '../alert-popup/alert-popup.component';
 import { ToastrService } from 'ngx-toastr';
 import { TaskGridDetailForm } from '../../forms/task-grid-detail.form';
 import moment from 'moment';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-applypage',
@@ -58,7 +59,8 @@ export class ApplypageComponent implements OnInit {
     private validationService: ValidationService,
     private toaster: ToastrService,
     private cdr: ChangeDetectorRef,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private router: Router
   ) {
     this.ApplyTaskTimeFormGroup =
       this.formUtilService.buildFormGroup(ApplyTaskTimeEntity);
@@ -74,7 +76,10 @@ export class ApplypageComponent implements OnInit {
   ngOnInit() {
     this.loggeduser = this.taskmailserviceService.getLoginSaveSuccess();
     this.headerDatas = this.taskmailserviceService.getHeaderSuccess();
-
+    if (!this.loggeduser) {
+      this.router.navigate(['']);
+      return;
+    }
     forkJoin({
       typeHeader: this.taskmailserviceService.fetchDropDownValue('TYPE_HEADER'),
       resource: this.taskmailserviceService.fetchDropDownValue('USERSNAME'),
@@ -213,7 +218,10 @@ export class ApplypageComponent implements OnInit {
               this.taskDetailArray.markAsPristine();
               return;
             } else {
-              if (this.taskDetailArray.invalid &&  this.selectDetailIndex !==event?.value?.index ) {
+              if (
+                this.taskDetailArray.invalid &&
+                this.selectDetailIndex !== event?.value?.index
+              ) {
                 this.validationError(
                   (
                     this.taskDetailArray.controls[
