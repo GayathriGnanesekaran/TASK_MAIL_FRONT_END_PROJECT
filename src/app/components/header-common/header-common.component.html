@@ -17,18 +17,18 @@
                         style="width: 75px; height: auto;"
                     />
                     <div class="media-body">
-                        <h5
+                        <h6
                             class="mt-0 mb-1"
                            
                         >
                             {{loggeduser?.screenName}}
-                        </h5>
+                        </h6>
                         <div class="mb-2" >
                            {{loggeduser?.userEmailId}}
                         </div>
                         <div class="actions mt-3" title="My Profile">
                            
-                            <a class="mr-2 btn btn-sm btn-outline-primary " (click)="logout()" title="Logout">Logout</a>
+                            <a class="btn btn-sm btn-outline-primary mx-5" (click)="logout()" title="Logout">Logout</a>
                         </div>
                     </div>
                 </div>
