@@ -213,7 +213,7 @@ export class ApplypageComponent implements OnInit {
               this.taskDetailArray.markAsPristine();
               return;
             } else {
-              if (this.taskDetailArray.invalid) {
+              if (this.taskDetailArray.invalid &&  this.selectDetailIndex !==event?.value?.index ) {
                 this.validationError(
                   (
                     this.taskDetailArray.controls[
