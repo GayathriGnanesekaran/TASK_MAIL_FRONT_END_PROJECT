@@ -34,16 +34,20 @@ export class TaskmailserviceService {
 
   checkLogIn(data: any) {
     return this.httpClient
-      .post(`${this.commonUrl}/api/my-profile/login`,data)
+      .post(`${this.commonUrl}/api/my-profile/login`, data)
       .pipe(map((response: any) => response));
   }
 
-  fetchDropDownValue(codeType: string) {
+  fetchDropDownValue(codeType: string, headerId?: any) {
     const loginUser = this.getLoginSaveSuccess();
     let queryParams = new HttpParams();
     queryParams = queryParams.append(
       'userId',
       loginUser && codeType === 'USERSNAME' ? loginUser?.userId?.toString() : 0
+    );
+    queryParams = queryParams.append(
+      'headerId',
+      headerId ? headerId : 0
     );
     queryParams = queryParams.append('codeType', codeType);
     return this.httpClient
@@ -86,9 +90,8 @@ export class TaskmailserviceService {
   }
   getTaskTimeHeader(headerId: string) {
     return this.httpClient
-    .get(`${this.commonUrl}/api/taskDetails/retrieve/${headerId}`)
-    .pipe(map((response: any) => response.data));
-
+      .get(`${this.commonUrl}/api/taskDetails/retrieve/${headerId}`)
+      .pipe(map((response: any) => response.data));
   }
   saveTasksDetails(data: any) {
     return this.httpClient
@@ -100,23 +103,28 @@ export class TaskmailserviceService {
       .put(`${this.commonUrl}/api/taskDetails/update`, data)
       .pipe(map((response: any) => response));
   }
-  deleteTasksDetails(detailsId: any,headerId:any) {
+  deleteTasksDetails(detailsId: any, headerId: any) {
     return this.httpClient
-      .delete(`${this.commonUrl}/api/taskDetails/delete/${detailsId}/${headerId}`)
+      .delete(
+        `${this.commonUrl}/api/taskDetails/delete/${detailsId}/${headerId}`
+      )
       .pipe(map((response: any) => response));
   }
-   sendTaskMail(headerId:any){
-   const loginUser = this.getLoginSaveSuccess();
-   let queryParams=new HttpParams();
-    queryParams=queryParams.append('headerId',headerId ? headerId :0);
-   queryParams=queryParams.append('userId',loginUser ? loginUser?.userId: 0)
+  sendTaskMail(headerId: any) {
+    const loginUser = this.getLoginSaveSuccess();
+    let queryParams = new HttpParams();
+    queryParams = queryParams.append('headerId', headerId ? headerId : 0);
+    queryParams = queryParams.append(
+      'userId',
+      loginUser ? loginUser?.userId : 0
+    );
     return this.httpClient
-      .get(`${this.commonUrl}/api/SendMail`,{
+      .get(`${this.commonUrl}/api/SendMail`, {
         params: queryParams,
       })
       .pipe(map((response: any) => response));
-   }
-   /*
+  }
+  /*
    deleteTaskHeader(){
     const headerData=this.getHeaderSuccess()
      let queryParams=new HttpParams();
@@ -128,10 +136,9 @@ export class TaskmailserviceService {
       })
       .pipe(map((response: any) => response));
    }*/
-    deleteTaskHeader(headerId :any) {
+  deleteTaskHeader(headerId: any) {
     return this.httpClient
-      .delete(`${this.commonUrl}/api/taskHeader/${headerId }`)
+      .delete(`${this.commonUrl}/api/taskHeader/${headerId}`)
       .pipe(map((response: any) => response));
   }
-
 }

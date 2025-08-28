@@ -144,6 +144,9 @@ export class ApplypageComponent implements OnInit {
         this.ApplyTaskTimeFormGroup.patchValue(this.headerDatas);
         if (this.ApplyTaskTimeFormGroup.get('headerId')?.value !== 0) {
           this.ApplyTaskTimeFormGroup?.get('resourceCode')?.disable();
+            this.ApplyTaskTimeFormGroup?.get('month')?.disable();
+              this.ApplyTaskTimeFormGroup?.get('date')?.disable();
+                this.ApplyTaskTimeFormGroup?.get('year')?.disable();
         }
         this.ApplyTaskTimeFormGroup.markAsPristine();
         this.taskmailserviceService
@@ -167,7 +170,7 @@ export class ApplypageComponent implements OnInit {
             this.diceOptions = [];
             if (event?.value?.hostComponent === 'ApplyTaskTimeGridComponent') {
               this.taskmailserviceService
-                .fetchDropDownValue('DICE_HEADERDELETE')
+                .fetchDropDownValue('DICE_HEADERDELETE',this.ApplyTaskTimeFormGroup?.get('headerId')?.value)
                 .subscribe((res) => {
                   this.diceOptions = res;
                   return;
@@ -434,6 +437,7 @@ export class ApplypageComponent implements OnInit {
         this.saveTaskDetails(type, event);
       }
     }
+      
   }
   updateArrayValues(res?: any) {
     this.taskDetailFormGroup =
@@ -498,6 +502,7 @@ export class ApplypageComponent implements OnInit {
           if (res.status == 2) {
             if (res.data) {
               this.toaster.success('Task Details Saved Successfully');
+               
               this.updateArrayValues(res.data);
               if (type == 'ADDING_NEW_TASK') {
                 this.addNewTaskDetail();
@@ -579,6 +584,7 @@ export class ApplypageComponent implements OnInit {
               this.taskmailserviceService.setHeaderSuccess(res.data);
               this.toaster.success('Task Time Detail Added Successfully');
               this.ApplyTaskTimeFormGroup.markAsPristine();
+               this.cdr.detectChanges(); 
               if (type == 'ADDING_NEW_TASK') {
                 this.addNewTaskDetail();
               }
