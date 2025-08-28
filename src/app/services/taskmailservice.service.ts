@@ -116,5 +116,22 @@ export class TaskmailserviceService {
       })
       .pipe(map((response: any) => response));
    }
+   /*
+   deleteTaskHeader(){
+    const headerData=this.getHeaderSuccess()
+     let queryParams=new HttpParams();
+    queryParams=queryParams.append('headerId',headerData ? headerData?.headerId :0)
+  
+    return this.httpClient
+      .delete(`${this.commonUrl}/api/taskHeader/delete`,{
+        params: queryParams,
+      })
+      .pipe(map((response: any) => response));
+   }*/
+    deleteTaskHeader(headerId :any) {
+    return this.httpClient
+      .delete(`${this.commonUrl}/api/taskHeader/${headerId }`)
+      .pipe(map((response: any) => response));
+  }
 
 }

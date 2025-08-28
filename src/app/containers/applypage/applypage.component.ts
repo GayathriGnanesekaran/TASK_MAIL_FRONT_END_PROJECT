@@ -167,7 +167,7 @@ export class ApplypageComponent implements OnInit {
             this.diceOptions = [];
             if (event?.value?.hostComponent === 'ApplyTaskTimeGridComponent') {
               this.taskmailserviceService
-                .fetchDropDownValue('DICE_RESET')
+                .fetchDropDownValue('DICE_HEADERDELETE')
                 .subscribe((res) => {
                   this.diceOptions = res;
                   return;
@@ -211,54 +211,88 @@ export class ApplypageComponent implements OnInit {
             return;
           }
           case 'DELETE': {
-            if (event?.value.item.value.detailsId == 0) {
-              this.selectDetailIndex =
-                event?.value?.index != 0 ? event?.value?.index - 1 : 0;
-              this.taskDetailArray.removeAt(event?.value?.index);
-              this.taskDetailArray.markAsPristine();
-              return;
-            } else {
-              if (
-                this.taskDetailArray.invalid &&
-                this.selectDetailIndex !== event?.value?.index
-              ) {
-                this.validationError(
-                  (
-                    this.taskDetailArray.controls[
-                      this.selectDetailIndex
-                    ] as FormGroup
-                  ).controls,
-                  TaskGridDetailForm['taskDetailsList'].subForm
-                );
-              } else {
-                this.taskmailserviceService
-                  .deleteTasksDetails(
-                    event?.value.item.value.detailsId,
-                    event?.value.item.value.headerId
-                  )
-                  .subscribe((res: any) => {
-                    if (res.status == 2) {
-                      this.toaster.success(
-                        'Task Details Row Deleted Successfully'
+            if (event?.value.hostComponent === 'ApplyTaskTimeGridComponent') {
+              this.taskmailserviceService
+                .deleteTaskHeader(
+                  this.ApplyTaskTimeFormGroup?.get('headerId')?.value
+                )
+                .subscribe((res: any) => {
+                  if (res.status == 2) {
+                    this.toaster.success(
+                      'Task Details Row Deleted Successfully'
+                    );
+                    this.ApplyTaskTimeFormGroup =
+                      this.formUtilService.buildFormGroup(ApplyTaskTimeEntity);
+                    if (this.loggeduser?.userName) {
+                      const defaultResource: any = this.resourceDropdown.find(
+                        (x: any) =>
+                          x.codeName === this.loggeduser?.userName.toUpperCase()
                       );
-                      this.taskmailserviceService
-                        .getTaskTimeHeader(this.headerDatas.headerId)
-                        .subscribe((data) => {
-                          this.updateArrayValues(data);
-                          this.selectDetailIndex =
-                            event?.value?.index != 0
-                              ? event?.value?.index - 1
-                              : 0;
-                          this.cdr.detectChanges();
-                          return;
-                        });
+                      this.ApplyTaskTimeFormGroup?.get(
+                        'resourceCode'
+                      )?.patchValue(defaultResource?.codeName);
+                      const today = new Date();
+                      this.ApplyTaskTimeFormGroup?.get('month')?.patchValue(
+                        (today.getMonth() + 1).toString().padStart(2, '0')
+                      );
+                      this.ApplyTaskTimeFormGroup?.get('year')?.patchValue(
+                        today.getFullYear().toString()
+                      );
+                      this.ApplyTaskTimeFormGroup?.get('date')?.patchValue(
+                        today.getDate().toString()
+                      );
                     }
+                  }
+                });
+            } else {
+              if (event?.value.item.value.detailsId == 0) {
+                this.selectDetailIndex =
+                  event?.value?.index != 0 ? event?.value?.index - 1 : 0;
+                this.taskDetailArray.removeAt(event?.value?.index);
+                this.taskDetailArray.markAsPristine();
+                return;
+              } else {
+                if (
+                  this.taskDetailArray.invalid &&
+                  this.selectDetailIndex !== event?.value?.index
+                ) {
+                  this.validationError(
+                    (
+                      this.taskDetailArray.controls[
+                        this.selectDetailIndex
+                      ] as FormGroup
+                    ).controls,
+                    TaskGridDetailForm['taskDetailsList'].subForm
+                  );
+                } else {
+                  this.taskmailserviceService
+                    .deleteTasksDetails(
+                      event?.value.item.value.detailsId,
+                      event?.value.item.value.headerId
+                    )
+                    .subscribe((res: any) => {
+                      if (res.status == 2) {
+                        this.toaster.success(
+                          'Task Details Row Deleted Successfully'
+                        );
+                        this.taskmailserviceService
+                          .getTaskTimeHeader(this.headerDatas.headerId)
+                          .subscribe((data) => {
+                            this.updateArrayValues(data);
+                            this.selectDetailIndex =
+                              event?.value?.index != 0
+                                ? event?.value?.index - 1
+                                : 0;
+                            this.cdr.detectChanges();
+                            return;
+                          });
+                      }
 
-                    return;
-                  });
+                      return;
+                    });
+                }
               }
             }
-
             return;
           }
           case 'SELECTED_TASK_DETAILS': {
