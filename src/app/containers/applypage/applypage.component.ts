@@ -584,7 +584,11 @@ export class ApplypageComponent implements OnInit {
               this.taskmailserviceService.setHeaderSuccess(res.data);
               this.toaster.success('Task Time Detail Added Successfully');
               this.ApplyTaskTimeFormGroup.markAsPristine();
-               this.cdr.detectChanges(); 
+              this.ApplyTaskTimeFormGroup?.get('resourceCode')?.disable();
+              this.ApplyTaskTimeFormGroup?.get('month')?.disable();
+              this.ApplyTaskTimeFormGroup?.get('date')?.disable();
+              this.ApplyTaskTimeFormGroup?.get('year')?.disable();
+              this.cdr.detectChanges();
               if (type == 'ADDING_NEW_TASK') {
                 this.addNewTaskDetail();
               }
