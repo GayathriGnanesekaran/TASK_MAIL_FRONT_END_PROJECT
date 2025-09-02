@@ -153,6 +153,12 @@ export class ApplyTaskTimeScheduleComponent {
     let endTime = this.timeFormat(
       this.taskDetailArray.controls[i].get('endTime')?.value
     );
+     this.taskDetailArray.controls[i].get('stTime')?.patchValue(stTime, {
+      emitEvent: false,
+    });
+    this.taskDetailArray.controls[i].get('endTime')?.patchValue(endTime, {
+      emitEvent: false,
+    });
     if (stTime && endTime) {
       if (stTime.length >= 3 && stTime.includes(':')) {
         const [h, m] = stTime.split(':');
