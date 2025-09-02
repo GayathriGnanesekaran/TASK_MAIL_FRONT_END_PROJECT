@@ -252,50 +252,6 @@ export class ApplyTaskTimeScheduleComponent {
   }
 
 
- /*
-  validateSameDate(currentIndex: number): void {
-    const currentCtrl = this.taskDetailArray.controls[currentIndex];
-
-    const currentStartStr = currentCtrl.get('actStDt')?.value
-      ? new Date(currentCtrl.get('actStDt')?.value).toISOString().split('T')[0]
-      : null;
-
-    const currentEndStr = currentCtrl.get('actEndDt')?.value
-      ? new Date(currentCtrl.get('actEndDt')?.value).toISOString().split('T')[0]
-      : null;
-
-    if (!currentStartStr || !currentEndStr) return;
-
-    let isDifferent = false;
-
-    this.taskDetailArray.controls.forEach((ctrl, idx) => {
-      if (idx !== currentIndex) {
-        const otherStartStr = ctrl.get('actStDt')?.value
-          ? new Date(ctrl.get('actStDt')?.value).toISOString().split('T')[0]
-          : null;
-
-        const otherEndStr = ctrl.get('actEndDt')?.value
-          ? new Date(ctrl.get('actEndDt')?.value).toISOString().split('T')[0]
-          : null;
-
-        if (
-          (otherStartStr && otherStartStr !== currentStartStr) ||
-          (otherEndStr && otherEndStr !== currentEndStr)
-        ) {
-          isDifferent = true;
-        }
-      }
-    });
-
-    if (isDifferent) {
-      currentCtrl.get('actStDt')?.setErrors({ notSameDate: true });
-      currentCtrl.get('actEndDt')?.setErrors({ notSameDate: true });
-    } else {
-      currentCtrl.get('actStDt')?.setErrors(null);
-      currentCtrl.get('actEndDt')?.setErrors(null);
-    }
-  }
-  */
   spaceRetrict(i:any, control: string) {
         const trimVal = this.taskDetailArray.controls[i].get(control)?.value?.trim();
         this.taskDetailArray.controls[i].get(control)?.patchValue(trimVal);
